@@ -1,50 +1,62 @@
 export interface EnvironmentVariables {
-    [key: string]: any;
+  [key: string]: any;
 }
 
-export type Permission = 'all' | 'env' | 'hrtime' | 'net' | 'plugin' | 'read' | 'run' | 'write';
+export type Permission =
+  | "all"
+  | "env"
+  | "hrtime"
+  | "net"
+  | "plugin"
+  | "read"
+  | "run"
+  | "write";
 
 export interface Permissions {
-    all?: boolean;
-    env?: boolean;
-    hrtime?: boolean;
-    net?: boolean | string;
-    plugin?: boolean;
-    read?: boolean | string;
-    run?: boolean;
-    write?: boolean | string;
+  all?: boolean;
+  env?: boolean;
+  hrtime?: boolean;
+  net?: boolean | string;
+  plugin?: boolean;
+  read?: boolean | string;
+  run?: boolean;
+  write?: boolean | string;
 }
 
 export interface V8Flags {
-    [key: string]: any;
+  [key: string]: any;
 }
 
 export interface ScriptObject extends ScriptParameters {
-    cmd: string;
+  cmd: string;
 }
+
+export const isScriptObject = (script: ScriptObject): script is ScriptObject => 'cmd' in script;
 
 export type Script = string | ScriptObject;
 
 export interface ParallelScripts {
-    pll: Script[];
+  pll: Script[];
 }
+
+export const isParallelScripts = (script: ParallelScripts): script is ParallelScripts => 'pll' in script;
 
 export type CompositeScript = Array<Script | ParallelScripts>;
 
 export type ScriptDefinition = Script | CompositeScript;
 
 export interface Scripts {
-    [key: string]: ScriptDefinition;
+  [key: string]: ScriptDefinition;
 }
 
 export interface ScriptParameters {
-    env?: EnvironmentVariables;
-    allow?: Permissions | Permission[];
-    v8flags?: V8Flags | string;
+  env?: EnvironmentVariables;
+  allow?: Permissions | Permission[];
+  v8flags?: V8Flags | string;
 }
 
 export interface ScriptsConfiguration extends ScriptParameters {
-    scripts: Scripts;
-    imap?: string;
-    lock?: boolean | string;
+  scripts: Scripts;
+  imap?: string;
+  lock?: boolean | string;
 }
