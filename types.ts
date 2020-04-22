@@ -1,5 +1,39 @@
+export interface ScriptsConfiguration extends ScriptParameters {
+  scripts: Scripts;
+}
+
+export interface Scripts {
+  [key: string]: ScriptDefinition;
+}
+
+export type ScriptDefinition = Script | CompositeScript;
+
+export type Script = string | ScriptObject;
+
+export interface ScriptObject extends ScriptParameters {
+  cmd: string | CompositeScript;
+}
+
+export type CompositeScript = Array<Script | ParallelScripts>;
+
+export interface ParallelScripts {
+  pll: Script[];
+}
+
+export interface ScriptParameters {
+  env?: EnvironmentVariables;
+  allow?: string[] | FlagsObject;
+  v8flags?: string[] | FlagsObject;
+  imap?: string;
+  lock?: boolean | string;
+}
+
+export interface FlagsObject {
+  [key: string]: unknown;
+}
+
 export interface EnvironmentVariables {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export type Permission =
@@ -27,36 +61,8 @@ export interface V8Flags {
   [key: string]: any;
 }
 
-export interface ScriptObject extends ScriptParameters {
-  cmd: string;
-}
+export const isScriptObject = (script: object): script is ScriptObject =>
+  "cmd" in script;
 
-export const isScriptObject = (script: ScriptObject): script is ScriptObject => 'cmd' in script;
-
-export type Script = string | ScriptObject;
-
-export interface ParallelScripts {
-  pll: Script[];
-}
-
-export const isParallelScripts = (script: ParallelScripts): script is ParallelScripts => 'pll' in script;
-
-export type CompositeScript = Array<Script | ParallelScripts>;
-
-export type ScriptDefinition = Script | CompositeScript;
-
-export interface Scripts {
-  [key: string]: ScriptDefinition;
-}
-
-export interface ScriptParameters {
-  env?: EnvironmentVariables;
-  allow?: Permissions | Permission[];
-  v8flags?: V8Flags | string;
-}
-
-export interface ScriptsConfiguration extends ScriptParameters {
-  scripts: Scripts;
-  imap?: string;
-  lock?: boolean | string;
-}
+export const isParallelScripts = (script: object): script is ParallelScripts =>
+  "pll" in script;

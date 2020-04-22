@@ -1,6 +1,7 @@
 import { loadConfig } from "./config-loader.ts";
 import { parseCommand } from "./cmd-parser.ts";
 import { normalizeScript } from "./normalize-script.ts";
+import { runCommands } from "./runner.ts";
 
 if (import.meta.main) {
   const config = loadConfig();
@@ -14,7 +15,7 @@ if (import.meta.main) {
     throw new Error(`Missing script: ${scriptName}`);
   }
   const scriptDef = config.scripts[scriptName];
-  const commands = normalizeScript(scriptDef);
-  const cmdArgs = parseCommand();
-  console.log(args);
+  const { scripts, ...rootConfig } = config;
+  const commands = normalizeScript(scriptDef, rootConfig);
+  runCommands(commands);
 }
