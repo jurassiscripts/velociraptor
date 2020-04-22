@@ -25,7 +25,8 @@ export interface ScriptParameters {
   allow?: string[] | FlagsObject;
   v8flags?: string[] | FlagsObject;
   imap?: string;
-  lock?: boolean | string;
+  lock?: string;
+  log?: string;
 }
 
 export interface FlagsObject {
@@ -33,8 +34,19 @@ export interface FlagsObject {
 }
 
 export interface EnvironmentVariables {
-  [key: string]: unknown;
+  [key: string]: string;
 }
+
+export interface Command extends Omit<ScriptObject, "cmd"> {
+  cmd: string;
+}
+
+export interface ParallelCommands {
+  pll: Command[];
+}
+
+export const isParallel = (command: object): command is ParallelCommands =>
+  "pll" in command;
 
 export type Permission =
   | "all"
