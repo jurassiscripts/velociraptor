@@ -1,20 +1,13 @@
 import {
   ScriptDefinition,
-  ScriptObject,
   isParallelScripts,
   ParallelScripts,
   isScriptObject,
   ScriptParameters,
+  ParallelCommands,
+  Command,
 } from "./types.ts";
 import { mergeParams } from "./merge-params.ts";
-
-export interface Command extends Omit<ScriptObject, "cmd"> {
-  cmd: string | Command[] | ParallelCommands;
-}
-
-export interface ParallelCommands {
-  pll: Command[];
-}
 
 /**
  * Normalizes a script definition to a list of `Command` objects
@@ -49,7 +42,10 @@ export const normalizeScriptR = (
   }
   if (isScriptObject(node)) {
     const { cmd, ...nodeParams } = node;
-    return normalizeScriptR(node.cmd, mergeParams(nodeParams, parentParams)) as Command;
+    return normalizeScriptR(
+      node.cmd,
+      mergeParams(nodeParams, parentParams),
+    ) as Command;
   }
   return null;
 };
