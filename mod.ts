@@ -3,7 +3,7 @@ import { parseCommand } from "./cmd-parser.ts";
 import { normalizeScript } from "./normalize-script.ts";
 import { runCommands } from "./runner.ts";
 
-if (import.meta.main) {
+const main = async () => {
   const config = loadConfig();
   const args = Deno.args;
   if (args.length < 1) {
@@ -17,5 +17,9 @@ if (import.meta.main) {
   const scriptDef = config.scripts[scriptName];
   const { scripts, ...rootConfig } = config;
   const commands = normalizeScript(scriptDef, rootConfig);
-  runCommands(commands);
+  await runCommands(commands);
+};
+
+if (import.meta.main) {
+  main();
 }
