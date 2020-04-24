@@ -13,19 +13,19 @@ const normalizeFlags = (flags: string[] | FlagsObject | undefined) => {
 export const mergeParams = (
   parentParams: ScriptParameters,
   childParams: ScriptParameters,
-): ScriptParameters => {
-  const env = { ...parentParams.env, ...childParams.env };
-  const allow = {
+): ScriptParameters => ({
+  ...parentParams,
+  ...childParams,
+  env: {
+    ...parentParams.env,
+    ...childParams.env,
+  },
+  allow: {
     ...normalizeFlags(parentParams.allow),
     ...normalizeFlags(childParams.allow),
-  };
-  const v8flags = {
+  },
+  v8flags: {
     ...normalizeFlags(parentParams.v8flags),
     ...normalizeFlags(childParams.v8flags),
-  };
-  let res: ScriptParameters = { ...parentParams, ...childParams };
-  if (env) res.env = env;
-  if (allow) res.allow = allow;
-  if (v8flags) res.v8flags = v8flags;
-  return res;
-};
+  },
+});
