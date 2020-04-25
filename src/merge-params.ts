@@ -1,4 +1,4 @@
-import { ScriptParameters, FlagsObject } from "./types.ts";
+import { ScriptParameters, FlagsObject } from './types.ts';
 
 const normalizeFlags = (flags: string[] | FlagsObject | undefined) => {
   if (Array.isArray(flags)) {
