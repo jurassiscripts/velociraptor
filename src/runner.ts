@@ -15,7 +15,7 @@ export const runCommands = async (
   if (!commands) return;
   const runCommandsR = async (commands: Command | ParallelCommands | Array<
     Command | ParallelCommands
-  >) => {
+  >): Promise<unknown> => {
     if (Array.isArray(commands)) {
       for (let command of commands) {
         await runCommandsR(command);
