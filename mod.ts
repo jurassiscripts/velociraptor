@@ -1,7 +1,7 @@
-import { loadConfig } from "./config-loader.ts";
-import { parseCommand } from "./cmd-parser.ts";
-import { normalizeScript } from "./normalize-script.ts";
-import { runCommands } from "./runner.ts";
+import { loadConfig } from "./src/config-loader.ts";
+import { normalizeScript } from "./src/normalize-script.ts";
+import { runCommands } from "./src/runner.ts";
+import { resolveShell } from "./src/resolve-shell.ts";
 
 const main = async () => {
   const config = loadConfig();
@@ -12,12 +12,17 @@ const main = async () => {
   }
   const scriptName = args[0];
   if (!(scriptName in config.scripts)) {
-    throw new Error(`Missing script: ${scriptName}`);
+    throw new Error(`Script ${scriptName} not found`); // TODO add did you mean?
   }
   const scriptDef = config.scripts[scriptName];
   const { scripts, ...rootConfig } = config;
   const commands = normalizeScript(scriptDef, rootConfig);
-  await runCommands(commands);
+  const shell = resolveShell(config);
+  // try {
+  await runCommands(commands, shell);
+  // } catch (e) {
+  // throw new Error(`Failed at the ${scriptName} script`);
+  // }
 };
 
 if (import.meta.main) {

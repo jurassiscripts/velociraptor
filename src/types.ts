@@ -1,4 +1,5 @@
-export interface ScriptsConfiguration extends ScriptParameters {
+export interface ScriptsConfiguration extends ScriptOptions {
+  shell?: string;
   scripts: Scripts;
 }
 
@@ -10,8 +11,9 @@ export type ScriptDefinition = Script | CompositeScript;
 
 export type Script = string | ScriptObject;
 
-export interface ScriptObject extends ScriptParameters {
+export interface ScriptObject extends ScriptOptions {
   cmd: string | CompositeScript;
+  desc: string;
 }
 
 export type CompositeScript = Array<Script | ParallelScripts>;
@@ -20,7 +22,7 @@ export interface ParallelScripts {
   pll: Script[];
 }
 
-export interface ScriptParameters {
+export interface ScriptOptions {
   env?: EnvironmentVariables;
   allow?: string[] | FlagsObject;
   v8flags?: string[] | FlagsObject;
@@ -42,7 +44,7 @@ export interface Command extends Omit<ScriptObject, "cmd"> {
 }
 
 export interface ParallelCommands {
-  pll: Command[];
+  pll: Array<Command | ParallelCommands>;
 }
 
 export const isParallel = (command: object): command is ParallelCommands =>

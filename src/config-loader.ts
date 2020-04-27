@@ -21,9 +21,9 @@ export const loadConfig = (): ScriptsConfiguration => {
     }
   }
   if (configPath == null) {
-    throw new Error("No scripts file found in the current directory.");
+    throw new Error("No scripts file found.");
   }
-  if ((<string> ext).match(/ya?ml/)) {
+  if (/ya?ml/.test(ext as string)) {
     return parseYaml(
       readFileStrSync(configPath, { encoding: "utf8" }),
     ) as ScriptsConfiguration;

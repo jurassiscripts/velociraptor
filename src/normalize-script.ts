@@ -3,7 +3,7 @@ import {
   isParallelScripts,
   ParallelScripts,
   isScriptObject,
-  ScriptParameters,
+  ScriptOptions,
   ParallelCommands,
   Command,
 } from "./types.ts";
@@ -14,15 +14,15 @@ import { mergeParams } from "./merge-params.ts";
  */
 export const normalizeScript = (
   script: ScriptDefinition,
-  rootParams: ScriptParameters,
+  rootParams: ScriptOptions,
 ): Array<Command | ParallelCommands | null> => {
   const res = normalizeScriptR(script, rootParams);
   return Array.isArray(res) ? res : [res];
 };
 
-export const normalizeScriptR = (
+const normalizeScriptR = (
   node: ScriptDefinition | ParallelScripts,
-  parentParams: ScriptParameters,
+  parentParams: ScriptOptions,
 ): Command | ParallelCommands | Array<Command | ParallelCommands> | null => {
   if (typeof node === "string") {
     return {

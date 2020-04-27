@@ -1,4 +1,4 @@
-import { ScriptParameters, FlagsObject } from './types.ts';
+import { ScriptOptions, FlagsObject } from "./types.ts";
 
 const normalizeFlags = (flags: string[] | FlagsObject | undefined) => {
   if (Array.isArray(flags)) {
@@ -11,9 +11,9 @@ const normalizeFlags = (flags: string[] | FlagsObject | undefined) => {
 };
 
 export const mergeParams = (
-  parentParams: ScriptParameters,
-  childParams: ScriptParameters,
-): ScriptParameters => ({
+  parentParams: ScriptOptions,
+  childParams: ScriptOptions,
+): ScriptOptions => ({
   ...parentParams,
   ...childParams,
   env: {
