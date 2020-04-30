@@ -1,3 +1,4 @@
+import { blue, bold } from "https://deno.land/std/fmt/colors.ts";
 import {
   Command,
   ParallelCommands,
@@ -5,14 +6,12 @@ import {
   FlagsObject,
   EnvironmentVariables,
 } from "./types.ts";
-import { parseCommand } from "./cmd-parser.ts";
-import { blue, bold } from "https://deno.land/std/fmt/colors.ts";
 
-export const runCommands = async (
+export async function runCommands(
   commands: Array<Command | ParallelCommands | null>,
   shell: string,
   additionalArgs: string[],
-): Promise<void> => {
+): Promise<void> {
   if (!commands) return;
   const runCommandsR = async (commands: Command | ParallelCommands | Array<
     Command | ParallelCommands
@@ -29,31 +28,31 @@ export const runCommands = async (
     }
   };
   await runCommandsR(commands as Array<Command | ParallelCommands>);
-};
+}
 
-const insertOptions = (
+function insertOptions(
   command: string,
   atPosition: number,
   ...options: string[]
-) => {
+) {
   return command.slice(0, atPosition) + " " + options.join(" ") +
     command.slice(atPosition);
-};
+}
 
-const generateFlagOptions = (
+function generateFlagOptions(
   flags: FlagsObject,
   prefix: string = "",
-): string[] => {
+): string[] {
   return Object.entries(flags).map(([k, v]) =>
     `--${prefix}${k}${v !== true ? `="${v}"` : ""}`
   );
-};
+}
 
-const runCommand = async (
+async function runCommand(
   command: Command,
   shell: string,
   additionalArgs: string[],
-): Promise<void> => {
+): Promise<void> {
   let cmd = command.cmd, match;
   if (match = matchCompactRun(cmd)) {
     cmd = "deno run " + cmd;
@@ -103,26 +102,30 @@ const runCommand = async (
     throw new Error(`Command returned error code`);
   }
   process.close();
-};
+}
 
-const matchDenoCommand = (command: string) =>
-  command.match(/^deno +(run|install|test)/);
+function matchDenoCommand(command: string) {
+  return command.match(/^deno +(run|install|test)/);
+}
 
-const matchCompactRun = (command: string) =>
-  command.match(/^'(?:\\'|.)*?\.ts'|^"(?:\\"|.)*?\.ts"|^(?:\\\ |\S)+\.ts/);
+function matchCompactRun(command: string) {
+  return command.match(
+    /^'(?:\\'|.)*?\.ts'|^"(?:\\"|.)*?\.ts"|^(?:\\\ |\S)+\.ts/,
+  );
+}
 
-const stringifyEnv = (env: EnvironmentVariables): EnvironmentVariables => {
+function stringifyEnv(env: EnvironmentVariables): EnvironmentVariables {
   for (let key in env) {
     if (key in env) {
       env[key] = String(env[key]);
     }
   }
   return env;
-};
+}
 
-const buildShellArgs = (shell: string, command: string) => {
+function buildShellArgs(shell: string, command: string): string[] {
   if (Deno.build.os === "win" && /^(?:.*\\)?cmd(?:\.exe)?$/i.test(shell)) {
     return ["/d", "/s", "/c", `"${command}"`];
   }
   return ["-c", command];
-};
+}

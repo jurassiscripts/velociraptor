@@ -10,7 +10,7 @@ import { ScriptsConfiguration } from "./types.ts";
 const CONFIG_FILE_NAME = "scripts";
 const CONFIG_FILE_EXTENSIONS = ["yaml", "yml", "json"];
 
-export const loadConfig = (): ScriptsConfiguration => {
+export function loadConfig(): ScriptsConfiguration {
   const configNoExt = path.join(Deno.cwd(), CONFIG_FILE_NAME);
   let configPath, ext;
   for (ext of CONFIG_FILE_EXTENSIONS) {
@@ -29,4 +29,4 @@ export const loadConfig = (): ScriptsConfiguration => {
     ) as ScriptsConfiguration;
   }
   return readJsonSync(configPath) as ScriptsConfiguration;
-};
+}

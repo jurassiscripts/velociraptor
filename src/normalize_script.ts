@@ -7,23 +7,23 @@ import {
   ParallelCommands,
   Command,
 } from "./types.ts";
-import { mergeParams } from "./merge-params.ts";
+import { mergeParams } from "./merge_params.ts";
 
 /**
  * Normalizes a script definition to a list of `Command` objects
  */
-export const normalizeScript = (
+export function normalizeScript(
   script: ScriptDefinition,
   rootParams: ScriptOptions,
-): Array<Command | ParallelCommands | null> => {
+): Array<Command | ParallelCommands | null> {
   const res = normalizeScriptR(script, rootParams);
   return Array.isArray(res) ? res : [res];
-};
+}
 
-const normalizeScriptR = (
+function normalizeScriptR(
   node: ScriptDefinition | ParallelScripts,
   parentParams: ScriptOptions,
-): Command | ParallelCommands | Array<Command | ParallelCommands> | null => {
+): Command | ParallelCommands | Array<Command | ParallelCommands> | null {
   if (typeof node === "string") {
     return {
       cmd: node,
@@ -48,4 +48,4 @@ const normalizeScriptR = (
     ) as Command;
   }
   return null;
-};
+}

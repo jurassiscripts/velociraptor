@@ -1,9 +1,9 @@
-import { loadConfig } from "./src/config-loader.ts";
-import { normalizeScript } from "./src/normalize-script.ts";
+import { loadConfig } from "./src/config_loader.ts";
+import { normalizeScript } from "./src/normalize_script.ts";
 import { runCommands } from "./src/runner.ts";
-import { resolveShell } from "./src/resolve-shell.ts";
+import { resolveShell } from "./src/resolve_shell.ts";
 
-const main = async () => {
+async function main() {
   const config = loadConfig();
   const args = Deno.args;
   if (args.length < 1) {
@@ -23,7 +23,7 @@ const main = async () => {
   // } catch (e) {
   // throw new Error(`Failed at the ${scriptName} script`);
   // }
-};
+}
 
 if (import.meta.main) {
   main();
