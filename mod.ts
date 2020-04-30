@@ -19,7 +19,7 @@ const main = async () => {
   const commands = normalizeScript(scriptDef, rootConfig);
   const shell = resolveShell(config);
   // try {
-  await runCommands(commands, shell);
+  await runCommands(commands, shell, args.slice(1));
   // } catch (e) {
   // throw new Error(`Failed at the ${scriptName} script`);
   // }

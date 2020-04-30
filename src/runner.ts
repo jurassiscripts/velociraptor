@@ -11,6 +11,7 @@ import { blue, bold } from "https://deno.land/std/fmt/colors.ts";
 export const runCommands = async (
   commands: Array<Command | ParallelCommands | null>,
   shell: string,
+  additionalArgs: string[],
 ): Promise<void> => {
   if (!commands) return;
   const runCommandsR = async (commands: Command | ParallelCommands | Array<
@@ -24,7 +25,7 @@ export const runCommands = async (
       if (isParallel(commands)) {
         return Promise.all(commands.pll.map((c) => runCommandsR(c)));
       }
-      return runCommand(commands, shell);
+      return runCommand(commands, shell, additionalArgs);
     }
   };
   await runCommandsR(commands as Array<Command | ParallelCommands>);
@@ -48,7 +49,11 @@ const generateFlagOptions = (
   );
 };
 
-const runCommand = async (command: Command, shell: string): Promise<void> => {
+const runCommand = async (
+  command: Command,
+  shell: string,
+  additionalArgs: string[],
+): Promise<void> => {
   let cmd = command.cmd, match;
   if (match = matchCompactRun(cmd)) {
     cmd = "deno run " + cmd;
@@ -86,7 +91,7 @@ const runCommand = async (command: Command, shell: string): Promise<void> => {
     }
   }
   let runOptions: Deno.RunOptions = {
-    cmd: [shell, ...buildShellArgs(shell, cmd)],
+    cmd: [shell, ...buildShellArgs(shell, cmd + additionalArgs.join(" "))],
   };
   if (command.env && Object.entries(command.env).length > 0) {
     runOptions.env = stringifyEnv(command.env);
