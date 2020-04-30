@@ -11,19 +11,25 @@ const CONFIG_FILE_NAME = "scripts";
 const CONFIG_FILE_EXTENSIONS = ["yaml", "yml", "json"];
 
 export function loadConfig(): ScriptsConfiguration {
-  const configNoExt = path.join(Deno.cwd(), CONFIG_FILE_NAME);
-  let configPath, ext;
-  for (ext of CONFIG_FILE_EXTENSIONS) {
-    const p = `${configNoExt}.${ext}`;
-    if (existsSync(p)) {
-      configPath = p;
-      break;
+  let ext, dir = Deno.cwd();
+  while (parent(dir) !== dir) {
+    for (ext of CONFIG_FILE_EXTENSIONS) {
+      const p = `${path.join(dir, CONFIG_FILE_NAME)}.${ext}`;
+      if (existsSync(p)) {
+        return parseConfig(p);
+      }
     }
+    dir = parent(dir);
   }
-  if (configPath == null) {
-    throw new Error("No scripts file found.");
-  }
-  if (/ya?ml/.test(ext as string)) {
+  throw new Error("No scripts file found.");
+}
+
+function parent(dir: string) {
+  return path.join(dir, "..");
+}
+
+function parseConfig(configPath: string): ScriptsConfiguration {
+  if (/ya?ml$/.test(configPath)) {
     return parseYaml(
       readFileStrSync(configPath, { encoding: "utf8" }),
     ) as ScriptsConfiguration;
