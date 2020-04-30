@@ -96,12 +96,19 @@ async function runCommand(
     }
   }
   let runOptions: Deno.RunOptions = {
-    cmd: [shell, ...buildShellArgs(shell, cmd + additionalArgs.join(" "))],
+    cmd: [shell, ...buildShellArgs(shell, cmd), shell, ...additionalArgs],
   };
   if (command.env && Object.entries(command.env).length > 0) {
     runOptions.env = stringifyEnv(command.env);
   }
-  console.debug(blue(bold(">")), cmd);
+  console.debug(
+    blue(bold(">")),
+    `${cmd}${
+      additionalArgs && additionalArgs.length > 0
+        ? ` -- ${additionalArgs.join(" ")}`
+        : ""
+    }`,
+  );
   const process = Deno.run(runOptions);
   const status = await process.status();
   if (status.code !== 0) {
