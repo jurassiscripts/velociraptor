@@ -4,16 +4,22 @@ export function mergeParams(
   parentParams: ScriptOptions,
   childParams: ScriptOptions,
 ): ScriptOptions {
-  return { ...parentParams, ...childParams, env: {
-    ...parentParams.env,
-    ...childParams.env,
-  }, allow: {
-    ...normalizeFlags(parentParams.allow),
-    ...normalizeFlags(childParams.allow),
-  }, v8flags: {
-    ...normalizeFlags(parentParams.v8flags),
-    ...normalizeFlags(childParams.v8flags),
-  } };
+  return {
+    ...parentParams,
+    ...childParams,
+    env: {
+      ...parentParams.env,
+      ...childParams.env,
+    },
+    allow: {
+      ...normalizeFlags(parentParams.allow),
+      ...normalizeFlags(childParams.allow),
+    },
+    v8flags: {
+      ...normalizeFlags(parentParams.v8flags),
+      ...normalizeFlags(childParams.v8flags),
+    },
+  };
 }
 
 function normalizeFlags(flags: string[] | FlagsObject | undefined) {

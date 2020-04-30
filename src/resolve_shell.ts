@@ -1,14 +1,14 @@
+import { isWindows } from "https://deno.land/std/path/constants.ts";
 import { ScriptsConfiguration } from "./types.ts";
 
-const os = Deno.build.os;
-const OS_SHELL_ENV_NAME = os === "win" ? "ComSpec" : "SHELL";
-const OS_FALLBACK_SHELL = os === "win" ? "cmd.exe" : "/bin/bash";
+const OS_SHELL_ENV_NAME = isWindows ? "ComSpec" : "SHELL";
+const OS_FALLBACK_SHELL = isWindows ? "cmd.exe" : "/bin/bash";
 
 export function resolveShell(scriptsConfig: ScriptsConfiguration): string {
   let shell = scriptsConfig.shell;
   if (checkShellFile(shell)) return shell as string;
-  shell = Deno.env()[OS_SHELL_ENV_NAME];
-  if (checkShellFile(shell)) return shell;
+  shell = Deno.env.get(OS_SHELL_ENV_NAME);
+  if (checkShellFile(shell)) return shell as string;
   return OS_FALLBACK_SHELL;
 }
 

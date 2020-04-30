@@ -1,4 +1,5 @@
 import { blue, bold } from "https://deno.land/std/fmt/colors.ts";
+import { isWindows } from "https://deno.land/std/path/constants.ts";
 import {
   Command,
   ParallelCommands,
@@ -13,9 +14,14 @@ export async function runCommands(
   additionalArgs: string[],
 ): Promise<void> {
   if (!commands) return;
-  const runCommandsR = async (commands: Command | ParallelCommands | Array<
-    Command | ParallelCommands
-  >): Promise<unknown> => {
+  const runCommandsR = async (
+    commands:
+      | Command
+      | ParallelCommands
+      | Array<
+        Command | ParallelCommands
+      >,
+  ): Promise<unknown> => {
     if (Array.isArray(commands)) {
       for (let command of commands) {
         await runCommandsR(command);
@@ -124,7 +130,7 @@ function stringifyEnv(env: EnvironmentVariables): EnvironmentVariables {
 }
 
 function buildShellArgs(shell: string, command: string): string[] {
-  if (Deno.build.os === "win" && /^(?:.*\\)?cmd(?:\.exe)?$/i.test(shell)) {
+  if (isWindows && /^(?:.*\\)?cmd(?:\.exe)?$/i.test(shell)) {
     return ["/d", "/s", "/c", `"${command}"`];
   }
   return ["-c", command];
