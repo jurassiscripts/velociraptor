@@ -1,5 +1,5 @@
-import * as log from "https://deno.land/std/log/mod.ts";
 import { isWindows } from "https://deno.land/std/path/constants.ts";
+import { log } from "./logger.ts";
 import {
   Command,
   ParallelCommands,
