@@ -8,13 +8,14 @@ import { log } from "./src/logger.ts";
 import { didYouMean } from "./src/did_you_mean.ts";
 
 if (import.meta.main) {
-  let config;
+  let configData;
   try {
-    config = loadConfig();
+    configData = loadConfig();
   } catch (e) {
     log.error(e.message);
     Deno.exit();
   }
+  const { config, cwd } = configData;
   if (!config.scripts || Object.entries(config.scripts).length < 1) {
     log.warning(
       "No scripts available.\nSee https://github.com/umbopepato/velociraptor for guidance on how to create scripts.",
@@ -32,9 +33,11 @@ if (import.meta.main) {
     const suggestion = didYouMean(scriptName, config.scripts);
     if (suggestion) console.log(`Did you mean ${bold(suggestion)}?`);
     else {
-      console.log(`Run ${
-        bold("vr")
-      } without arguments to see a list of available scripts.`);
+      console.log(
+        `Run ${
+          bold("vr")
+        } without arguments to see a list of available scripts.`,
+      );
     }
     Deno.exit();
   }
@@ -43,7 +46,7 @@ if (import.meta.main) {
   const commands = normalizeScript(scriptDef, rootConfig);
   const shell = resolveShell(config);
   try {
-    await runCommands(commands, shell, args.slice(1));
+    await runCommands(commands, shell, args.slice(1), cwd);
   } catch (e) {
     log.error(`Failed at the ${bold(scriptName)} script`);
   }

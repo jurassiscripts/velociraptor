@@ -4,7 +4,6 @@ import {
   ScriptDefinition,
   isScriptObject,
 } from "./types.ts";
-import { log } from "./logger.ts";
 import { flattenCommands, normalizeScript } from "./normalize_script.ts";
 
 export function printScriptsInfo(config: ScriptsConfiguration) {

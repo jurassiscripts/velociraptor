@@ -14,13 +14,14 @@ await logger.setup({
   handlers: {
     console: new class extends ConsoleHandler {
       format(logRecord: LogRecord) {
-        return `${LEVEL_PREFIX[logRecord.level]}: ${logRecord.msg}`;
+        const prefix = LEVEL_PREFIX[logRecord.level];
+        return `${prefix ? `${prefix}: ` : ""}${logRecord.msg}`;
       }
     }("DEBUG"),
   },
   loggers: {
     default: {
-      level: "DEBUG",
+      level: "INFO",
       handlers: ["console"],
     },
   },
