@@ -1,4 +1,4 @@
-import { blue, bold } from "https://deno.land/std/fmt/colors.ts";
+import * as log from "https://deno.land/std/log/mod.ts";
 import { isWindows } from "https://deno.land/std/path/constants.ts";
 import {
   Command,
@@ -101,9 +101,8 @@ async function runCommand(
   if (command.env && Object.entries(command.env).length > 0) {
     runOptions.env = stringifyEnv(command.env);
   }
-  console.debug(
-    blue(bold(">")),
-    `${cmd}${
+  log.debug(
+    `> ${cmd}${
       additionalArgs && additionalArgs.length > 0
         ? ` -- ${additionalArgs.join(" ")}`
         : ""

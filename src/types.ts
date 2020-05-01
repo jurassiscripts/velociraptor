@@ -13,7 +13,7 @@ export type Script = string | ScriptObject;
 
 export interface ScriptObject extends ScriptOptions {
   cmd: string | CompositeScript;
-  desc: string;
+  desc?: string;
 }
 
 export type CompositeScript = Array<Script | ParallelScripts>;
