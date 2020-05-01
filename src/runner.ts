@@ -12,6 +12,7 @@ export async function runCommands(
   commands: Array<Command | ParallelCommands | null>,
   shell: string,
   additionalArgs: string[],
+  cwd: string,
 ): Promise<void> {
   if (!commands) return;
   const runCommandsR = async (
@@ -30,7 +31,7 @@ export async function runCommands(
       if (isParallel(commands)) {
         return Promise.all(commands.pll.map((c) => runCommandsR(c)));
       }
-      return runCommand(commands, shell, additionalArgs);
+      return runCommand(commands, shell, additionalArgs, cwd);
     }
   };
   await runCommandsR(commands as Array<Command | ParallelCommands>);
@@ -58,6 +59,7 @@ async function runCommand(
   command: Command,
   shell: string,
   additionalArgs: string[],
+  cwd: string,
 ): Promise<void> {
   let cmd = command.cmd, match;
   if (match = matchCompactRun(cmd)) {
@@ -97,6 +99,7 @@ async function runCommand(
   }
   let runOptions: Deno.RunOptions = {
     cmd: [shell, ...buildShellArgs(shell, cmd), shell, ...additionalArgs],
+    cwd,
   };
   if (command.env && Object.entries(command.env).length > 0) {
     runOptions.env = stringifyEnv(command.env);

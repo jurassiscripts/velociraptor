@@ -10,13 +10,16 @@ import { ScriptsConfiguration } from "./types.ts";
 const CONFIG_FILE_NAME = "scripts";
 const CONFIG_FILE_EXTENSIONS = ["yaml", "yml", "json"];
 
-export function loadConfig(): ScriptsConfiguration {
+export function loadConfig(): { cwd: string; config: ScriptsConfiguration } {
   let ext, dir = Deno.cwd();
   while (parent(dir) !== dir) {
     for (ext of CONFIG_FILE_EXTENSIONS) {
       const p = `${path.join(dir, CONFIG_FILE_NAME)}.${ext}`;
       if (existsSync(p)) {
-        return parseConfig(p);
+        return {
+          cwd: dir,
+          config: parseConfig(p),
+        };
       }
     }
     dir = parent(dir);
