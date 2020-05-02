@@ -77,7 +77,11 @@ scripts:
 
 In this case the command(s) are specified in the `cwd` property. A description can be provided in the `desc` property.
 
+---
+
 > 👇 The following properties can be specified both in script objects and at top-level, in which case they refer to all the scripts defined in the file.
+
+---
 
 ### Environment variables
 
