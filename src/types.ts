@@ -25,10 +25,14 @@ export interface ParallelScripts {
 export interface ScriptOptions {
   env?: EnvironmentVariables;
   allow?: string[] | FlagsObject;
-  v8flags?: string[] | FlagsObject;
+  v8Flags?: string[] | FlagsObject;
   imap?: string;
   lock?: string;
   log?: string;
+  tsconfig?: string;
+  cert?: string;
+  inspect?: string;
+  inspectBrk?: string;
 }
 
 export interface FlagsObject {

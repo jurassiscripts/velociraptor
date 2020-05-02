@@ -15,9 +15,9 @@ export function mergeParams(
       ...normalizeFlags(parentParams.allow),
       ...normalizeFlags(childParams.allow),
     },
-    v8flags: {
-      ...normalizeFlags(parentParams.v8flags),
-      ...normalizeFlags(childParams.v8flags),
+    v8Flags: {
+      ...normalizeFlags(parentParams.v8Flags),
+      ...normalizeFlags(childParams.v8Flags),
     },
   };
 }

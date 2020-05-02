@@ -6,7 +6,48 @@ import {
   isParallel,
   FlagsObject,
   EnvironmentVariables,
+  ScriptOptions,
 } from "./types.ts";
+
+const denoCmdOptions: { [key: string]: string[] } = {
+  bundle: ["cert", "imap", "log"],
+  cache: ["cert", "tsconfig", "imap", "lock", "log"],
+  install: ["allow", "log"],
+  run: [
+    "allow",
+    "cert",
+    "tsconfig",
+    "imap",
+    "inspect",
+    "inspectBrk",
+    "lock",
+    "log",
+    "v8Flags",
+  ],
+  test: [
+    "allow",
+    "cert",
+    "tsconfig",
+    "imap",
+    "inspect",
+    "inspectBrk",
+    "lock",
+    "log",
+    "v8Flags",
+  ],
+};
+
+const denoOption: { [key: string]: string } = {
+  allow: "allow-",
+  cert: "cert",
+  imap: "importmap",
+  inspect: "inspect",
+  inspectBrk: "inspect-brk",
+  lock: "lock",
+  log: "log-level",
+  tsconfig: "config",
+  v8Flags: "v8-flags",
+};
 
 export async function runCommands(
   commands: Array<Command | ParallelCommands | null>,
@@ -65,33 +106,37 @@ async function runCommand(
   if (match = matchCompactRun(cmd)) {
     cmd = "deno run " + cmd;
   }
-  if (match = matchDenoCommand(cmd)) { // TODO allow multiple in same script?
+  if (match = matchDenoCommand(cmd)) {
     const subCommand = match[1];
-    const insertAt = match[0].length;
-    if (["run", "install", "test"].includes(subCommand)) {
-      if (command.allow) {
-        const flags = generateFlagOptions(
-          command.allow as FlagsObject,
-          "allow-",
-        );
-        if (flags && flags.length > 0) {
-          cmd = insertOptions(cmd, insertAt, ...flags);
-        }
-      }
-      if (command.log) {
-        cmd = insertOptions(cmd, insertAt, `--log-level=${command.log}`);
-      }
-      if (["run", "install"].includes(subCommand)) {
-        if (command.imap) {
-          cmd = insertOptions(cmd, insertAt, `--importmap="${command.imap}"`);
-        }
-        if (command.lock) {
-          cmd = insertOptions(cmd, insertAt, `--lock="${command.lock}"`);
-        }
-        if (command.v8flags) {
-          const flags = generateFlagOptions(command.v8flags as FlagsObject);
-          if (flags && flags.length > 0) {
-            cmd = insertOptions(cmd, insertAt, `--v8-flags=${flags.join(",")}`);
+    if (subCommand && subCommand in denoCmdOptions) {
+      const insertAt = match[0].length;
+      const options = denoCmdOptions[subCommand];
+      for (let optionName of options) {
+        const option = command[optionName as keyof ScriptOptions];
+        if (option) {
+          if (optionName === "allow") {
+            const flags = generateFlagOptions(
+              option as FlagsObject,
+              denoOption[optionName],
+            );
+            if (flags && flags.length > 0) {
+              cmd = insertOptions(cmd, insertAt, ...flags);
+            }
+          } else if (optionName === "v8Flags") {
+            const flags = generateFlagOptions(option as FlagsObject);
+            if (flags && flags.length > 0) {
+              cmd = insertOptions(
+                cmd,
+                insertAt,
+                `--${denoOption[optionName]}=${flags.join(",")}`,
+              );
+            }
+          } else {
+            cmd = insertOptions(
+              cmd,
+              insertAt,
+              `--${denoOption[optionName]}=${option}`,
+            );
           }
         }
       }
@@ -120,7 +165,7 @@ async function runCommand(
 }
 
 function matchDenoCommand(command: string) {
-  return command.match(/^deno +(run|install|test)/);
+  return command.match(/^deno +(\w+)/);
 }
 
 function matchCompactRun(command: string) {

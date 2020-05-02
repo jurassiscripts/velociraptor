@@ -1,7 +1,7 @@
 import { bold } from "https://deno.land/std/fmt/colors.ts";
-import { loadConfig } from "./src/config_loader.ts";
+import { loadConfig } from "./src/load_config.ts";
 import { normalizeScript } from "./src/normalize_script.ts";
-import { runCommands } from "./src/runner.ts";
+import { runCommands } from "./src/run_commands.ts";
 import { resolveShell } from "./src/resolve_shell.ts";
 import { printScriptsInfo } from "./src/scripts_info.ts";
 import { log } from "./src/logger.ts";
