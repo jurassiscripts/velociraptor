@@ -4,7 +4,7 @@ The `npm run` for Deno
 
 ## Motivation
 
-Mainly because `deno` commands can easily become very long and difficult to remember. Also, `npm` scripts are cool.
+Mainly because `deno` commands can easily become very long and difficult to remember. Also, `npm` scripts are cool 😎.
 
 ## Install
 
@@ -79,7 +79,7 @@ In this case the command(s) are specified in the `cwd` property. A description c
 
 ---
 
-> 👇 The following properties can be specified both in script objects and at top-level, in which case they refer to all the scripts defined in the file.
+> 👇 The following properties can be specified both in script objects and at top-level, in which case they are applied to all the scripts defined in the file.
 
 ---
 
@@ -233,7 +233,7 @@ scripts:
     - deno run three.ts
 ```
 
-Multiple commands specified in this way are executed separately. If you need to use pipes/redirections use your shell syntax:
+Multiple commands specified in this way are executed separately. If you need to use pipes/redirections use your shell's syntax:
 
 ```yaml
 scripts:
@@ -246,7 +246,7 @@ See the [ts docs]() of the model behind script configurations for a precise desc
 
 ## Shell scripting
 
-Like in `npm` scripts, vr commands are executed inside a shell. The shell is determined by the `SHELL` env variable on Unix-like systems and by `ComSpec` on Windows with `/bin/bash` and `cmd.exe` as fallback values.
+Like in `npm` scripts, vr commands are executed inside a shell. The shell is determined by the `SHELL` env variable on Unix-like systems and by `ComSpec` on Windows, with `/bin/bash` and `cmd.exe` as fallback values.
 
 The shell requirements are pretty much the same as [node's](https://nodejs.org/api/child_process.html#child_process_shell_requirements).
 
