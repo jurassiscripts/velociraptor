@@ -2,6 +2,8 @@
 
 The `npm run` for Deno 
 
+![Deno CI](https://github.com/umbopepato/velociraptor/workflows/Deno%20CI/badge.svg)
+
 ## Motivation
 
 Mainly because `deno` cli commands can easily become very long and difficult to remember. Also, `npm` scripts are cool 😎.  
