@@ -2,7 +2,7 @@ env:
   ENV_TEST: Works!
 
 scripts:
-  basic: echo $ENV_TEST
+  basic: echo Works!
   run: deno run test.ts
   compactrun: test.ts
   sh: cat test.ts | deno
