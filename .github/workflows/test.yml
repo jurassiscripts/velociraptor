@@ -23,4 +23,4 @@ jobs:
           deno-version: ${{ matrix.deno }}
 
       - name: Run tests
-        run: deno test
+        run: deno test --allow-run
