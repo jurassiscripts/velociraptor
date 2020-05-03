@@ -1,4 +1,4 @@
-import { bold } from "https://deno.land/std/fmt/colors.ts";
+import { bold } from "./deps.ts";
 import { loadConfig } from "./src/load_config.ts";
 import { normalizeScript } from "./src/normalize_script.ts";
 import { runCommands } from "./src/run_commands.ts";

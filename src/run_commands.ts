@@ -1,4 +1,4 @@
-import { isWindows } from "https://deno.land/std/path/constants.ts";
+import { isWindows } from "../deps.ts";
 import { log } from "./logger.ts";
 import {
   Command,

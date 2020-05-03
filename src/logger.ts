@@ -1,7 +1,12 @@
-import * as logger from "https://deno.land/std/log/mod.ts";
-import { blue, yellow, red, bold } from "https://deno.land/std/fmt/colors.ts";
-import { ConsoleHandler } from "https://deno.land/std/log/handlers.ts";
-import { LogRecord } from "https://deno.land/std/log/logger.ts";
+import {
+  blue,
+  yellow,
+  red,
+  bold,
+  logger,
+  ConsoleHandler,
+  LogRecord,
+} from "../deps.ts";
 
 const LEVEL_PREFIX: { [key: number]: string } = {
   [logger.LogLevels.INFO]: blue("info"),

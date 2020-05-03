@@ -1,4 +1,4 @@
-import stringSimilarity from "https://unpkg.com/string-similarity-js@2.1.2/src/string-similarity.ts";
+import { stringSimilarity } from "../deps.ts";
 import { Scripts } from "./types.ts";
 
 export function didYouMean(wrongName: string, scripts: Scripts): string | null {

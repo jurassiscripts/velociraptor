@@ -1,4 +1,4 @@
-import { blue, bold, gray } from "https://deno.land/std/fmt/colors.ts";
+import { blue, bold, gray } from "../deps.ts";
 import {
   ScriptsConfiguration,
   ScriptDefinition,

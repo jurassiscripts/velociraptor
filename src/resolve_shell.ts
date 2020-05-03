@@ -1,4 +1,4 @@
-import { isWindows } from "https://deno.land/std/path/constants.ts";
+import { isWindows } from "../deps.ts";
 import { ScriptsConfiguration } from "./types.ts";
 
 const OS_SHELL_ENV_NAME = isWindows ? "ComSpec" : "SHELL";

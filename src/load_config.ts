@@ -1,10 +1,10 @@
-import { parse as parseYaml } from "https://deno.land/std/encoding/yaml.ts";
 import {
+  parseYaml,
   readJsonSync,
   readFileStrSync,
   existsSync,
-} from "https://deno.land/std/fs/mod.ts";
-import * as path from "https://deno.land/std/path/mod.ts";
+  path,
+} from "../deps.ts";
 import { ScriptsConfiguration } from "./types.ts";
 
 const CONFIG_FILE_NAME = "scripts";
