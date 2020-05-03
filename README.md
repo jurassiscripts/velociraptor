@@ -4,7 +4,7 @@ The `npm run` for Deno
 
 ## Motivation
 
-Mainly because `deno` commands can easily become very long and difficult to remember. Also, `npm` scripts are cool 😎.
+Mainly because `deno` cli commands can easily become very long and difficult to remember. Also, `npm` scripts are cool 😎.
 
 ## Install
 
@@ -161,7 +161,7 @@ scripts:
     lock: lock.json
 ```
 
-> ⚠️ Setting this option doesn't create a lock file: you will have to create/update it by passing the `--create-lock` option manually to your script at the appropriate time. More info [here](https://deno.land/std/manual.md#lock-file).
+> ⚠️ Setting this option doesn't create a lock file: you will have to create/update it by passing the `--lock-write` option manually to your script at the appropriate time. More info [here](https://deno.land/std/manual.md#lock-file).
 
 ### Log
 
