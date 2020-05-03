@@ -3,30 +3,31 @@ import {
   isParallelScripts,
   ParallelScripts,
   isScriptObject,
-  ScriptParameters,
+  ScriptOptions,
   ParallelCommands,
   Command,
+  isParallel,
 } from "./types.ts";
-import { mergeParams } from "./merge-params.ts";
+import { mergeParams } from "./merge_params.ts";
 
 /**
  * Normalizes a script definition to a list of `Command` objects
  */
-export const normalizeScript = (
+export function normalizeScript(
   script: ScriptDefinition,
-  rootParams: ScriptParameters,
-): Array<Command | ParallelCommands | null> => {
+  rootParams: ScriptOptions,
+): Array<Command | ParallelCommands | null> {
   const res = normalizeScriptR(script, rootParams);
   return Array.isArray(res) ? res : [res];
-};
+}
 
-export const normalizeScriptR = (
+function normalizeScriptR(
   node: ScriptDefinition | ParallelScripts,
-  parentParams: ScriptParameters,
-): Command | ParallelCommands | Array<Command | ParallelCommands> | null => {
+  parentParams: ScriptOptions,
+): Command | ParallelCommands | Array<Command | ParallelCommands> | null {
   if (typeof node === "string") {
     return {
-      cmd: node,
+      cmd: node.trim(),
       ...mergeParams(parentParams, {}),
     } as Command;
   }
@@ -37,7 +38,7 @@ export const normalizeScriptR = (
   }
   if (isParallelScripts(node)) {
     return {
-      pll: node.pll.map((s) => normalizeScriptR(s, parentParams)),
+      pll: node.pll.flatMap((s) => normalizeScriptR(s, parentParams)),
     } as ParallelCommands;
   }
   if (isScriptObject(node)) {
@@ -48,4 +49,14 @@ export const normalizeScriptR = (
     ) as Command;
   }
   return null;
-};
+}
+
+export function flattenCommands(
+  commands: (Command | ParallelCommands | null)[],
+): Command[] {
+  return commands
+    .filter((c) => c !== null)
+    .flatMap((c) =>
+      c instanceof Object && isParallel(c) ? flattenCommands(c.pll) : c
+    ) as Command[];
+}
