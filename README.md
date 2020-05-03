@@ -4,14 +4,14 @@ The `npm run` for Deno
 
 ## Motivation
 
-Mainly because `deno` cli commands can easily become very long and difficult to remember. Also, `npm` scripts are cool 😎.
+Mainly because `deno` cli commands can easily become very long and difficult to remember. Also, `npm` scripts are cool 😎.  
 
 ## Install
 
 To install this module as an executable run
 
 ```sh
-$ deno install vr --allow-read --allow-env --allow-run https://raw.github.com/umbopepato/velociraptor/master/mod.ts
+$ deno install vr --allow-read --allow-env --allow-run https://deno.land/x/velociraptor/cli.ts
 ```
 
 ## Usage
@@ -75,7 +75,7 @@ scripts:
     cmd: deno run --allow-net server.ts
 ```
 
-In this case the command(s) are specified in the `cwd` property. A description can be provided in the `desc` property.
+In this case the command(s) are specified in the `cwd` property. Use the `desc` property to provide a description of what the script does, it'll be shown in the list of available scripts (when running `vr` without arguments).
 
 ---
 
