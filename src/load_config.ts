@@ -5,7 +5,7 @@ import {
   existsSync,
   path,
 } from "../deps.ts";
-import { ScriptsConfiguration } from "./types.ts";
+import { ScriptsConfiguration } from "./scripts_config.ts";
 
 const CONFIG_FILE_NAME = "scripts";
 const CONFIG_FILE_EXTENSIONS = ["yaml", "yml", "json"];

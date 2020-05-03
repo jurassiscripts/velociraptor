@@ -43,21 +43,6 @@ export interface EnvironmentVariables {
   [key: string]: string;
 }
 
-export interface Command extends Omit<ScriptObject, "cmd"> {
-  cmd: string;
-}
-
-export interface ParallelCommands {
-  pll: Array<Command | ParallelCommands>;
-}
-
-export const isParallel = (command: object): command is ParallelCommands =>
-  "pll" in command;
-
-export interface V8Flags {
-  [key: string]: any;
-}
-
 export const isScriptObject = (script: object): script is ScriptObject =>
   "cmd" in script;
 

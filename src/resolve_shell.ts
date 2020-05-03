@@ -1,5 +1,5 @@
 import { isWindows } from "../deps.ts";
-import { ScriptsConfiguration } from "./types.ts";
+import { ScriptsConfiguration } from "./scripts_config.ts";
 
 const OS_SHELL_ENV_NAME = isWindows ? "ComSpec" : "SHELL";
 const OS_FALLBACK_SHELL = isWindows ? "cmd.exe" : "/bin/bash";

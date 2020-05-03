@@ -1,13 +1,15 @@
 import { isWindows } from "../deps.ts";
 import { log } from "./logger.ts";
 import {
-  Command,
-  ParallelCommands,
-  isParallel,
   FlagsObject,
   EnvironmentVariables,
   ScriptOptions,
-} from "./types.ts";
+} from "./scripts_config.ts";
+import {
+  ParallelCommands,
+  Command,
+  isParallel,
+} from "./command.ts";
 
 const denoCmdOptions: { [key: string]: string[] } = {
   bundle: ["cert", "imap", "log"],

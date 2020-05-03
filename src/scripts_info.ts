@@ -3,7 +3,7 @@ import {
   ScriptsConfiguration,
   ScriptDefinition,
   isScriptObject,
-} from "./types.ts";
+} from "./scripts_config.ts";
 import { flattenCommands, normalizeScript } from "./normalize_script.ts";
 
 export function printScriptsInfo(config: ScriptsConfiguration) {

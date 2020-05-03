@@ -1,5 +1,5 @@
 import { stringSimilarity } from "../deps.ts";
-import { Scripts } from "./types.ts";
+import { Scripts } from "./scripts_config.ts";
 
 export function didYouMean(wrongName: string, scripts: Scripts): string | null {
   const names = Object.keys(scripts);
