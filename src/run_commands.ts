@@ -161,7 +161,7 @@ async function runCommand(
   const process = Deno.run(runOptions);
   const status = await process.status();
   if (status.code !== 0) {
-    throw new Error(`Command returned error code`);
+    throw new Error(`Command returned error code ${status.code}`);
   }
   process.close();
 }
@@ -187,7 +187,7 @@ function stringifyEnv(env: EnvironmentVariables): EnvironmentVariables {
 
 function buildShellArgs(shell: string, command: string): string[] {
   if (isWindows && /^(?:.*\\)?cmd(?:\.exe)?$/i.test(shell)) {
-    return ["/d", "/s", "/c", `"${command}"`];
+    return ["/d", "/s", "/c", command];
   }
   return ["-c", command];
 }
