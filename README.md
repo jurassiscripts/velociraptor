@@ -79,7 +79,7 @@ In this case the command(s) are specified in the `cwd` property. Use the `desc` 
 
 ---
 
-> 👇 The following properties can be specified both in script objects and at top-level, in which case they are applied to all the scripts defined in the file.
+> 👇 The following properties can be specified both in script objects and at top-level, in which case they are applied to all the scripts defined in the file. Deno options are effectively only applied to `deno` commands that accept them.
 
 ---
 
@@ -135,9 +135,11 @@ Import maps are speficied in `imap`.
 ```yaml
 scripts:
   start:
-    cmd: server.ts
+    cmd: deno run --unstable server.ts
     imap: importmap.json
 ```
+
+> 🧪 Import maps are currently marked as unstable so the `--unstable` flag must be provided.
 
 ### Inspect
 

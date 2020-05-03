@@ -1,0 +1,26 @@
+env:
+  ENV_TEST: Works!
+
+scripts:
+  basic: echo $ENV_TEST
+  run: deno run test.ts
+  compactrun: test.ts
+  sh: cat test.ts | deno
+  multiple:
+    - echo one
+    - echo two
+  multiplepll:
+    pll:
+      - sleep 1; echo one
+      - echo two
+  allow:
+    cmd: deno run allow.ts
+    allow:
+      - env
+  tsconfig:
+    cmd: deno run test.ts
+    tsconfig: tsconfig.json
+  importmap:
+    cmd: deno run --unstable imap.ts
+    imap: importmap.json
+  
