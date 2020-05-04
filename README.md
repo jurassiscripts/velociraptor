@@ -19,11 +19,13 @@ $ deno install vr --allow-read --allow-env --allow-run https://deno.land/x/veloc
 ## Usage
 
 ```sh
-$ vr [SCRIPT NAME] [ADDITIONAL ARGS]...
+$ vr [SCRIPT OR OPTION] [ADDITIONAL ARGS]...
 ```
 
-**`SCRIPT NAME`**  
-The identifier of the script to run.
+**`SCRIPT OR OPTION`**  
+The identifier of the script to run or one of:  
+`-h / --help`     shows the help message,  
+`-v / --version`  shows the version number.
 
 **`ADDITIONAL ARGS`**  
 Any other argument, passed to the script.
@@ -241,7 +243,7 @@ Multiple commands specified in this way are executed separately. If you need to 
 
 ```yaml
 scripts:
-  start: deno run file.ts | echo
+  start: cat file.ts | deno
 ```
 
 ### Script file model
