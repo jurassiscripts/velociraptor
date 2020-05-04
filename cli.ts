@@ -6,14 +6,25 @@ import { resolveShell } from "./src/resolve_shell.ts";
 import { printScriptsInfo } from "./src/scripts_info.ts";
 import { log } from "./src/logger.ts";
 import { didYouMean } from "./src/did_you_mean.ts";
+import { handleOption } from "./src/options.ts";
 
 if (import.meta.main) {
+  const args = Deno.args;
+  if (args.length > 0 && args[0].startsWith("-")) {
+    try {
+      handleOption(args[0]);
+    } catch (e) {
+      log.error(e.message);
+      Deno.exit(1);
+    }
+    Deno.exit();
+  }
   let configData;
   try {
     configData = loadConfig();
   } catch (e) {
     log.error(e.message);
-    Deno.exit();
+    Deno.exit(2);
   }
   const { config, cwd } = configData;
   if (!config.scripts || Object.entries(config.scripts).length < 1) {
@@ -22,7 +33,6 @@ if (import.meta.main) {
     );
     Deno.exit();
   }
-  const args = Deno.args;
   if (args.length < 1) {
     printScriptsInfo(config);
     Deno.exit();
@@ -49,5 +59,6 @@ if (import.meta.main) {
     await runCommands(commands, shell, args.slice(1), cwd);
   } catch (e) {
     log.error(`Failed at the ${bold(scriptName)} script`);
+    Deno.exit(3);
   }
 }
