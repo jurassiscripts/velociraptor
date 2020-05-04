@@ -1,13 +1,15 @@
 import { isWindows } from "../deps.ts";
 import { log } from "./logger.ts";
 import {
-  Command,
-  ParallelCommands,
-  isParallel,
   FlagsObject,
   EnvironmentVariables,
   ScriptOptions,
-} from "./types.ts";
+} from "./scripts_config.ts";
+import {
+  ParallelCommands,
+  Command,
+  isParallel,
+} from "./command.ts";
 
 const denoCmdOptions: { [key: string]: string[] } = {
   bundle: ["cert", "imap", "log"],
@@ -143,7 +145,7 @@ async function runCommand(
     }
   }
   let runOptions: Deno.RunOptions = {
-    cmd: [shell, ...buildShellArgs(shell, cmd), shell, ...additionalArgs],
+    cmd: [shell, ...buildShellArgs(shell, cmd, additionalArgs)],
     cwd,
   };
   if (command.env && Object.entries(command.env).length > 0) {
@@ -159,7 +161,7 @@ async function runCommand(
   const process = Deno.run(runOptions);
   const status = await process.status();
   if (status.code !== 0) {
-    throw new Error(`Command returned error code`);
+    throw new Error(`Command returned error code ${status.code}`);
   }
   process.close();
 }
@@ -183,9 +185,16 @@ function stringifyEnv(env: EnvironmentVariables): EnvironmentVariables {
   return env;
 }
 
-function buildShellArgs(shell: string, command: string): string[] {
+function buildShellArgs(
+  shell: string,
+  command: string,
+  additionalArgs: string[],
+): string[] {
+  const fullCmd = additionalArgs.length < 1
+    ? command
+    : `${command} ${additionalArgs.join(" ")}`;
   if (isWindows && /^(?:.*\\)?cmd(?:\.exe)?$/i.test(shell)) {
-    return ["/d", "/s", "/c", `"${command}"`];
+    return ["/d", "/s", "/c", fullCmd];
   }
-  return ["-c", command];
+  return ["-c", fullCmd];
 }

@@ -4,10 +4,12 @@ import {
   ParallelScripts,
   isScriptObject,
   ScriptOptions,
+} from "./scripts_config.ts";
+import {
   ParallelCommands,
   Command,
   isParallel,
-} from "./types.ts";
+} from "./command.ts";
 import { mergeParams } from "./merge_params.ts";
 
 /**

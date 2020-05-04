@@ -2,6 +2,8 @@
 
 The `npm run` for Deno 
 
+![Deno CI](https://github.com/umbopepato/velociraptor/workflows/Deno%20CI/badge.svg)
+
 ## Motivation
 
 Mainly because `deno` cli commands can easily become very long and difficult to remember. Also, `npm` scripts are cool 😎.  
@@ -152,7 +154,7 @@ scripts:
     inspect: 127.0.0.1:9229
 ```
 
-### Lock
+### Lockfile
 
 The `lock` property sets the namesake deno option.
 
@@ -244,7 +246,7 @@ scripts:
 
 ### Script file model
 
-See the [ts docs]() of the model behind script configurations for a precise description of script files.
+See [ScriptConfiguration docs](https://doc.deno.land/https/deno.land/x/velociraptor/src/scripts_config.ts) for a precise description of the structure of script files.
 
 ## Shell scripting
 

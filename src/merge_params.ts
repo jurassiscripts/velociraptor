@@ -1,4 +1,4 @@
-import { ScriptOptions, FlagsObject } from "./types.ts";
+import { ScriptOptions, FlagsObject } from "./scripts_config.ts";
 
 export function mergeParams(
   parentParams: ScriptOptions,
