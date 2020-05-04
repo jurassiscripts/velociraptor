@@ -24,8 +24,8 @@ $ vr [SCRIPT OR OPTION] [ADDITIONAL ARGS]...
 
 **`SCRIPT OR OPTION`**  
 The identifier of the script to run or one of:  
-`-h / --help`     shows the help message,  
-`-v / --version`  shows the version number.
+`-h, --help`     shows the help message,  
+`-v, --version`  shows the version number.
 
 **`ADDITIONAL ARGS`**  
 Any other argument, passed to the script.
