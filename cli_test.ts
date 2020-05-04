@@ -29,7 +29,7 @@ async function runScript(name: string): Promise<string> {
 
 Deno.test("basic script with env variable", async () => {
   const output = await runScript("basic");
-  assertEquals(output, expectedOutput);
+  assert(new RegExp(`${expectedOutput}\n*`).test(output));
 });
 
 Deno.test("deno run", async () => {
@@ -49,12 +49,12 @@ Deno.test("shell script", async () => {
 
 Deno.test("serial scripts", async () => {
   const output = await runScript("multiple");
-  assertEquals(output, "one\ntwo\n");
+  assert(/one\n+two\n*/.test(output));
 });
 
 Deno.test("parallel scripts", async () => {
   const output = await runScript("multiplepll");
-  assertEquals(output, "two\none\n");
+  assert(/two\n+one\n*/.test(output));
 });
 
 Deno.test("deno permissions", async () => {
