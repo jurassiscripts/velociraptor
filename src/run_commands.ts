@@ -144,8 +144,11 @@ async function runCommand(
       }
     }
   }
+  let args = [shell, ...buildShellArgs(shell, cmd)];
+  if (!isWindows) args = args.concat(shell);
+  args = args.concat(...additionalArgs);
   let runOptions: Deno.RunOptions = {
-    cmd: [shell, ...buildShellArgs(shell, cmd), shell, ...additionalArgs],
+    cmd: args,
     cwd,
   };
   if (command.env && Object.entries(command.env).length > 0) {
