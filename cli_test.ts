@@ -1,4 +1,4 @@
-import { assert, assertEquals } from "./dev_deps.ts";
+import { assert, assertStrContains, assertMatch } from "./dev_deps.ts";
 const wd = "./test";
 const cliArgs = [
   "deno",
@@ -8,7 +8,7 @@ const cliArgs = [
   "--allow-env",
   "../cli.ts",
 ];
-const expectedOutput = "Works!\n";
+const expectedOutput = "Works!";
 
 async function runScript(name: string): Promise<string> {
   const process = Deno.run({
@@ -29,45 +29,45 @@ async function runScript(name: string): Promise<string> {
 
 Deno.test("basic script with env variable", async () => {
   const output = await runScript("basic");
-  assert(new RegExp(`${expectedOutput}\n*`).test(output));
+  assertStrContains(output, expectedOutput);
 });
 
 Deno.test("deno run", async () => {
   const output = await runScript("run");
-  assertEquals(output, expectedOutput);
+  assertStrContains(output, expectedOutput);
 });
 
 Deno.test("compact deno run", async () => {
   const output = await runScript("compactrun");
-  assertEquals(output, expectedOutput);
+  assertStrContains(output, expectedOutput);
 });
 
 Deno.test("shell script", async () => {
   const output = await runScript("sh");
-  assert(output.includes(expectedOutput));
+  assertStrContains(output, expectedOutput);
 });
 
 Deno.test("serial scripts", async () => {
   const output = await runScript("multiple");
-  assert(/one\n+two\n*/.test(output));
+  assertMatch(output, /one[\r\n]+two[\r\n]*/);
 });
 
 Deno.test("parallel scripts", async () => {
   const output = await runScript("multiplepll");
-  assert(/two\n+one\n*/.test(output));
+  assertMatch(output, /two[\r\n]+one[\r\n]*/);
 });
 
 Deno.test("deno permissions", async () => {
   const output = await runScript("allow");
-  assertEquals(output, expectedOutput);
+  assertStrContains(output, expectedOutput);
 });
 
 Deno.test("tsconfig", async () => {
   const output = await runScript("tsconfig");
-  assertEquals(output, expectedOutput);
+  assertStrContains(output, expectedOutput);
 });
 
 Deno.test("importmap", async () => {
   const output = await runScript("importmap");
-  assertEquals(output, expectedOutput);
+  assertStrContains(output, expectedOutput);
 });
