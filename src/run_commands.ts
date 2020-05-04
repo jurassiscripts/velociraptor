@@ -144,11 +144,8 @@ async function runCommand(
       }
     }
   }
-  let args = [shell, ...buildShellArgs(shell, cmd)];
-  if (!isWindows) args = args.concat(shell);
-  args = args.concat(...additionalArgs);
   let runOptions: Deno.RunOptions = {
-    cmd: args,
+    cmd: [shell, ...buildShellArgs(shell, cmd, additionalArgs)],
     cwd,
   };
   if (command.env && Object.entries(command.env).length > 0) {
@@ -188,9 +185,16 @@ function stringifyEnv(env: EnvironmentVariables): EnvironmentVariables {
   return env;
 }
 
-function buildShellArgs(shell: string, command: string): string[] {
+function buildShellArgs(
+  shell: string,
+  command: string,
+  additionalArgs: string[],
+): string[] {
+  const fullCmd = additionalArgs.length < 1
+    ? command
+    : `${command} ${additionalArgs.join(" ")}`;
   if (isWindows && /^(?:.*\\)?cmd(?:\.exe)?$/i.test(shell)) {
-    return ["/d", "/s", "/c", command];
+    return ["/d", "/s", "/c", fullCmd];
   }
-  return ["-c", command];
+  return ["-c", fullCmd];
 }
