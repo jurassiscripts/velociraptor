@@ -248,11 +248,11 @@ scripts:
 
 ### Script file model
 
-See [ScriptConfiguration docs](https://doc.deno.land/https/deno.land/x/velociraptor/src/scripts_config.ts) for a precise description of the structure of script files.
+See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor/src/scripts_config.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
 
 ## Shell scripting
 
-Like in `npm` scripts, vr commands are executed inside a shell. The shell is determined by the `SHELL` env variable on Unix-like systems and by `ComSpec` on Windows, with `/bin/bash` and `cmd.exe` as fallback values.
+Like in `npm` scripts, vr commands are executed inside a shell. The shell is determined by the `SHELL` env variable on Unix-like systems and by `ComSpec` on Windows, with `sh` and `cmd.exe` as fallback values.
 
 The shell requirements are pretty much the same as [node's](https://nodejs.org/api/child_process.html#child_process_shell_requirements).
 

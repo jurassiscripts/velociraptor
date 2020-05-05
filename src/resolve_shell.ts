@@ -1,7 +1,7 @@
 import { isWindows } from "../deps.ts";
 
 const OS_SHELL_ENV_NAME = isWindows ? "ComSpec" : "SHELL";
-const OS_FALLBACK_SHELL = isWindows ? "cmd.exe" : "/bin/bash";
+const OS_FALLBACK_SHELL = isWindows ? "cmd.exe" : "sh";
 
 export function resolveShell(): string {
   let shell = Deno.env.get(OS_SHELL_ENV_NAME);
