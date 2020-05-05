@@ -10,5 +10,9 @@ export function resolveShell(): string {
 }
 
 function checkShellFile(shell: string | undefined) {
-  return shell && Deno.statSync(shell).isFile; // TODO check executable
+  try {
+    return shell && Deno.statSync(shell).isFile; // TODO check executable
+  } catch (e) {
+    // use fallback shell
+  }
 }

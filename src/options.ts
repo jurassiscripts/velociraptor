@@ -1,4 +1,5 @@
 import { bold } from "../deps.ts";
+import { version } from "./version.ts";
 
 type Action = () => void | Promise<void>;
 
@@ -35,8 +36,7 @@ Run ${bold("vr")} without arguments to see a list of available scripts.`);
 registerOption({
   name: "--version",
   alias: "-v",
-  action: async () => {
-    const { version } = await import("./version.ts");
+  action: () => {
     console.log(version);
   },
 });
