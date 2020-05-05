@@ -23,6 +23,6 @@ jobs:
           deno-version: ${{ matrix.deno }}
 
       - name: Run tests
-        run: deno test --allow-run --reload
+        run: deno test --allow-run
         env:
           ComSpec: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
