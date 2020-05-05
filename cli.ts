@@ -54,7 +54,7 @@ if (import.meta.main) {
   const scriptDef = config.scripts[scriptName];
   const { scripts, ...rootConfig } = config;
   const commands = normalizeScript(scriptDef, rootConfig);
-  const shell = resolveShell(config);
+  const shell = resolveShell();
   try {
     await runCommands(commands, shell, args.slice(1), cwd);
   } catch (e) {
