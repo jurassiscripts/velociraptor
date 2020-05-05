@@ -13,7 +13,7 @@ Mainly because Deno cli commands can easily become very long and difficult to re
 To install this module as an executable run
 
 ```sh
-$ deno install vr --allow-read --allow-env --allow-run https://deno.land/x/velociraptor@v1.0.0-beta1/cli.ts
+$ deno install --allow-read --allow-env --allow-run -n vr https://deno.land/x/velociraptor@v1.0.0-beta1/cli.ts
 ```
 
 ## Usage
@@ -29,7 +29,7 @@ The identifier of the script to run or one of:
 `-v, --version`  shows the version number.
 
 **`ADDITIONAL ARGS`**  
-Any other argument, passed to the script.
+Any other argument, passed to the script. Unlike `npm run`, the `--` separator is not needed.
 
 Run `vr` without arguments to see a list of available scripts.
 
