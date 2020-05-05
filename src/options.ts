@@ -1,4 +1,4 @@
-import { bold, path, readJsonSync, __ } from "../deps.ts";
+import { bold } from "../deps.ts";
 
 type Action = () => void;
 
@@ -16,7 +16,7 @@ registerOption({
   alias: "-h",
   action: () => {
     console.log(`Velociraptor
-The npm run for Deno
+An npm-style script runner for Deno
 
 Docs: https://github.com/umbopepato/velociraptor
 
@@ -36,10 +36,7 @@ registerOption({
   name: "--version",
   alias: "-v",
   action: () => {
-    const { __dirname } = __(import.meta);
-    const projectFilePath = path.join(__dirname, "..", "project.json");
-    const project = readJsonSync(projectFilePath) as { version: string };
-    console.log(project.version);
+    console.log("1.0.0-beta.1");
   },
 });
 
