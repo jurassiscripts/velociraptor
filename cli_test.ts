@@ -1,4 +1,4 @@
-import { assert, assertStrContains, assertMatch } from "./dev_deps.ts";
+import { assertStrContains, assertMatch } from "./dev_deps.ts";
 const wd = "./test";
 const cliArgs = [
   "deno",
@@ -6,7 +6,7 @@ const cliArgs = [
   "--allow-read",
   "--allow-run",
   "--allow-env",
-  "--reload",
+  "--unstable",
   "../cli.ts",
 ];
 const expectedOutput = "Works!";
