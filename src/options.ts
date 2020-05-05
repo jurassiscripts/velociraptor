@@ -1,6 +1,6 @@
 import { bold } from "../deps.ts";
 
-type Action = () => void;
+type Action = () => void | Promise<void>;
 
 const options = new Map<string, Action>();
 
@@ -35,15 +35,19 @@ Run ${bold("vr")} without arguments to see a list of available scripts.`);
 registerOption({
   name: "--version",
   alias: "-v",
-  action: () => {
-    console.log("1.0.0-beta.1");
+  action: async () => {
+    const { version } = await import("./version.ts");
+    console.log(version);
   },
 });
 
-export function handleOption(option: string) {
+export async function handleOption(option: string) {
   if (options.has(option)) {
     const action = options.get(option);
-    if (action && action.call) action();
+    if (action && action.call) {
+      const ret = action();
+      if (ret instanceof Promise) await ret;
+    }
   } else {
     throw new Error(`Unknown option ${option}`);
   }
