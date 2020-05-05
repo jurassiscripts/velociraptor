@@ -9,7 +9,7 @@ jobs:
   test:
     strategy:
       matrix:
-        deno: ['v0.42.0']
+        deno: ['v1.0.0-rc1']
         os: [ubuntu-latest, macOS-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     
