@@ -1,19 +1,19 @@
 # Velociraptor
 
-The `npm run` for Deno 
+An npm-style script runner for Deno
 
 ![Deno CI](https://github.com/umbopepato/velociraptor/workflows/Deno%20CI/badge.svg)
 
 ## Motivation
 
-Mainly because `deno` cli commands can easily become very long and difficult to remember. Also, `npm` scripts are cool 😎.  
+Mainly because Deno cli commands can easily become very long and difficult to remember. Also, npm scripts are cool 😎.  
 
 ## Install
 
 To install this module as an executable run
 
 ```sh
-$ deno install vr --allow-read --allow-env --allow-run https://deno.land/x/velociraptor/cli.ts
+$ deno install --allow-read --allow-env --allow-run -n vr https://deno.land/x/velociraptor@v1.0.0-beta1/cli.ts
 ```
 
 ## Usage
@@ -23,14 +23,19 @@ $ vr [SCRIPT OR OPTION] [ADDITIONAL ARGS]...
 ```
 
 **`SCRIPT OR OPTION`**  
-The identifier of the script to run or one of:  
+The identifier of the script to run or one of:
+
 `-h, --help`     shows the help message,  
 `-v, --version`  shows the version number.
 
 **`ADDITIONAL ARGS`**  
-Any other argument, passed to the script.
+Any other argument, passed to the script. Unlike `npm run`, the `--` separator is not needed.
 
 Run `vr` without arguments to see a list of available scripts.
+
+## Project status
+
+👨‍💻 WIP: until Deno 1.0 is released there may be breaking changes. Will do my best to ensure compatibility with pre-1.0 releases anyway.
 
 ## Script files
 
@@ -216,6 +221,10 @@ scripts:
   start:
     - deno run one.ts
     - deno run two.ts
+  test: # Compound scripts can contain script objects as well
+    - deno test test_one.ts
+    - cmd: deno test test_two.ts
+      tsconfig: tsconfig.json
 ```
 
 To execute commands in parallel, list them in the `pll` property of an object.
@@ -239,7 +248,7 @@ scripts:
     - deno run three.ts
 ```
 
-Multiple commands specified in this way are executed separately. If you need to use pipes/redirections use your shell's syntax:
+Multiple commands specified in this way are executed separately. If you need to use pipes/redirections you can use your shell's syntax:
 
 ```yaml
 scripts:
@@ -252,7 +261,7 @@ See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor/s
 
 ## Shell scripting
 
-Like in `npm` scripts, vr commands are executed inside a shell. The shell is determined by the `SHELL` env variable on Unix-like systems and by `ComSpec` on Windows, with `sh` and `cmd.exe` as fallback values.
+Like in `npm` scripts, vr commands are executed inside a shell. The shell is determined by the `SHELL` env variable on Unix-like systems and by `ComSpec` on Windows, with respectively `sh` and `cmd.exe` as fallback values.
 
 The shell requirements are pretty much the same as [node's](https://nodejs.org/api/child_process.html#child_process_shell_requirements).
 

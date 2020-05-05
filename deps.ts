@@ -17,4 +17,3 @@ export {
 export { ConsoleHandler } from "https://deno.land/std@v1.0.0-rc1/log/handlers.ts";
 export { LogRecord } from "https://deno.land/std@v1.0.0-rc1/log/logger.ts";
 export { isWindows } from "https://deno.land/std@v1.0.0-rc1/path/constants.ts";
-export { __ } from "https://deno.land/x/dirname/mod.ts";
