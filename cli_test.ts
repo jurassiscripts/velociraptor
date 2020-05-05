@@ -6,6 +6,7 @@ const cliArgs = [
   "--allow-read",
   "--allow-run",
   "--allow-env",
+  "--reload",
   "../cli.ts",
 ];
 const expectedOutput = "Works!";
