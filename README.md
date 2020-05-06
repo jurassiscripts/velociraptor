@@ -261,13 +261,22 @@ See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor/s
 
 ## Shell scripting
 
-Like in `npm` scripts, vr commands are executed inside a shell. The shell is determined by the `SHELL` env variable on Unix-like systems and by `ComSpec` on Windows, with respectively `sh` and `cmd.exe` as fallback values.
+Like in `npm` scripts, vr commands are executed inside a shell. The shell is determined by the `SHELL` env variable on Unix-like systems and by `ComSpec` on Windows, with respectively `sh` and `cmd.exe` as fallback values. To customize the shell without changing you default shell env variables you can use the `VR_SHELL` variable (a full path is requried).
 
 The shell requirements are pretty much the same as [node's](https://nodejs.org/api/child_process.html#child_process_shell_requirements).
 
 ## Current working directory
 
 Velociraptor searches for script files up the folder tree starting from the `cwd` where it was launched. Independently of the initial location, scripts are run from the directory where the script file is.
+
+## Known limitations
+
+Commands with quotes are currently unusable when the shell is `cmd.exe` due to the way Rust's `std::Command` (used by `Deno.run()`) escapes cli arguments (see [here](https://github.com/rust-lang/rust/issues/29494)).  
+As a solution you can tell Velociraptor to use `PowerShell` instead of `cmd` (see [Shell scripting](#shell-scripting)) or run your scripts in the [Windows Subsystem for Linux](https://docs.microsoft.com/windows/wsl/about).
+
+## Contributing
+
+Feedback and PRs are welcome! Just make sure to run `deno fmt` before committing ✨
 
 ## License
 

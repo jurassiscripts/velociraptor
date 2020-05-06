@@ -27,4 +27,4 @@ jobs:
       - name: Run tests
         run: deno test --allow-run
         env:
-          ComSpec: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+          VR_SHELL: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe

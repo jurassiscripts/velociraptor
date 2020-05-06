@@ -16,7 +16,7 @@ registerOption({
   name: "--help",
   alias: "-h",
   action: () => {
-    console.log(`Velociraptor
+    console.log(`🦖 Velociraptor
 An npm-style script runner for Deno
 
 Docs: https://github.com/umbopepato/velociraptor
