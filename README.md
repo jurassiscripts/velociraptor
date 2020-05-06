@@ -11,10 +11,8 @@ Mainly because Deno cli commands can easily become very long and difficult to re
 
 ## Install
 
-To install this module as an executable run
-
 ```sh
-$ deno install --allow-read --allow-env --allow-run -n vr https://deno.land/x/velociraptor@v1.0.0-beta1/cli.ts
+$ deno install --allow-read --allow-env --allow-run -n vr https://deno.land/x/velociraptor/cli.ts
 ```
 
 ## Usage
