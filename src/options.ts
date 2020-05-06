@@ -19,7 +19,7 @@ registerOption({
     console.log(`🦖 Velociraptor
 An npm-style script runner for Deno
 
-Docs: https://github.com/umbopepato/velociraptor
+Docs: https://deno.land/x/velociraptor
 
 USAGE:
     vr [SCRIPT] [ADDITIONAL ARGS]...
