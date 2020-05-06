@@ -1,6 +1,7 @@
-import { bold, path, readJsonSync, __ } from "../deps.ts";
+import { bold } from "../deps.ts";
+import { version } from "./version.ts";
 
-type Action = () => void;
+type Action = () => void | Promise<void>;
 
 const options = new Map<string, Action>();
 
@@ -15,8 +16,8 @@ registerOption({
   name: "--help",
   alias: "-h",
   action: () => {
-    console.log(`Velociraptor
-The npm run for Deno
+    console.log(`🦖 Velociraptor
+An npm-style script runner for Deno
 
 Docs: https://github.com/umbopepato/velociraptor
 
@@ -36,17 +37,17 @@ registerOption({
   name: "--version",
   alias: "-v",
   action: () => {
-    const { __dirname } = __(import.meta);
-    const projectFilePath = path.join(__dirname, "..", "project.json");
-    const project = readJsonSync(projectFilePath) as { version: string };
-    console.log(project.version);
+    console.log(version);
   },
 });
 
-export function handleOption(option: string) {
+export async function handleOption(option: string) {
   if (options.has(option)) {
     const action = options.get(option);
-    if (action && action.call) action();
+    if (action && action.call) {
+      const ret = action();
+      if (ret instanceof Promise) await ret;
+    }
   } else {
     throw new Error(`Unknown option ${option}`);
   }

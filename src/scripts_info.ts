@@ -9,7 +9,7 @@ import { flattenCommands, normalizeScript } from "./normalize_script.ts";
 export function printScriptsInfo(config: ScriptsConfiguration) {
   const scripts = Object.entries(config.scripts);
   console.log(
-    `🦖 Available scripts:\n\n${
+    `Available scripts:\n\n${
       scripts.map(([name, value]) =>
         `• ${blue(bold(name))}\n${scriptInfo(value)}`
       ).join("\n\n")

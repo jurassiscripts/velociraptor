@@ -1,11 +1,11 @@
 import { isWindows } from "../deps.ts";
-import { ScriptsConfiguration } from "./scripts_config.ts";
 
+const SHELL_ENV_NAME = "VR_SHELL";
 const OS_SHELL_ENV_NAME = isWindows ? "ComSpec" : "SHELL";
-const OS_FALLBACK_SHELL = isWindows ? "cmd.exe" : "/bin/bash";
+const OS_FALLBACK_SHELL = isWindows ? "cmd.exe" : "sh";
 
-export function resolveShell(scriptsConfig: ScriptsConfiguration): string {
-  let shell = scriptsConfig.shell;
+export function resolveShell(): string {
+  let shell = Deno.env.get(SHELL_ENV_NAME);
   if (checkShellFile(shell)) return shell as string;
   shell = Deno.env.get(OS_SHELL_ENV_NAME);
   if (checkShellFile(shell)) return shell as string;
@@ -13,5 +13,9 @@ export function resolveShell(scriptsConfig: ScriptsConfiguration): string {
 }
 
 function checkShellFile(shell: string | undefined) {
-  return shell && Deno.statSync(shell).isFile; // TODO check executable
+  try {
+    return shell && Deno.statSync(shell).isFile; // TODO check executable
+  } catch (e) {
+    // use fallback shell
+  }
 }

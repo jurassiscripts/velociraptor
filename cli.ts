@@ -12,7 +12,7 @@ if (import.meta.main) {
   const args = Deno.args;
   if (args.length > 0 && args[0].startsWith("-")) {
     try {
-      handleOption(args[0]);
+      await handleOption(args[0]);
     } catch (e) {
       log.error(e.message);
       Deno.exit(1);
@@ -54,7 +54,7 @@ if (import.meta.main) {
   const scriptDef = config.scripts[scriptName];
   const { scripts, ...rootConfig } = config;
   const commands = normalizeScript(scriptDef, rootConfig);
-  const shell = resolveShell(config);
+  const shell = resolveShell();
   try {
     await runCommands(commands, shell, args.slice(1), cwd);
   } catch (e) {
