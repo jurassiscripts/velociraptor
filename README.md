@@ -15,6 +15,31 @@ Mainly because Deno cli commands can easily become very long and difficult to re
 $ deno install --allow-read --allow-env --allow-run -n vr https://deno.land/x/velociraptor/cli.ts
 ```
 
+<details>
+<summary>Update</summary>
+
+The above command will always install the latest stable version. If you're updating from an older version you might need to run the command with the `-f` flag.
+
+</details>
+
+<details>
+<summary>Install a specific version</summary>
+
+To install a specific version, run the install command with a specific version tag:
+
+```sh
+$ deno install ... https://deno.land/x/velociraptor@<version>/cli.ts
+                                                    ^^^^^^^^^
+```
+
+For example
+
+```sh
+$ deno install --allow-read --allow-env --allow-run -n vr https://deno.land/x/velociraptor@v1.0.0-beta.2/cli.ts
+```
+
+</details>
+
 ## Usage
 
 ```sh
