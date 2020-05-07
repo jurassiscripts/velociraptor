@@ -51,6 +51,8 @@ const denoOption: { [key: string]: string } = {
   v8Flags: "v8-flags",
 };
 
+const runningProcesses: Set<Deno.Process> = new Set();
+
 export async function runCommands(
   commands: Array<Command | ParallelCommands | null>,
   shell: string,
@@ -77,7 +79,12 @@ export async function runCommands(
       return runCommand(commands, shell, additionalArgs, cwd);
     }
   };
-  await runCommandsR(commands as Array<Command | ParallelCommands>);
+  try {
+    await runCommandsR(commands as Array<Command | ParallelCommands>);
+  } catch (e) {
+    runningProcesses.forEach((p) => p.close());
+    throw e;
+  }
 }
 
 function insertOptions(
@@ -159,11 +166,13 @@ async function runCommand(
     }`,
   );
   const process = Deno.run(runOptions);
+  runningProcesses.add(process);
   const status = await process.status();
+  process.close();
+  runningProcesses.delete(process);
   if (status.code !== 0) {
     throw new Error(`Command returned error code ${status.code}`);
   }
-  process.close();
 }
 
 function matchDenoCommand(command: string) {
