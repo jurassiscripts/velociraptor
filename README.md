@@ -3,7 +3,7 @@
 An npm-style script runner for Deno
 
 ![Deno CI](https://github.com/umbopepato/velociraptor/workflows/Deno%20CI/badge.svg)
-[![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.1/src/scripts_config.ts#ScriptsConfiguration)
+[![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/velociraptor/src/scripts_config.ts#ScriptsConfiguration)
 
 ## Motivation
 
@@ -256,7 +256,7 @@ scripts:
 
 ### Script file model
 
-See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.1/src/scripts_config.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
+See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor/src/scripts_config.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
 
 ## Shell scripting
 
