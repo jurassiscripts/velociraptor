@@ -7,7 +7,7 @@ An npm-style script runner for Deno
 
 ## Motivation
 
-Mainly because Deno cli commands can easily become very long and difficult to remember. Also, npm scripts are cool 😎.  
+Mainly because Deno cli commands can easily become very long and difficult to remember. Also, npm scripts are cool 😎.
 
 ## Install
 
@@ -24,8 +24,8 @@ $ vr [SCRIPT OR OPTION] [ADDITIONAL ARGS]...
 **`SCRIPT OR OPTION`**  
 The identifier of the script to run or one of:
 
-`-h, --help`     shows the help message,  
-`-v, --version`  shows the version number.
+`-h, --help` shows the help message,  
+`-v, --version` shows the version number.
 
 **`ADDITIONAL ARGS`**  
 Any other argument, passed to the script. Unlike `npm run`, the `--` separator is not needed.
@@ -43,8 +43,8 @@ To define scripts, create a file called `scripts.yaml` or `scripts.json` in your
 ```yaml
 # scripts.yaml
 scripts:
-  start: deno run --allow-net server.ts
-  test: deno test --allow-net server_test.ts
+    start: deno run --allow-net server.ts
+    test: deno test --allow-net server_test.ts
 ```
 
 or
@@ -52,10 +52,10 @@ or
 ```json
 // scripts.json
 {
-  "scripts": {
-    "start": "deno run --allow-net server.ts",
-    "test": "deno test --allow-net server_test.ts"
-  }
+    "scripts": {
+        "start": "deno run --allow-net server.ts",
+        "test": "deno test --allow-net server_test.ts"
+    }
 }
 ```
 
@@ -69,7 +69,7 @@ When a command starts with a `.ts` file, `deno run` is automatically prepended:
 
 ```yaml
 scripts:
-  start: server.ts # Equivalent to `deno run server.ts`
+    start: server.ts # Equivalent to `deno run server.ts`
 ```
 
 ### More script options
@@ -78,9 +78,9 @@ Scripts can also be objects:
 
 ```yaml
 scripts:
-  start:
-    desc: Runs the server
-    cmd: deno run --allow-net server.ts
+    start:
+        desc: Runs the server
+        cmd: deno run --allow-net server.ts
 ```
 
 In this case the command(s) are specified in the `cmd` property. Use the `desc` property to provide a description of what the script does, it'll be shown in the list of available scripts (when running `vr` without arguments).
@@ -99,13 +99,13 @@ Environment variables can be specified in the `env` mapping.
 # Env vars specified here are sent to
 # all the scripts
 env:
-  PORT: 8081
+    PORT: 8081
 
 scripts:
-  start:
-    cmd: deno run --allow-net server.ts
-    env: # and these are script-specific
-      PORT: 8082
+    start:
+        cmd: deno run --allow-net server.ts
+        env: # and these are script-specific
+            PORT: 8082
 ```
 
 ### Permissions
@@ -115,14 +115,14 @@ Deno [permissions](https://deno.land/std/manual.md#goals) can be specified using
 ```yaml
 # `allow` can be a list of boolean flags
 allow:
-  - net
-  - read
+    - net
+    - read
 
 scripts:
-  start:
-    cmd: server.ts
-    allow: # or a map
-      net: 127.0.0.1
+    start:
+        cmd: server.ts
+        allow: # or a map
+            net: 127.0.0.1
 ```
 
 ### Tsconfig
@@ -131,9 +131,9 @@ To specify a `tsconfig`, set the `tsconfig` property.
 
 ```yaml
 scripts:
-  start:
-    cmd: server.ts
-    tsconfig: tsconfig.json
+    start:
+        cmd: server.ts
+        tsconfig: tsconfig.json
 ```
 
 ### Import maps
@@ -142,9 +142,9 @@ Import maps are speficied in `imap`.
 
 ```yaml
 scripts:
-  start:
-    cmd: deno run --unstable server.ts
-    imap: importmap.json
+    start:
+        cmd: deno run --unstable server.ts
+        imap: importmap.json
 ```
 
 > 🧪 Import maps are currently marked as unstable so the `--unstable` flag must be provided.
@@ -155,9 +155,9 @@ scripts:
 
 ```yaml
 scripts:
-  start:
-    cmd: server.ts
-    inspect: 127.0.0.1:9229
+    start:
+        cmd: server.ts
+        inspect: 127.0.0.1:9229
 ```
 
 ### Lockfile
@@ -166,9 +166,9 @@ The `lock` property sets the namesake deno option.
 
 ```yaml
 scripts:
-  start:
-    cmd: server.ts
-    lock: lock.json
+    start:
+        cmd: server.ts
+        lock: lock.json
 ```
 
 > ⚠️ Setting this option doesn't create a lock file: you will have to create/update it by passing the `--lock-write` option manually to your script at the appropriate time. More info [here](https://deno.land/std/manual.md#lock-file).
@@ -179,9 +179,9 @@ The `log` property corresponds to deno's `--log-level`. The allowed values are `
 
 ```yaml
 scripts:
-  start:
-    cmd: server.ts
-    log: debug
+    start:
+        cmd: server.ts
+        log: debug
 ```
 
 ### Cert
@@ -190,9 +190,9 @@ Specify a PEM certificate for http client in `cert`.
 
 ```yaml
 scripts:
-  start:
-    cmd: server.ts
-    cert: certificate.pem
+    start:
+        cmd: server.ts
+        cert: certificate.pem
 ```
 
 ### V8 flags
@@ -201,14 +201,14 @@ scripts:
 
 ```yaml
 v8Flags:
-  - expose-gc
-  - async-stack-trace
+    - expose-gc
+    - async-stack-trace
 
 scripts:
-  start:
-    cmd: server.ts
-    v8Flags:
-      logfile: v8.log
+    start:
+        cmd: server.ts
+        v8Flags:
+            logfile: v8.log
 ```
 
 ### Multiple commands
@@ -217,41 +217,41 @@ If the script value is an array of commands, the commands are executed serially.
 
 ```yaml
 scripts:
-  start:
-    - deno run one.ts
-    - deno run two.ts
-  test: # Compound scripts can contain script objects as well
-    - deno test test_one.ts
-    - cmd: deno test test_two.ts
-      tsconfig: tsconfig.json
+    start:
+        - deno run one.ts
+        - deno run two.ts
+    test: # Compound scripts can contain script objects as well
+        - deno test test_one.ts
+        - cmd: deno test test_two.ts
+          tsconfig: tsconfig.json
 ```
 
 To execute commands in parallel, list them in the `pll` property of an object.
 
 ```yaml
 scripts:
-  start:
-    pll:
-      - deno run one.ts
-      - deno run two.ts
+    start:
+        pll:
+            - deno run one.ts
+            - deno run two.ts
 ```
 
 Parallel and serial scripts can be combined as well.
 
 ```yaml
 scripts:
-  start:
-    - pll:
-        - deno run one.ts
-        - deno run two.ts
-    - deno run three.ts
+    start:
+        - pll:
+              - deno run one.ts
+              - deno run two.ts
+        - deno run three.ts
 ```
 
 Multiple commands specified in this way are executed separately. If you need to use pipes/redirections you can use your shell's syntax:
 
 ```yaml
 scripts:
-  start: cat file.ts | deno
+    start: cat file.ts | deno
 ```
 
 ### Script file model
@@ -279,4 +279,4 @@ Feedback and PRs are welcome! Just make sure to run `deno fmt` before committing
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE.md) for details.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
