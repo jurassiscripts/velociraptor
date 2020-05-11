@@ -1,4 +1,4 @@
-import { isWindows } from "../deps.ts";
+import { isWindows } from "./util.ts";
 
 const SHELL_ENV_NAME = "VR_SHELL";
 const OS_SHELL_ENV_NAME = isWindows ? "ComSpec" : "SHELL";

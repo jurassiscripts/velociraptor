@@ -3,7 +3,7 @@
 An npm-style script runner for Deno
 
 ![Deno CI](https://github.com/umbopepato/velociraptor/workflows/Deno%20CI/badge.svg)
-[![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/velociraptor/src/scripts_config.ts#ScriptsConfiguration)
+[![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.2/src/scripts_config.ts#ScriptsConfiguration)
 
 ## Motivation
 
@@ -16,9 +16,9 @@ $ deno install --allow-read --allow-env --allow-run -n vr https://deno.land/x/ve
 ```
 
 <details>
-<summary>Update</summary>
+<summary>Upgrade</summary>
 
-The above command will always install the latest stable version. If you're updating from an older version you might need to run the command with the `-f` flag.
+The above command will always install the latest version. If you're updating from an older version you might need to run the command with the `-f` flag.
 
 </details>
 
@@ -281,7 +281,7 @@ scripts:
 
 ### Script file model
 
-See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor/src/scripts_config.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
+See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.2/src/scripts_config.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
 
 ## Shell scripting
 
@@ -291,7 +291,7 @@ The shell requirements are pretty much the same as [node's](https://nodejs.org/a
 
 ## Current working directory
 
-Velociraptor searches for script files up the folder tree starting from the `cwd` where it was launched. Independently of the initial location, scripts are run from the directory where the script file is.
+Velociraptor searches for script files up the folder tree starting from the directory where the `vr` command was launched. Scripts are run from the directory where the script file is, independently of the initial location.
 
 ## Known limitations
 

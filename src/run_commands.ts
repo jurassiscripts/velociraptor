@@ -1,4 +1,4 @@
-import { isWindows } from "../deps.ts";
+import { isWindows } from "./util.ts";
 import { log } from "./logger.ts";
 import {
   FlagsObject,
@@ -60,7 +60,7 @@ export async function runCommands(
   cwd: string,
 ): Promise<void> {
   if (!commands) return;
-  const runCommandsR = async (
+  const _runCommands = async (
     commands:
       | Command
       | ParallelCommands
@@ -70,17 +70,17 @@ export async function runCommands(
   ): Promise<unknown> => {
     if (Array.isArray(commands)) {
       for (let command of commands) {
-        await runCommandsR(command);
+        await _runCommands(command);
       }
     } else {
       if (isParallel(commands)) {
-        return Promise.all(commands.pll.map((c) => runCommandsR(c)));
+        return Promise.all(commands.pll.map((c) => _runCommands(c)));
       }
       return runCommand(commands, shell, additionalArgs, cwd);
     }
   };
   try {
-    await runCommandsR(commands as Array<Command | ParallelCommands>);
+    await _runCommands(commands as Array<Command | ParallelCommands>);
   } catch (e) {
     runningProcesses.forEach((p) => p.close());
     throw e;

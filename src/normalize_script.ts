@@ -19,11 +19,11 @@ export function normalizeScript(
   script: ScriptDefinition,
   rootParams: ScriptOptions,
 ): Array<Command | ParallelCommands | null> {
-  const res = normalizeScriptR(script, rootParams);
+  const res = _normalizeScript(script, rootParams);
   return Array.isArray(res) ? res : [res];
 }
 
-function normalizeScriptR(
+function _normalizeScript(
   node: ScriptDefinition | ParallelScripts,
   parentParams: ScriptOptions,
 ): Command | ParallelCommands | Array<Command | ParallelCommands> | null {
@@ -34,18 +34,18 @@ function normalizeScriptR(
     } as Command;
   }
   if (Array.isArray(node)) {
-    return node.map((s) => normalizeScriptR(s, parentParams)) as Array<
+    return node.map((s) => _normalizeScript(s, parentParams)) as Array<
       Command | ParallelCommands
     >;
   }
   if (isParallelScripts(node)) {
     return {
-      pll: node.pll.flatMap((s) => normalizeScriptR(s, parentParams)),
+      pll: node.pll.flatMap((s) => _normalizeScript(s, parentParams)),
     } as ParallelCommands;
   }
   if (isScriptObject(node)) {
     const { cmd, ...nodeParams } = node;
-    return normalizeScriptR(
+    return _normalizeScript(
       node.cmd,
       mergeParams(nodeParams, parentParams),
     ) as Command;
