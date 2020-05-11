@@ -3,7 +3,7 @@
 An npm-style script runner for Deno
 
 ![Deno CI](https://github.com/umbopepato/velociraptor/workflows/Deno%20CI/badge.svg)
-[![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/velociraptor/src/scripts_config.ts#ScriptsConfiguration)
+[![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.2/src/scripts_config.ts#ScriptsConfiguration)
 
 ## Motivation
 
@@ -14,6 +14,31 @@ Mainly because Deno cli commands can easily become very long and difficult to re
 ```sh
 $ deno install --allow-read --allow-env --allow-run -n vr https://deno.land/x/velociraptor/cli.ts
 ```
+
+<details>
+<summary>Upgrade</summary>
+
+The above command will always install the latest version. If you're updating from an older version you might need to run the command with the `-f` flag.
+
+</details>
+
+<details>
+<summary>Install a specific version</summary>
+
+To install a specific version, run the install command with a specific version tag:
+
+```sh
+$ deno install ... https://deno.land/x/velociraptor@<version>/cli.ts
+                                                    ^^^^^^^^^
+```
+
+For example
+
+```sh
+$ deno install --allow-read --allow-env --allow-run -n vr https://deno.land/x/velociraptor@v1.0.0-beta.2/cli.ts
+```
+
+</details>
 
 ## Usage
 
@@ -83,7 +108,7 @@ scripts:
     cmd: deno run --allow-net server.ts
 ```
 
-In this case the command(s) are specified in the `cmd` property. Use the `desc` property to provide a description of what the script does, it'll be shown in the list of available scripts (when running `vr` without arguments).
+In this case the command(s) are specified in the `cwd` property. Use the `desc` property to provide a description of what the script does, it'll be shown in the list of available scripts (when running `vr` without arguments).
 
 ---
 
@@ -256,7 +281,7 @@ scripts:
 
 ### Script file model
 
-See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor/src/scripts_config.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
+See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.2/src/scripts_config.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
 
 ## Shell scripting
 
@@ -266,7 +291,7 @@ The shell requirements are pretty much the same as [node's](https://nodejs.org/a
 
 ## Current working directory
 
-Velociraptor searches for script files up the folder tree starting from the `cwd` where it was launched. Independently of the initial location, scripts are run from the directory where the script file is.
+Velociraptor searches for script files up the folder tree starting from the directory where the `vr` command was launched. Scripts are run from the directory where the script file is, independently of the initial location.
 
 ## Known limitations
 
@@ -279,4 +304,4 @@ Feedback and PRs are welcome! Just make sure to run `deno fmt` before committing
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE.md) for details.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
