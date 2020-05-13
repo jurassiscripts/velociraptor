@@ -2,6 +2,7 @@ export { stringSimilarity } from "https://unpkg.com/string-similarity-js@2.1.2/s
 export { parse as parseYaml } from "https://deno.land/std@v0.42.0/encoding/yaml.ts";
 export { readJsonSync } from "https://deno.land/std@v0.42.0/fs/read_json.ts";
 export { readFileStrSync } from "https://deno.land/std@v0.42.0/fs/read_file_str.ts";
+export { writeFileStrSync } from "https://deno.land/std@0.42.0/fs/write_file_str.ts";
 export { existsSync } from "https://deno.land/std@v0.42.0/fs/exists.ts";
 export * as path from "https://deno.land/std@v0.42.0/path/mod.ts";
 export * as logger from "https://deno.land/std@v0.42.0/log/mod.ts";

@@ -1,7 +1,10 @@
 import { bold } from "../deps.ts";
 import { version } from "./version.ts";
+import { ScriptsConfiguration } from "./scripts_config.ts";
 
-type Action = () => void | Promise<void>;
+type ConfigData = { config: ScriptsConfiguration; cwd: string };
+
+type Action = (configData?: ConfigData) => void | Promise<void>;
 
 const options = new Map<string, Action>();
 
@@ -41,11 +44,19 @@ registerOption({
   },
 });
 
-export async function handleOption(option: string) {
+registerOption({
+  name: "--git-hook",
+  action: (configData) => {
+    console.log(version);
+  },
+});
+
+export async function handleOption(args: string[], configData: ConfigData) {
+  const option = args[0];
   if (options.has(option)) {
     const action = options.get(option);
     if (action && action.call) {
-      const ret = action();
+      const ret = action(configData);
       if (ret instanceof Promise) await ret;
     }
   } else {

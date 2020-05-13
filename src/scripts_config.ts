@@ -46,6 +46,10 @@ export interface ScriptObject extends ScriptOptions {
    * **Note** nested `ScriptObject`'s `desc` are ignored
    */
   desc?: string;
+  /**
+   * A git hook where to execute this command
+   */
+  githook?: string;
 }
 
 /**
