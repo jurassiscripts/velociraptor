@@ -108,7 +108,7 @@ scripts:
     cmd: deno run --allow-net server.ts
 ```
 
-In this case the command(s) are specified in the `cwd` property. Use the `desc` property to provide a description of what the script does, it'll be shown in the list of available scripts (when running `vr` without arguments).
+In this case the command(s) are specified in the `cmd` property. Use the `desc` property to provide a description of what the script does, it'll be shown in the list of available scripts (when running `vr` without arguments).
 
 ---
 
