@@ -3,7 +3,7 @@
 An npm-style script runner for Deno
 
 ![Deno CI](https://github.com/umbopepato/velociraptor/workflows/Deno%20CI/badge.svg)
-[![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.2/src/scripts_config.ts#ScriptsConfiguration)
+[![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.3/src/scripts_config.ts#ScriptsConfiguration)
 
 ## Motivation
 
@@ -35,7 +35,7 @@ $ deno install ... https://deno.land/x/velociraptor@<version>/cli.ts
 For example
 
 ```sh
-$ deno install --allow-read --allow-env --allow-run -n vr https://deno.land/x/velociraptor@v1.0.0-beta.2/cli.ts
+$ deno install --allow-read --allow-env --allow-run -n vr https://deno.land/x/velociraptor@v1.0.0-beta.3/cli.ts
 ```
 
 </details>
@@ -281,7 +281,7 @@ scripts:
 
 ### Script file model
 
-See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.2/src/scripts_config.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
+See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.3/src/scripts_config.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
 
 ## Shell scripting
 
