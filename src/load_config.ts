@@ -10,11 +10,16 @@ import { ScriptsConfiguration } from "./scripts_config.ts";
 const CONFIG_FILE_NAMES = ["scripts", "velociraptor"];
 const CONFIG_FILE_EXTENSIONS = ["yaml", "yml", "json"];
 
-export function loadConfig(): { cwd: string; config: ScriptsConfiguration } {
+export interface ConfigData {
+  cwd: string;
+  config: ScriptsConfiguration;
+}
+
+export function loadConfig(): ConfigData | null {
   let ext, name, dir = Deno.cwd();
   while (parent(dir) !== dir) {
     for (ext of CONFIG_FILE_EXTENSIONS) {
-      for (name of  CONFIG_FILE_NAMES) {
+      for (name of CONFIG_FILE_NAMES) {
         const p = `${path.join(dir, name)}.${ext}`;
         if (existsSync(p)) {
           return {
@@ -26,7 +31,7 @@ export function loadConfig(): { cwd: string; config: ScriptsConfiguration } {
     }
     dir = parent(dir);
   }
-  throw new Error("No scripts file found.");
+  return null;
 }
 
 function parent(dir: string) {
