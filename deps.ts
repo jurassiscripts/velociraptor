@@ -14,3 +14,9 @@ export {
 } from "https://deno.land/std@v0.42.0/fmt/colors.ts";
 export { ConsoleHandler } from "https://deno.land/std@v0.42.0/log/handlers.ts";
 export { LogRecord } from "https://deno.land/std@v0.42.0/log/logger.ts";
+export {
+  Command,
+  BaseCommand,
+  StringType,
+} from "https://deno.land/x/cliffy@v0.6.1/command.ts";
+export { HelpCommand } from "https://deno.land/x/cliffy@v0.6.1/packages/command/commands/help.ts";
