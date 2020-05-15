@@ -7,7 +7,7 @@ An npm-style script runner for Deno
 
 ## Motivation
 
-Mainly because Deno cli commands can easily become very long and difficult to remember. Also, npm scripts are cool 😎.  
+Mainly because Deno cli commands can easily become very long and difficult to remember. Also, npm scripts are cool 😎  
 
 ## Install
 
@@ -43,27 +43,28 @@ $ deno install --allow-read --allow-env --allow-run -n vr https://deno.land/x/ve
 ## Usage
 
 ```sh
-$ vr [SCRIPT OR OPTION] [ADDITIONAL ARGS]...
+$ vr [SCRIPT] [ADDITIONAL ARGS]...
+# or
+$ vr run <SCRIPT> [ADDITIONAL ARGS]...
 ```
 
-**`SCRIPT OR OPTION`**  
-The identifier of the script to run or one of:
-
-`-h, --help`     shows the help message,  
-`-v, --version`  shows the version number.
+**`SCRIPT`**  
+The identifier of the script to run.
 
 **`ADDITIONAL ARGS`**  
 Any other argument, passed to the script. Unlike `npm run`, the `--` separator is not needed.
 
 Run `vr` without arguments to see a list of available scripts.
 
+Run `vr --help` for more guidance.
+
 ## Project status
 
-👨‍💻 WIP: until Deno 1.0 is released there may be breaking changes. Will do my best to ensure compatibility with pre-1.0 releases anyway.
+👨‍💻 WIP: until the Deno std library is not stable there may be breaking changes here, use carefully and feel free to open an issue if you found a bug.
 
 ## Script files
 
-To define scripts, create a file called `scripts.yaml` or `scripts.json` in your project folder.
+To define scripts, create a file called `scripts.yaml` or `velociraptor.yaml` in your project folder.
 
 ```yaml
 # scripts.yaml
@@ -72,7 +73,7 @@ scripts:
   test: deno test --allow-net server_test.ts
 ```
 
-or
+`.json` is supported as well:
 
 ```json
 // scripts.json
@@ -108,7 +109,7 @@ scripts:
     cmd: deno run --allow-net server.ts
 ```
 
-In this case the command(s) are specified in the `cwd` property. Use the `desc` property to provide a description of what the script does, it'll be shown in the list of available scripts (when running `vr` without arguments).
+In this case the command(s) are specified in the `cmd` property. Use the `desc` property to provide a description of what the script does, it'll be shown in the list of available scripts (when running `vr` without arguments).
 
 ---
 
@@ -135,7 +136,7 @@ scripts:
 
 ### Permissions
 
-Deno [permissions](https://deno.land/std/manual.md#goals) can be specified using `allow`.
+Deno [permissions](https://deno.land/manual/getting_started/permissions) can be specified using `allow`.
 
 ```yaml
 # `allow` can be a list of boolean flags
@@ -196,7 +197,7 @@ scripts:
     lock: lock.json
 ```
 
-> ⚠️ Setting this option doesn't create a lock file: you will have to create/update it by passing the `--lock-write` option manually to your script at the appropriate time. More info [here](https://deno.land/std/manual.md#lock-file).
+> ⚠️ Setting this option doesn't create a lock file: you will have to create/update it by passing the `--lock-write` option manually to your script at the appropriate time. More info [here](https://deno.land/manual/linking_to_external_code/integrity_checking).
 
 ### Log
 
@@ -222,7 +223,7 @@ scripts:
 
 ### V8 flags
 
-[V8 flags](https://deno.land/std/manual.md#v8-flags) can be specified like permissions under the `v8Flags` property.
+V8 flags can be specified like permissions under the `v8Flags` property.
 
 ```yaml
 v8Flags:
@@ -293,10 +294,22 @@ The shell requirements are pretty much the same as [node's](https://nodejs.org/a
 
 Velociraptor searches for script files up the folder tree starting from the directory where the `vr` command was launched. Scripts are run from the directory where the script file is, independently of the initial location.
 
+## Shell completions
+
+To enable shell tab-completion for Velociraptor commands, add the following line to your `~/.zshrc`
+
+```sh
+source <(vr completions zsh)
+```
+
+Trigger the autocomplete on `vr`/`vr run` to get the available scripts as suggestions.
+
+> Bash completions are not yet supported, but will be added.
+
 ## Known limitations
 
 Commands with quotes are currently unusable when the shell is `cmd.exe` due to the way Rust's `std::Command` (used by `Deno.run()`) escapes cli arguments (see [here](https://github.com/rust-lang/rust/issues/29494)).  
-As a solution you can tell Velociraptor to use `PowerShell` instead of `cmd` (see [Shell scripting](#shell-scripting)) or run your scripts in the [Windows Subsystem for Linux](https://docs.microsoft.com/windows/wsl/about).
+As a workaround you can tell Velociraptor to use `PowerShell` instead of `cmd` (see [Shell scripting](#shell-scripting)) or run your scripts in the [Windows Subsystem for Linux](https://docs.microsoft.com/windows/wsl/about).
 
 ## Contributing
 
