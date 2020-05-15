@@ -60,7 +60,7 @@ Run `vr --help` for more guidance.
 
 ## Project status
 
-👨‍💻 WIP: until the Deno std library is not stable there may be breaking changes here, use carefully and feel free to open an issue if you found a bug.
+👨‍💻 WIP: until the Deno std library is stable there may be breaking changes here, use carefully and feel free to open an issue if you found a bug.
 
 ## Script files
 
