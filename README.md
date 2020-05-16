@@ -313,7 +313,7 @@ As a workaround you can tell Velociraptor to use `PowerShell` instead of `cmd` (
 
 ## Upcoming features
 
-- [ ] Self-update: run `vr updgrade` to install the latest version.
+- [ ] Self-update: run `vr upgrade` to install the latest version.
 - [ ] Scripts exporting: run `vr export` to save your scripts as shell scripts to avoid having to install `vr` in your production environment.
 - [ ] Husky style git hooks: use the `hook` property to link a script to a git hook.
 
