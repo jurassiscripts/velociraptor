@@ -3,7 +3,7 @@
 An npm-style script runner for Deno
 
 ![Deno CI](https://github.com/umbopepato/velociraptor/workflows/Deno%20CI/badge.svg)
-[![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.3/src/scripts_config.ts#ScriptsConfiguration)
+[![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.4/src/scripts_config.ts#ScriptsConfiguration)
 
 ## Motivation
 
@@ -35,7 +35,7 @@ $ deno install ... https://deno.land/x/velociraptor@<version>/cli.ts
 For example
 
 ```sh
-$ deno install --allow-read --allow-env --allow-run -n vr https://deno.land/x/velociraptor@v1.0.0-beta.3/cli.ts
+$ deno install --allow-read --allow-env --allow-run -n vr https://deno.land/x/velociraptor@v1.0.0-beta.4/cli.ts
 ```
 
 </details>
@@ -282,7 +282,7 @@ scripts:
 
 ### Script file model
 
-See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.3/src/scripts_config.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
+See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.4/src/scripts_config.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
 
 ## Shell scripting
 
@@ -304,12 +304,18 @@ source <(vr completions zsh)
 
 Trigger the autocomplete on `vr`/`vr run` to get the available scripts as suggestions.
 
-> Bash completions are not yet supported, but will be added.
+> Bash completions are not supported yet, but will be added.
 
 ## Known limitations
 
 Commands with quotes are currently unusable when the shell is `cmd.exe` due to the way Rust's `std::Command` (used by `Deno.run()`) escapes cli arguments (see [here](https://github.com/rust-lang/rust/issues/29494)).  
 As a workaround you can tell Velociraptor to use `PowerShell` instead of `cmd` (see [Shell scripting](#shell-scripting)) or run your scripts in the [Windows Subsystem for Linux](https://docs.microsoft.com/windows/wsl/about).
+
+## Upcoming features
+
+- [ ] Self-update: run `vr updgrade` to install the latest version.
+- [ ] Scripts exporting: run `vr export` to save your scripts as shell scripts to avoid having to install `vr` in your production environment.
+- [ ] Husky style git hooks: use the `hook` property to link a script to a git hook.
 
 ## Contributing
 
