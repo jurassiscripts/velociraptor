@@ -1,0 +1,22 @@
+# [1.0.0-beta.4](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2020-05-16)
+
+
+### Code Refactoring
+
+* **cli:** add cliffy ([82a142d](https://github.com/umbopepato/velociraptor/commit/82a142d761308a9e0db3988d3c2f012f06069652))
+
+
+### Features
+
+* add support for loading velociraptor.{ext} files ([d5e5f70](https://github.com/umbopepato/velociraptor/commit/d5e5f701648aa31976b13819673bd76302b10fb7))
+
+
+### BREAKING CHANGES
+
+* **cli:** vr subcommands (ie 'run', 'help'...) have been introduced
+and can collide with equal script names.
+Use the 'run' command to avoid colliding with the cli.
+
+
+
+
