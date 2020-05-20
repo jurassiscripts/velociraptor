@@ -1,4 +1,4 @@
-export { stringSimilarity } from "https://unpkg.com/string-similarity-js@2.1.2/src/string-similarity.ts";
+export { default as levenshtein } from "https://deno.land/x/levenshtein@v1.0.0/mod.ts";
 export { parse as parseYaml } from "https://deno.land/std@v0.42.0/encoding/yaml.ts";
 export { readJsonSync } from "https://deno.land/std@v0.42.0/fs/read_json.ts";
 export { readFileStrSync } from "https://deno.land/std@v0.42.0/fs/read_file_str.ts";
