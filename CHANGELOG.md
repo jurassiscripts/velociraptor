@@ -1,4 +1,12 @@
-# [1.0.0-beta.4](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2020-05-16)
+
+## [1.0.0-beta.5](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2020-05-17)
+
+
+### Bug Fixes
+
+* **script-normalization:** wrong mergeParams argument order ([0c54801](https://github.com/umbopepato/velociraptor/commit/0c54801e1eb73e7f22e46cc5052e4fe09de0156c))
+
+## [1.0.0-beta.4](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2020-05-16)
 
 
 ### Code Refactoring
@@ -16,7 +24,3 @@
 * **cli:** vr subcommands (ie 'run', 'help'...) have been introduced
 and can collide with equal script names.
 Use the 'run' command to avoid colliding with the cli.
-
-
-
-
