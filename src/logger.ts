@@ -26,7 +26,7 @@ await logger.setup({
   },
   loggers: {
     default: {
-      level: "INFO",
+      level: Deno.env.get("VR_LOG") || "WARNING",
       handlers: ["console"],
     },
   },

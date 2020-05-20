@@ -19,6 +19,10 @@ export class VrCommand extends Command {
         "VR_SHELL=<value:string>",
         "The path to a shell executable to be used for executing scripts",
       )
+      .env(
+        "VR_LOG=<value:string>",
+        "Log verbosity. One of: DEBUG, INFO, WARNING, ERROR, CRITICAL",
+      )
       .type("scriptid", new ScriptIdType(this.configData))
       .arguments("[script:string:scriptid] [additionalArgs...]")
       .action(async (options, script: string, additionalArgs: string[]) => {

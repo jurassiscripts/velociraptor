@@ -158,8 +158,8 @@ async function runCommand(
   if (command.env && Object.entries(command.env).length > 0) {
     runOptions.env = stringifyEnv(command.env);
   }
-  log.debug(
-    `> ${cmd}${
+  log.info(
+    `Running > ${cmd}${
       additionalArgs && additionalArgs.length > 0
         ? ` -- ${additionalArgs.join(" ")}`
         : ""
