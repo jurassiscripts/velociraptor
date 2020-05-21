@@ -14,7 +14,7 @@ export class VrCommand extends Command {
     super();
     this.version(version)
       .description(
-        "🦖 Velociraptor\nAn npm-style script runner for Deno\n\nDocs: https://deno.land/x/velociraptor",
+        "🦖 Velociraptor\nAn npm-style script runner for Deno\n\nDocs: https://github.com/umbopepato/velociraptor",
       )
       .env(
         "VR_SHELL=<value:string>",
