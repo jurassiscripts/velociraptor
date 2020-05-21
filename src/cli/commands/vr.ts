@@ -3,6 +3,7 @@ import { version } from "../../version.ts";
 import { ScriptIdType } from "../script_id_type.ts";
 import { ConfigData } from "../../load_config.ts";
 import { RunCommand } from "./run.ts";
+import { ExportCommand } from "./export.ts";
 import { runScript } from "../../run_script.ts";
 
 export class VrCommand extends Command {
@@ -29,6 +30,7 @@ export class VrCommand extends Command {
         await runScript(this.configData, script, additionalArgs);
       })
       .command("run", new RunCommand(this.configData))
+      .command("export", new ExportCommand(this.configData))
       .reset();
   }
 }
