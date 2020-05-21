@@ -96,7 +96,7 @@ function exportCommands(
             .join(" ") + " ";
         }
       }
-      res += buildCommandString(cmd);
+      res += buildCommandString(cmd) + ' "$@"';
       if (doGroup) res = `(${res})`;
       return res;
     }
