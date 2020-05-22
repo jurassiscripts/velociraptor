@@ -1,9 +1,41 @@
-# Velociraptor
+<p align="center">
+  <img src="assets/logo.svg" width="350">
+</p>
 
-Velociraptor is a script runner for Deno, inspired by npm's package.json scripts. It offers a similar experience but with out-of-the-box support for declarative deno cli options, environment variables, concurrency and (soon) git hooks.
+<p align="center">
+  Velociraptor is a script runner for Deno, inspired by npm's package.json scripts. It offers a similar experience but with out-of-the-box support for declarative deno cli options, environment variables, concurrency and (soon) git hooks.
+</p>
 
-![Deno CI](https://github.com/umbopepato/velociraptor/workflows/Deno%20CI/badge.svg)
-[![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.5/src/scripts_config.ts#ScriptsConfiguration)
+<p align="center">
+
+ <img src="https://github.com/umbopepato/velociraptor/workflows/Deno%20CI/badge.svg"/>
+ <a href="https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.5/src/scripts_config.ts#ScriptsConfiguration"><img src="https://doc.deno.land/badge.svg"></a>
+ <img src="https://img.shields.io/badge/deno-%5E1.0.0-blue"/>
+ <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen"/></a>
+
+</p>
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Motivation](#motivation)
+- [Install](#install)
+- [Project status](#project-status)
+- [Script files](#script-files)
+- [Listing scripts](#listing-scripts)
+- [Running scripts](#running-scripts)
+- [Exporting scripts](#exporting-scripts)
+- [Shell scripting](#shell-scripting)
+- [Current working directory](#current-working-directory)
+- [Shell completions](#shell-completions)
+- [Known limitations](#known-limitations)
+- [Upcoming features](#upcoming-features)
+- [Contributing](#contributing)
+- [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 ## Motivation
 
@@ -12,7 +44,7 @@ Mainly because Deno cli commands can easily become very long and difficult to re
 ## Install
 
 ```sh
-$ deno install --allow-read --allow-env --allow-run -n vr https://deno.land/x/velociraptor/cli.ts
+$ deno install --allow-read --allow-write --allow-env --allow-run -n vr https://deno.land/x/velociraptor/cli.ts
 ```
 
 <details>
@@ -35,36 +67,20 @@ $ deno install ... https://deno.land/x/velociraptor@<version>/cli.ts
 For example
 
 ```sh
-$ deno install --allow-read --allow-env --allow-run -n vr https://deno.land/x/velociraptor@v1.0.0-beta.5/cli.ts
+$ deno install --allow-read --allow-write --allow-env --allow-run -n vr https://deno.land/x/velociraptor@v1.0.0-beta.5/cli.ts
 ```
 
 </details>
 
-## Usage
-
-```sh
-$ vr [SCRIPT] [ADDITIONAL ARGS]...
-# or
-$ vr run <SCRIPT> [ADDITIONAL ARGS]...
-```
-
-**`SCRIPT`**  
-The identifier of the script to run.
-
-**`ADDITIONAL ARGS`**  
-Any other argument, passed to the script. Unlike `npm run`, the `--` separator is not needed.
-
-Run `vr` without arguments to see a list of available scripts.
-
-Run `vr --help` for more guidance.
+To get help with the CLI run `vr help`, or `vr help <SUBCOMMAND>` for specific commands.
 
 ## Project status
 
-👨‍💻 WIP: until the Deno std library is stable there may be breaking changes here, use carefully and feel free to open an issue if you found a bug.
+👨‍💻 WIP: until the Deno std library is stable there may be breaking changes here, use carefully and feel free to open an issue if you find a bug.
 
 ## Script files
 
-To define scripts, create a file called `scripts.yaml` or `velociraptor.yaml` in your project folder.
+To get started, create a file called `scripts.yaml` or `velociraptor.yaml` in your project folder:
 
 ```yaml
 # scripts.yaml
@@ -237,7 +253,7 @@ scripts:
       logfile: v8.log
 ```
 
-### Multiple commands
+### Compound commands and concurrency
 
 If the script value is an array of commands, the commands are executed serially.
 
@@ -252,7 +268,7 @@ scripts:
       tsconfig: tsconfig.json
 ```
 
-To execute commands in parallel, list them in the `pll` property of an object.
+To declare concurrent commands, list them in the `pll` property of an object.
 
 ```yaml
 scripts:
@@ -284,9 +300,78 @@ scripts:
 
 See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.5/src/scripts_config.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
 
+## Listing scripts
+
+Run
+
+```sh
+$ vr
+```
+
+to see a list of available scripts.
+
+## Running scripts
+
+To run a script, use the `run` subcommand
+
+```sh
+$ vr run <SCRIPT> [ADDITIONAL ARGS]...
+```
+
+or, more concisely
+
+```sh
+$ vr [SCRIPT] [ADDITIONAL ARGS]...
+```
+
+|Arg or option|Description|
+|:---|:---|
+|`SCRIPT`|The identifier of the script to run.|
+|`ADDITIONAL ARGS`|Any other argument, passed to the script. Unlike `npm run`, the `--` separator is not needed.|
+
+For example, run
+
+```sh
+$ vr start
+# or
+$ vr run start
+```
+
+to execute the `start` script.
+
+> If you enabled [shell completions](#shell-completions), trigger the autocomplete on one of this commands to get the available scripts as suggestions.
+
+## Exporting scripts
+
+You may find yourself in a situation where you want to use velociraptor to manage your scripts during development, but you're not comfortable installing it (or just can't install it) in your production environment.
+In this case the `export` subcommand may be of help: it allows you to export one or more scripts as standalone executable shell files:
+
+```sh
+$ vr export [SCRIPTS]...
+```
+
+|Arg or option|Description|
+|:---|:---|
+|`SCRIPTS`|A space-separated list of scripts to export. If omitted, all the declared scripts are exported.|
+|`-o, --out-dir`|The directory where the scripts will be exported (default: `bin`).|
+
+For example, run
+
+```sh
+$ vr export start
+```
+
+to export the `start` script, together with its env variables, deno cli options etc. Now you can execute it by running
+
+```sh
+$ ./bin/start [ARGS]...
+```
+
+> Scripts exporting currently only supports `sh`.
+
 ## Shell scripting
 
-Like in `npm` scripts, vr commands are executed inside a shell. The shell is determined by the `SHELL` env variable on Unix-like systems and by `ComSpec` on Windows, with respectively `sh` and `cmd.exe` as fallback values. To customize the shell without changing you default shell env variables you can use the `VR_SHELL` variable (a full path is requried).
+Like in `npm` scripts, vr commands are executed inside a shell. The shell is determined by the `SHELL` env variable on Unix-like systems and by `ComSpec` on Windows, with respectively `sh` and `cmd.exe` as fallback values. To customize the shell without changing your default shell env variables you can use the `VR_SHELL` variable (a full path is requried).
 
 The shell requirements are pretty much the same as [node's](https://nodejs.org/api/child_process.html#child_process_shell_requirements).
 
@@ -296,15 +381,13 @@ Velociraptor searches for script files up the folder tree starting from the dire
 
 ## Shell completions
 
-To enable shell tab-completion for Velociraptor commands, add the following line to your `~/.zshrc`
+To enable zsh tab-completion for velociraptor commands, add the following line to your `~/.zshrc`
 
 ```sh
 source <(vr completions zsh)
 ```
 
-Trigger the autocomplete on `vr`/`vr run` to get the available scripts as suggestions.
-
-> Bash completions are not supported yet, but will be added.
+> Bash is not supported yet, but will be added.
 
 ## Known limitations
 
@@ -314,7 +397,6 @@ As a workaround you can tell Velociraptor to use `PowerShell` instead of `cmd` (
 ## Upcoming features
 
 - [ ] Self-update: run `vr upgrade` to install the latest version.
-- [ ] Scripts exporting: run `vr export` to save your scripts as shell scripts to avoid having to install `vr` in your production environment.
 - [ ] Husky style git hooks: use the `hook` property to link a script to a git hook.
 
 ## Contributing

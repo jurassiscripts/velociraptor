@@ -16,9 +16,7 @@ export interface ScriptsConfiguration extends ScriptOptions {
  *  test: deno test
  * ```
  */
-export interface Scripts {
-  [key: string]: ScriptDefinition;
-}
+export type Scripts = Record<string, ScriptDefinition>;
 
 /**
  * Either a script or a list of scripts
@@ -55,7 +53,7 @@ export interface ScriptObject extends ScriptOptions {
 export type CompositeScript = Array<Script | ParallelScripts>;
 
 /**
- * An object representing script
+ * An object representing scripts
  * to be executed in parallel
  */
 export interface ParallelScripts {
@@ -144,13 +142,9 @@ export interface ScriptOptions {
   inspectBrk?: string;
 }
 
-export interface FlagsObject {
-  [key: string]: unknown;
-}
+export type FlagsObject = Record<string, unknown>;
 
-export interface EnvironmentVariables {
-  [key: string]: string;
-}
+export type EnvironmentVariables = Record<string, string>;
 
 export const isScriptObject = (script: object): script is ScriptObject =>
   "cmd" in script;

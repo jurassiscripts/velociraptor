@@ -1,9 +1,8 @@
 import {
   parseYaml,
-  readJsonSync,
-  readFileStrSync,
-  existsSync,
   path,
+  existsSync,
+  readFileStrSync,
 } from "../deps.ts";
 import { ScriptsConfiguration } from "./scripts_config.ts";
 
@@ -39,10 +38,7 @@ function parent(dir: string) {
 }
 
 function parseConfig(configPath: string): ScriptsConfiguration {
-  if (/ya?ml$/.test(configPath)) {
-    return parseYaml(
-      readFileStrSync(configPath, { encoding: "utf8" }),
-    ) as ScriptsConfiguration;
-  }
-  return readJsonSync(configPath) as ScriptsConfiguration;
+  return parseYaml(
+    readFileStrSync(configPath, { encoding: "utf8" }),
+  ) as ScriptsConfiguration;
 }
