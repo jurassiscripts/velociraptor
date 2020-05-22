@@ -1,5 +1,5 @@
 import { ConfigData } from "./load_config.ts";
-import { checkConfigData } from "./check_config_data.ts";
+import { validateConfigData } from "./check_config_data.ts";
 import { checkScript } from "./check_script.ts";
 import { isWindows, OneOrMore, makeFileExecutable } from "./util.ts";
 import { normalizeScript } from "./normalize_script.ts";
@@ -24,7 +24,7 @@ export async function exportScripts(
   scripts: string[],
   outDir: string = "bin",
 ) {
-  checkConfigData(configData);
+  validateConfigData(configData);
   const { cwd, config } = configData as ConfigData;
   const outDirPath = path.join(cwd, outDir);
   ensureDirSync(outDirPath);

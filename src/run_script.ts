@@ -5,7 +5,7 @@ import { bold } from "../deps.ts";
 import { normalizeScript } from "./normalize_script.ts";
 import { resolveShell } from "./resolve_shell.ts";
 import { runCommands } from "./run_commands.ts";
-import { checkConfigData } from "./check_config_data.ts";
+import { validateConfigData } from "./check_config_data.ts";
 import { checkScript } from "./check_script.ts";
 
 export async function runScript(
@@ -13,7 +13,7 @@ export async function runScript(
   script: string,
   additionalArgs: string[] = [],
 ) {
-  checkConfigData(configData);
+  validateConfigData(configData);
   const { cwd, config } = configData as ConfigData;
   if (script == null || script.length < 1) {
     printScriptsInfo(config);

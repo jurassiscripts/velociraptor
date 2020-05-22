@@ -1,7 +1,7 @@
 import { ConfigData } from "./load_config.ts";
 import { log } from "./logger.ts";
 
-export function checkConfigData(configData: ConfigData | null) {
+export function validateConfigData(configData: ConfigData | null) {
   if (!configData) {
     throw new Error("No scripts file found.");
   }
