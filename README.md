@@ -1,4 +1,8 @@
-# <img src="assets/logo.svg" width="80"> Velociraptor
+<p align="center">
+  <img src="assets/logo.svg" width="350">
+</p>
+
+---
 
 Velociraptor is a script runner for Deno, inspired by npm's package.json scripts. It offers a similar experience but with out-of-the-box support for declarative deno cli options, environment variables, concurrency and (soon) git hooks.
 
