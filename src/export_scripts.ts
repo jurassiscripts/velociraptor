@@ -1,6 +1,6 @@
 import { ConfigData } from "./load_config.ts";
-import { validateConfigData } from "./check_config_data.ts";
-import { checkScript } from "./check_script.ts";
+import { validateConfigData } from "./validate_config_data.ts";
+import { validateScript } from "./validate_script.ts";
 import { isWindows, OneOrMore, makeFileExecutable } from "./util.ts";
 import { normalizeScript } from "./normalize_script.ts";
 import { CompoundCommandItem } from "./command.ts";
@@ -33,7 +33,7 @@ export async function exportScripts(
   }
   await Promise.all(
     scripts.map(async (script) => {
-      checkScript(script, config);
+      validateScript(script, config);
       const scriptDef = config.scripts[script];
       const { scripts, ...rootConfig } = config;
       const commands = normalizeScript(scriptDef, rootConfig);
