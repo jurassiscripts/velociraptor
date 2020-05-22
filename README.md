@@ -1,13 +1,19 @@
-<h1 align="center">
+<p align="center">
   <img src="assets/logo.svg" width="350">
-</h1>
+</p>
 
-Velociraptor is a script runner for Deno, inspired by npm's package.json scripts. It offers a similar experience but with out-of-the-box support for declarative deno cli options, environment variables, concurrency and (soon) git hooks.
+<p align="center">
+  Velociraptor is a script runner for Deno, inspired by npm's package.json scripts. It offers a similar experience but with out-of-the-box support for declarative deno cli options, environment variables, concurrency and (soon) git hooks.
+</p>
 
-![deno ci](https://github.com/umbopepato/velociraptor/workflows/Deno%20CI/badge.svg)
-[![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.5/src/scripts_config.ts#ScriptsConfiguration)
-![deno version](https://img.shields.io/badge/deno-%5E1.0.0-blue)
-[![license](https://img.shields.io/badge/license-MIT-brightgreen)](LICENSE)
+<p align="center">
+
+ <img src="https://github.com/umbopepato/velociraptor/workflows/Deno%20CI/badge.svg"/>
+ <a href="https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.5/src/scripts_config.ts#ScriptsConfiguration"><img src="https://doc.deno.land/badge.svg"></a>
+ <img src="https://img.shields.io/badge/deno-%5E1.0.0-blue"/>
+ <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen"/></a>
+
+</p>
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -337,8 +343,7 @@ to execute the `start` script.
 
 ## Exporting scripts
 
-You may find yourself in a situation where you want to use velociraptor to manage your scripts during development
-but you're not comfortable installing it (or just can't install it) in your production environment.
+You may find yourself in a situation where you want to use velociraptor to manage your scripts during development, but you're not comfortable installing it (or just can't install it) in your production environment.
 In this case the `export` subcommand may be of help: it allows you to export one or more scripts as standalone executable shell files:
 
 ```sh
