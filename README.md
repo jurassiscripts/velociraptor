@@ -15,7 +15,9 @@ Velociraptor is a script runner for Deno, inspired by npm's package.json scripts
 - [Install](#install)
 - [Project status](#project-status)
 - [Script files](#script-files)
-- [CLI](#cli)
+- [Listing scripts](#listing-scripts)
+- [Running scripts](#running-scripts)
+- [Exporting scripts](#exporting-scripts)
 - [Shell scripting](#shell-scripting)
 - [Current working directory](#current-working-directory)
 - [Shell completions](#shell-completions)
@@ -61,6 +63,8 @@ $ deno install --allow-read --allow-write --allow-env --allow-run -n vr https://
 ```
 
 </details>
+
+To get help with the CLI run `vr help`, or `vr help <SUBCOMMAND>` for specific commands.
 
 ## Project status
 
@@ -288,11 +292,7 @@ scripts:
 
 See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.5/src/scripts_config.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
 
-## CLI
-
-To get help with the CLI run `vr help`, or `vr help <SUBCOMMAND>` for specific commands.
-
-### List
+## Listing scripts
 
 Run
 
@@ -302,7 +302,7 @@ $ vr
 
 to see a list of available scripts.
 
-### Run
+## Running scripts
 
 To run a script, use the `run` subcommand
 
@@ -316,35 +316,45 @@ or, more concisely
 $ vr [SCRIPT] [ADDITIONAL ARGS]...
 ```
 
-`SCRIPT`  
-The identifier of the script to run.
+|Arg or option|Description|
+|:---|:---|
+|`SCRIPT`|The identifier of the script to run.|
+|`ADDITIONAL ARGS`|Any other argument, passed to the script. Unlike `npm run`, the `--` separator is not needed.|
 
-`ADDITIONAL ARGS`  
-Any other argument, passed to the script. Unlike `npm run`, the `--` separator is not needed.
+For example, run
 
-If you enabled [shell completions](#shell-completions), trigger the autocomplete on one of this commands to get the available scripts as suggestions.
+```sh
+$ vr start
+# or
+$ vr run start
+```
 
-### Export
+to execute the `start` script.
 
-Use the `export` subcommand to export one or more scripts as standalone executable shell files:
+> If you enabled [shell completions](#shell-completions), trigger the autocomplete on one of this commands to get the available scripts as suggestions.
+
+## Exporting scripts
+
+You may find yourself in a situation where you want to use velociraptor to manage your scripts during development
+but you're not comfortable installing it (or just can't install it) in your production environment.
+In this case the `export` subcommand may be of help: it allows you to export one or more scripts as standalone executable shell files:
 
 ```sh
 $ vr export [SCRIPTS]...
 ```
 
-`SCRIPTS`  
-A space-separated list of scripts to export. If omitted, all the declared scripts are exported.
+|Arg or option|Description|
+|:---|:---|
+|`SCRIPTS`|A space-separated list of scripts to export. If omitted, all the declared scripts are exported.|
+|`-o, --out-dir`|The directory where the scripts will be exported (default: `bin`).|
 
-`-o, --out-dir`  
-The directory where the scripts will be exported (default: `bin`).
-
-This is useful if you want to manage your scripts via velociraptor but you don't want or cant't install it in your production environment. Run
+For example, run
 
 ```sh
 $ vr export start
 ```
 
-to export the `start` script, together with its env variables, deno cli options etc., and execute it by running
+to export the `start` script, together with its env variables, deno cli options etc. Now you can execute it by running
 
 ```sh
 $ ./bin/start [ARGS]...
