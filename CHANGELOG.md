@@ -1,4 +1,11 @@
 
+## [1.0.0-beta.6](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2020-05-22)
+
+
+### Features
+
+* **export:** add script exporting functionality ([81e457f](https://github.com/umbopepato/velociraptor/commit/81e457febb2d8156fa3a752928bdb9af146bc6b6))
+
 ## [1.0.0-beta.5](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2020-05-17)
 
 
