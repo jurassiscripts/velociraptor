@@ -180,7 +180,7 @@ scripts:
 
 ### Import maps
 
-Import maps are speficied in `imap`.
+Import maps are specified in `imap`.
 
 ```yaml
 scripts:
@@ -371,7 +371,7 @@ $ ./bin/start [ARGS]...
 
 ## Shell scripting
 
-Like in `npm` scripts, vr commands are executed inside a shell. The shell is determined by the `SHELL` env variable on Unix-like systems and by `ComSpec` on Windows, with respectively `sh` and `cmd.exe` as fallback values. To customize the shell without changing your default shell env variables you can use the `VR_SHELL` variable (a full path is requried).
+Like in `npm` scripts, vr commands are executed inside a shell. The shell is determined by the `SHELL` env variable on Unix-like systems and by `ComSpec` on Windows, with respectively `sh` and `cmd.exe` as fallback values. To customize the shell without changing your default shell env variables you can use the `VR_SHELL` variable (a full path is required).
 
 The shell requirements are pretty much the same as [node's](https://nodejs.org/api/child_process.html#child_process_shell_requirements).
 
