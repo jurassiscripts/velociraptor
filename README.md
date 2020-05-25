@@ -42,7 +42,7 @@
 
 ## Motivation
 
-One of the things that many developers find disorientating about Deno is the fact that it [doesn't have](https://deno.land/manual#philosophy) an external package manager like npm. On one side this new paradigm simplifies many aspects of development; on the other, the lack of some npm features - notably scripts - can be really limiting: Deno cli commands can become _very_ long and difficult to track without a place to store them and there's not an easy way to share workflow scripts, git hooks and external tooling with contributors. Velociraptor tries to provide a relatively lighweight solution to this problems by expanding the concept of npm scripts.
+One of the things that many developers find disorientating about Deno is the fact that it [doesn't have](https://deno.land/manual#philosophy) an external package manager like npm. On one side this new paradigm simplifies many aspects of development; on the other, the lack of some npm features - notably scripts - can be really limiting: Deno cli commands can become _very_ long and difficult to track without a place to store them and there's not an easy way to share workflow scripts, git hooks and external tooling with contributors. Velociraptor tries to provide a relatively lightweight solution to this problems by expanding the concept of npm scripts.
 
 ## Install
 
