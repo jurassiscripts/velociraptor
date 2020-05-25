@@ -50,7 +50,7 @@ export interface ScriptObject extends ScriptOptions {
  * An array of scripts or an object representing script
  * to be executed in parallel
  */
-export type CompositeScript = Array<Script | ParallelScripts>;
+export type CompositeScript = ParallelScripts | Array<Script | ParallelScripts>;
 
 /**
  * An object representing scripts
@@ -87,7 +87,7 @@ export interface ScriptOptions {
    *    - read
    * ```
    */
-  allow?: string[] | FlagsObject;
+  allow?: Array<keyof AllowFlags> | AllowFlags;
   /**
    * A list of boolean V8 flags or
    * a map of V8 option names to values
@@ -140,6 +140,16 @@ export interface ScriptOptions {
    * Same as `inspect`, but breaks at start of user script.
    */
   inspectBrk?: string;
+}
+
+export interface AllowFlags {
+  all?: boolean;
+  env?: boolean;
+  hrtime?: boolean;
+  net?: string | boolean;
+  plugin?: boolean;
+  read?: string | boolean;
+  run?: boolean;
 }
 
 export type FlagsObject = Record<string, unknown>;

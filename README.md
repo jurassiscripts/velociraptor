@@ -8,9 +8,11 @@
 
 <p align="center">
 
- <img src="https://github.com/umbopepato/velociraptor/workflows/Deno%20CI/badge.svg"/>
+ <img alt="CI" src="https://github.com/umbopepato/velociraptor/workflows/Deno%20CI/badge.svg"/>
+ <img alt="Version" src="https://img.shields.io/github/v/release/umbopepato/velociraptor?logo=github&include_prereleases">
+ <a href="https://github.com/umbopepato/velociraptor"><img alt="GitHub stars" src="https://img.shields.io/github/stars/umbopepato/velociraptor?logo=github"></a>
  <a href="https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.6/src/scripts_config.ts#ScriptsConfiguration"><img src="https://doc.deno.land/badge.svg"></a>
- <img src="https://img.shields.io/badge/deno-%5E1.0.0-blue"/>
+ <a href="https://deno.land"><img src="https://img.shields.io/badge/deno-%5E1.0.0-green?logo=deno"/></a>
  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen"/></a>
 
 </p>
@@ -29,6 +31,7 @@
 - [Shell scripting](#shell-scripting)
 - [Current working directory](#current-working-directory)
 - [Shell completions](#shell-completions)
+- [Editor support](#editor-support)
 - [Known limitations](#known-limitations)
 - [Upcoming features](#upcoming-features)
 - [Contributing](#contributing)
@@ -39,7 +42,7 @@
 
 ## Motivation
 
-Mainly because Deno cli commands can easily become very long and difficult to remember. Also, npm scripts are cool 😎  
+One of the things that many developers find disorientating about Deno is the fact that it [doesn't have](https://deno.land/manual#philosophy) an external package manager like npm. On one side this new paradigm simplifies many aspects of development; on the other, the lack of some npm features - notably scripts - can be really limiting: Deno cli commands can become _very_ long and difficult to track without a place to store them and there's not an easy way to share workflow scripts, git hooks and external tooling with contributors. Velociraptor tries to provide a relatively lighweight solution to this problems by expanding the concept of npm scripts.
 
 ## Install
 
@@ -388,6 +391,12 @@ source <(vr completions zsh)
 ```
 
 > Bash is not supported yet, but will be added.
+
+## Editor support
+
+#### VSCode
+
+[Velociraptor support for VSCode](https://marketplace.visualstudio.com/items?itemName=umbo.vscode-velociraptor) adds code assistance for script configuration files (both `yaml` and `json`).
 
 ## Known limitations
 

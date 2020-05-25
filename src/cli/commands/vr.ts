@@ -7,12 +7,13 @@ import { ExportCommand } from "./export.ts";
 import { runScript } from "../../run_script.ts";
 
 export class VrCommand extends Command {
-  protected name = "vr"; // TODO replace with the actual cmd name when it'll be possible
-  protected path: string = this.name;
+  // protected name = "vr"; // TODO replace with the actual cmd name https://github.com/denoland/deno/issues/5725
+  // protected path: string = this.name;
 
   constructor(private configData: ConfigData | null) {
     super();
-    this.version(version)
+    this.name("vr")
+      .version(version)
       .description(
         "🦖 Velociraptor\nAn npm-style script runner for Deno\n\nDocs: https://github.com/umbopepato/velociraptor",
       )
@@ -25,8 +26,9 @@ export class VrCommand extends Command {
         "Log verbosity. One of: DEBUG, INFO, WARNING, ERROR, CRITICAL",
       )
       .type("scriptid", new ScriptIdType(this.configData))
-      .arguments("[script:string:scriptid] [additionalArgs...]")
-      .action(async (options, script: string, additionalArgs: string[]) => {
+      .arguments("[script:scriptid] [additionalArgs...]")
+      .useRawArgs()
+      .action(async (options, script: string, ...additionalArgs: string[]) => {
         await runScript(this.configData, script, additionalArgs);
       })
       .command("run", new RunCommand(this.configData))
