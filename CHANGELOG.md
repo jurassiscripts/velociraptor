@@ -1,4 +1,18 @@
 
+## [1.0.0-beta.7](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2020-05-25)
+
+
+### Features
+
+* **export:** add script exporting functionality ([399d5e3](https://github.com/umbopepato/velociraptor/commit/399d5e3d101df95bf35d71e2ab9542bff004fe3f))
+
+
+### Bug Fixes
+
+* **cli:** flags in additionalArgs consumed by vr ([9510a92](https://github.com/umbopepato/velociraptor/commit/9510a92cc07f3ae69d3ffa8fc696ff6bcaf8c36c)), closes [#26](https://github.com/umbopepato/velociraptor/issues/26)
+* **script-config:** add ParallelScripts to CompositeScript ([bb3d7bf](https://github.com/umbopepato/velociraptor/commit/bb3d7bfc7b826839a1eda9f4d046c4c736078d60))
+* correct validation functions imports ([454cb75](https://github.com/umbopepato/velociraptor/commit/454cb756fe1026daa06e72ed77a6582d1b82daad))
+
 ## [1.0.0-beta.6](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2020-05-22)
 
 
