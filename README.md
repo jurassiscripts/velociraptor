@@ -11,7 +11,7 @@
  <img alt="CI" src="https://github.com/umbopepato/velociraptor/workflows/Deno%20CI/badge.svg"/>
  <img alt="Version" src="https://img.shields.io/github/v/release/umbopepato/velociraptor?logo=github&include_prereleases">
  <a href="https://github.com/umbopepato/velociraptor"><img alt="GitHub stars" src="https://img.shields.io/github/stars/umbopepato/velociraptor?logo=github"></a>
- <a href="https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.7/src/scripts_config.ts#ScriptsConfiguration"><img src="https://doc.deno.land/badge.svg"></a>
+ <a href="https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.8/src/scripts_config.ts#ScriptsConfiguration"><img src="https://doc.deno.land/badge.svg"></a>
  <a href="https://deno.land"><img src="https://img.shields.io/badge/deno-%5E1.0.0-green?logo=deno"/></a>
  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen"/></a>
 
@@ -70,7 +70,7 @@ $ deno install ... https://deno.land/x/velociraptor@<version>/cli.ts
 For example
 
 ```sh
-$ deno install --allow-read --allow-write --allow-env --allow-run -n vr https://deno.land/x/velociraptor@v1.0.0-beta.7/cli.ts
+$ deno install --allow-read --allow-write --allow-env --allow-run -n vr https://deno.land/x/velociraptor@v1.0.0-beta.8/cli.ts
 ```
 
 </details>
@@ -301,7 +301,7 @@ scripts:
 
 ### Script file model
 
-See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.7/src/scripts_config.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
+See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.8/src/scripts_config.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
 
 ## Listing scripts
 
