@@ -7,9 +7,6 @@ import { ExportCommand } from "./export.ts";
 import { runScript } from "../../run_script.ts";
 
 export class VrCommand extends Command {
-  // protected name = "vr"; // TODO replace with the actual cmd name https://github.com/denoland/deno/issues/5725
-  // protected path: string = this.name;
-
   constructor(private configData: ConfigData | null) {
     super();
     this.name("vr")
