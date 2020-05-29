@@ -2,9 +2,9 @@ export type OneOrMore<T> = T | T[];
 
 export const isWindows = Deno.build.os == "windows";
 
-export function escape(str: string, ...chars: string[]): string {
-  return chars.reduce(
-    (str, char) => str.replace(RegExp(char, "g"), `\\${char}`),
+export function escape(str: string, ...exp: string[]): string {
+  return exp.reduce(
+    (str, e) => str.replace(RegExp(e, "g"), `\\${e}`),
     str,
   );
 }

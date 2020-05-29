@@ -1,4 +1,4 @@
-import { isWindows, OneOrMore } from "./util.ts";
+import { isWindows, OneOrMore, escape } from "./util.ts";
 import { log } from "./logger.ts";
 import {
   EnvironmentVariables,
@@ -89,7 +89,9 @@ function buildShellArgs(
 ): string[] {
   const fullCmd = additionalArgs.length < 1
     ? command
-    : `${command} ${additionalArgs.join(" ")}`;
+    : `${command} ${
+      additionalArgs.map((a) => `"${escape(a, '"')}"`).join(" ")
+    }`;
   if (isWindows && /^(?:.*\\)?cmd(?:\.exe)?$/i.test(shell)) {
     return ["/d", "/s", "/c", fullCmd];
   }
