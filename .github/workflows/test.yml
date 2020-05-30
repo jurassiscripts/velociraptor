@@ -11,12 +11,12 @@ jobs:
   test:
     strategy:
       matrix:
-        deno: ['v1.0.0-rc2']
+        deno: ['v1.0.2']
         os: [ubuntu-latest, macOS-latest, windows-latest]
     runs-on: ${{ matrix.os }}
-    
+
     steps:
-    
+
       - uses: actions/checkout@v2
 
       - name: Setup Deno

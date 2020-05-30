@@ -1,0 +1,61 @@
+
+## [1.0.0-beta.9](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2020-05-29)
+
+
+### Bug Fixes
+
+* quoted arguments with spaces are split ([c00c866](https://github.com/umbopepato/velociraptor/commit/c00c8661bb684cf491899a4149e043083a66ef8f)), closes [#28](https://github.com/umbopepato/velociraptor/issues/28)
+
+## [1.0.0-beta.8](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2020-05-25)
+
+
+### Bug Fixes
+
+* **cli:** version flag not working ([2698141](https://github.com/umbopepato/velociraptor/commit/2698141699ab1f1cd1a0d4b4fb50354d60d22d2c))
+
+## [1.0.0-beta.7](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2020-05-25)
+
+
+### Features
+
+* **export:** add script exporting functionality ([399d5e3](https://github.com/umbopepato/velociraptor/commit/399d5e3d101df95bf35d71e2ab9542bff004fe3f))
+
+
+### Bug Fixes
+
+* **cli:** flags in additionalArgs consumed by vr ([9510a92](https://github.com/umbopepato/velociraptor/commit/9510a92cc07f3ae69d3ffa8fc696ff6bcaf8c36c)), closes [#26](https://github.com/umbopepato/velociraptor/issues/26)
+* **script-config:** add ParallelScripts to CompositeScript ([bb3d7bf](https://github.com/umbopepato/velociraptor/commit/bb3d7bfc7b826839a1eda9f4d046c4c736078d60))
+* correct validation functions imports ([454cb75](https://github.com/umbopepato/velociraptor/commit/454cb756fe1026daa06e72ed77a6582d1b82daad))
+
+## [1.0.0-beta.6](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2020-05-22)
+
+
+### Features
+
+* **export:** add script exporting functionality ([81e457f](https://github.com/umbopepato/velociraptor/commit/81e457febb2d8156fa3a752928bdb9af146bc6b6))
+
+## [1.0.0-beta.5](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2020-05-17)
+
+
+### Bug Fixes
+
+* **script-normalization:** wrong mergeParams argument order ([0c54801](https://github.com/umbopepato/velociraptor/commit/0c54801e1eb73e7f22e46cc5052e4fe09de0156c))
+
+## [1.0.0-beta.4](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2020-05-16)
+
+
+### Code Refactoring
+
+* **cli:** add cliffy ([82a142d](https://github.com/umbopepato/velociraptor/commit/82a142d761308a9e0db3988d3c2f012f06069652))
+
+
+### Features
+
+* add support for loading velociraptor.{ext} files ([d5e5f70](https://github.com/umbopepato/velociraptor/commit/d5e5f701648aa31976b13819673bd76302b10fb7))
+
+
+### BREAKING CHANGES
+
+* **cli:** vr subcommands (ie 'run', 'help'...) have been introduced
+and can collide with equal script names.
+Use the 'run' command to avoid colliding with the cli.

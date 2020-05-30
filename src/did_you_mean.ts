@@ -1,15 +1,15 @@
-import { stringSimilarity } from "../deps.ts";
+import { levenshtein } from "../deps.ts";
 import { Scripts } from "./scripts_config.ts";
 
 export function didYouMean(wrongName: string, scripts: Scripts): string | null {
   const names = Object.keys(scripts);
   const suggestion = names.reduce((closest: any, name, index) => {
-    const similarity = stringSimilarity(wrongName, name);
+    const distance = levenshtein(wrongName, name);
     if (
-      similarity > 0 &&
-      (closest == null || similarity > (<any> closest).similarity)
+      distance < wrongName.length &&
+      (closest == null || distance < (<any> closest).distance)
     ) {
-      return { index, similarity };
+      return { index, distance };
     }
     return closest;
   }, null);

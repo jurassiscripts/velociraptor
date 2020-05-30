@@ -6,6 +6,7 @@ import {
   logger,
   ConsoleHandler,
   LogRecord,
+  LevelName,
 } from "../deps.ts";
 
 const LEVEL_PREFIX: { [key: number]: string } = {
@@ -26,7 +27,7 @@ await logger.setup({
   },
   loggers: {
     default: {
-      level: "INFO",
+      level: Deno.env.get("VR_LOG") as LevelName || "WARNING",
       handlers: ["console"],
     },
   },

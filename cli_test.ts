@@ -33,7 +33,7 @@ Deno.test("basic script with env variable", async () => {
 });
 
 Deno.test("deno run", async () => {
-  const output = await runScript("run");
+  const output = await runScript("denorun");
   assertStrContains(output, expectedOutput);
 });
 

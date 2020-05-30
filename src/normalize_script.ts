@@ -30,7 +30,7 @@ function _normalizeScript(
   if (typeof node === "string") {
     return {
       cmd: node.trim(),
-      ...mergeParams(parentParams, {}),
+      ...mergeParams({}, parentParams),
     } as Command;
   }
   if (Array.isArray(node)) {

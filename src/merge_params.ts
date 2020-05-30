@@ -1,8 +1,8 @@
-import { ScriptOptions, FlagsObject } from "./scripts_config.ts";
+import { ScriptOptions, FlagsObject, AllowFlags } from "./scripts_config.ts";
 
 export function mergeParams(
-  parentParams: ScriptOptions,
   childParams: ScriptOptions,
+  parentParams: ScriptOptions,
 ): ScriptOptions {
   return {
     ...parentParams,
@@ -12,8 +12,8 @@ export function mergeParams(
       ...childParams.env,
     },
     allow: {
-      ...normalizeFlags(parentParams.allow),
-      ...normalizeFlags(childParams.allow),
+      ...normalizeFlags(parentParams.allow as string[] | FlagsObject),
+      ...normalizeFlags(childParams.allow as string[] | FlagsObject),
     },
     v8Flags: {
       ...normalizeFlags(parentParams.v8Flags),

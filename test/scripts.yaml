@@ -3,7 +3,7 @@ env:
 
 scripts:
   basic: echo Works!
-  run: deno run test.ts
+  denorun: deno run test.ts
   compactrun: test.ts
   sh: cat test.ts | deno
   multiple:
