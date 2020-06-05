@@ -7,7 +7,7 @@ import {
 import { ScriptsConfiguration } from "./scripts_config.ts";
 
 const CONFIG_FILE_NAMES = ["scripts", "velociraptor"];
-const CONFIG_FILE_EXTENSIONS = ["yaml", "yml", "json"];
+const CONFIG_FILE_EXTENSIONS = ["yaml", "yml", "json", "js"];
 
 export interface ConfigData {
   cwd: string;
@@ -23,7 +23,7 @@ export function loadConfig(): ConfigData | null {
         if (existsSync(p)) {
           return {
             cwd: dir,
-            config: parseConfig(p),
+            config: ext == "js" ? parseJavascriptConfig(p) : parseConfig(p),
           };
         }
       }
@@ -35,6 +35,10 @@ export function loadConfig(): ConfigData | null {
 
 function parent(dir: string) {
   return path.join(dir, "..");
+}
+
+function parseJavascriptConfig(configPath: string): ScriptsConfiguration {
+  return import(configPath);
 }
 
 function parseConfig(configPath: string): ScriptsConfiguration {
