@@ -1,4 +1,16 @@
 
+## [1.0.0-beta.10](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.9...v1.0.0-beta.10) (2020-06-05)
+
+
+### Features
+
+* **run:** add .js support to compact run ([4226144](https://github.com/umbopepato/velociraptor/commit/422614461d9537303fb9edc7b6ab5b0fdf3e8c2f))
+
+
+### Bug Fixes
+
+* **export:** absolute outDir treated as relative ([e6b8570](https://github.com/umbopepato/velociraptor/commit/e6b85700dc9fe552a59fa1201752ef3465c989b0))
+
 ## [1.0.0-beta.9](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2020-05-29)
 
 
