@@ -14,35 +14,41 @@ export interface ConfigData {
   config: ScriptsConfiguration;
 }
 
-export function loadConfig(): ConfigData | null {
-  let ext, name, dir = Deno.cwd();
-  while (parent(dir) !== dir) {
-    for (ext of CONFIG_FILE_EXTENSIONS) {
-      for (name of CONFIG_FILE_NAMES) {
-        const p = `${path.join(dir, name)}.${ext}`;
-        if (existsSync(p)) {
-          return {
-            cwd: dir,
-            config: ext == "js" ? parseJavascriptConfig(p) : parseConfig(p),
-          };
+export function loadConfig(): Promise<ConfigData | null> {
+  return new Promise(async (resolve: any) => {
+    let ext, name, dir = Deno.cwd();
+    while (parent(dir) !== dir) {
+      for (ext of CONFIG_FILE_EXTENSIONS) {
+        for (name of CONFIG_FILE_NAMES) {
+          const p = `${path.join(dir, name)}.${ext}`;
+          if (existsSync(p)) {
+            resolve({
+              cwd: dir,
+              config: await parseConfig(p, ext == "js"),
+            });
+          }
         }
       }
+      dir = parent(dir);
     }
-    dir = parent(dir);
-  }
-  return null;
+    resolve(null);
+  });
 }
 
 function parent(dir: string) {
   return path.join(dir, "..");
 }
 
-async function parseJavascriptConfig(configPath: string): Promise<ScriptsConfiguration> {
-  return await import(configPath);
-}
-
-function parseConfig(configPath: string): Promise<ScriptsConfiguration> {
-  return parseYaml(
-    readFileStrSync(configPath, { encoding: "utf8" }),
-  ) as ScriptsConfiguration;
+async function parseConfig(
+  configPath: string,
+  isJavascript: boolean,
+): Promise<ScriptsConfiguration> {
+  return new Promise(async (resolve: any) => {
+    if (isJavascript) {
+      return resolve(await import(configPath));
+    }
+    return resolve(parseYaml(
+      readFileStrSync(configPath, { encoding: "utf8" }),
+    ) as ScriptsConfiguration);
+  });
 }
