@@ -2,16 +2,20 @@ name: Deno CI
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
+      - develop
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
+      - develop
 
 jobs:
 
   test:
     strategy:
       matrix:
-        deno: ['v1.0.2']
+        deno: ['v1.0.5']
         os: [ubuntu-latest, macOS-latest, windows-latest]
     runs-on: ${{ matrix.os }}
 
