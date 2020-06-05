@@ -37,11 +37,11 @@ function parent(dir: string) {
   return path.join(dir, "..");
 }
 
-function parseJavascriptConfig(configPath: string): ScriptsConfiguration {
-  return import(configPath);
+async function parseJavascriptConfig(configPath: string): Promise<ScriptsConfiguration> {
+  return await import(configPath);
 }
 
-function parseConfig(configPath: string): ScriptsConfiguration {
+function parseConfig(configPath: string): Promise<ScriptsConfiguration> {
   return parseYaml(
     readFileStrSync(configPath, { encoding: "utf8" }),
   ) as ScriptsConfiguration;
