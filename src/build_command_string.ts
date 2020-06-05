@@ -109,6 +109,6 @@ function matchDenoCommand(command: string) {
 
 function matchCompactRun(command: string) {
   return command.match(
-    /^'(?:\\'|.)*?\.ts'|^"(?:\\"|.)*?\.ts"|^(?:\\\ |\S)+\.ts/,
+    /^'(?:\\'|.)*?\.[tj]s'|^"(?:\\"|.)*?\.[tj]s"|^(?:\\\ |\S)+\.[tj]s/,
   );
 }
