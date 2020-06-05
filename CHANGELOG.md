@@ -1,4 +1,11 @@
 
+## [1.0.0-beta.9](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2020-05-29)
+
+
+### Bug Fixes
+
+* quoted arguments with spaces are split ([c00c866](https://github.com/umbopepato/velociraptor/commit/c00c8661bb684cf491899a4149e043083a66ef8f)), closes [#28](https://github.com/umbopepato/velociraptor/issues/28)
+
 ## [1.0.0-beta.8](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2020-05-25)
 
 

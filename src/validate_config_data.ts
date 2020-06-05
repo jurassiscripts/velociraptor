@@ -10,7 +10,7 @@ export function validateConfigData(configData: ConfigData | null) {
     Object.entries(configData.config.scripts).length < 1
   ) {
     log.warning(
-      "No scripts available.\nSee https://github.com/umbopepato/velociraptor for guidance on how to create scripts.",
+      "No scripts available.\nSee https://velociraptor.run for guidance on how to create scripts.",
     );
     Deno.exit();
   }
