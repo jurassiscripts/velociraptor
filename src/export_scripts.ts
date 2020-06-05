@@ -26,7 +26,7 @@ export async function exportScripts(
 ) {
   validateConfigData(configData);
   const { cwd, config } = configData as ConfigData;
-  const outDirPath = path.join(cwd, outDir);
+  const outDirPath = path.isAbsolute(outDir) ? outDir : path.join(cwd, outDir);
   ensureDirSync(outDirPath);
   if (!scripts || scripts.length < 1) {
     scripts = Object.keys(config.scripts);
