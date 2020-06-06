@@ -71,3 +71,8 @@ Deno.test("importmap", async () => {
   const output = await runScript("importmap");
   assertStrContains(output, expectedOutput);
 });
+
+Deno.test("--help", async () => {
+  const output = await runScript("--help");
+  assertStrContains(output, "--version");
+});
