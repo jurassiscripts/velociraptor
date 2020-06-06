@@ -21,5 +21,5 @@ export {
   Command,
   BaseCommand,
   StringType,
-} from "https://deno.land/x/cliffy@v0.7.1/command.ts";
-export { HelpCommand } from "https://deno.land/x/cliffy@v0.7.1/packages/command/commands/help.ts";
+} from "https://deno.land/x/cliffy@v0.9.0/command.ts";
+export { HelpCommand } from "https://deno.land/x/cliffy@v0.9.0/packages/command/commands/help.ts";
