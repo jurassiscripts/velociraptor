@@ -7,7 +7,7 @@ import {
 import { ScriptsConfiguration } from "./scripts_config.ts";
 
 const CONFIG_FILE_NAMES = ["scripts", "velociraptor"];
-const CONFIG_FILE_EXTENSIONS = ["yaml", "yml", "json", "js"];
+const CONFIG_FILE_EXTENSIONS = ["yaml", "yml", "json", "ts"];
 
 export interface ConfigData {
   cwd: string;
@@ -24,7 +24,7 @@ export function loadConfig(): Promise<ConfigData | null> {
           if (existsSync(p)) {
             resolve({
               cwd: dir,
-              config: await parseConfig(p, ext == "js"),
+              config: await parseConfig(p, ext == "ts"),
             });
           }
         }
