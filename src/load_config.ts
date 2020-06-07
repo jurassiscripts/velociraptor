@@ -28,7 +28,7 @@ export function loadConfig(): Promise<ConfigData | null> {
             });
           }
         }
-      }
+      } 
       dir = parent(dir);
     }
     resolve(null);
