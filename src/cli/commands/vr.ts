@@ -24,12 +24,8 @@ export class VrCommand extends Command {
       )
       .type("scriptid", new ScriptIdType(this.configData))
       .arguments("[script:scriptid] [additionalArgs...]")
-      .useRawArgs()
-      .action(async (options, script: string, ...additionalArgs: string[]) => {
-        if (["-v", "--version"].includes(script)) { // TODO find a way to avoid this
-          console.log(version);
-          return;
-        }
+      .stopEarly()
+      .action(async (options, script: string, additionalArgs: string[]) => {
         await runScript(this.configData, script, additionalArgs);
       })
       .command("run", new RunCommand(this.configData))
