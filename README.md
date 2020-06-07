@@ -34,6 +34,7 @@
 - [Current working directory](#current-working-directory)
 - [Shell completions](#shell-completions)
 - [Editor support](#editor-support)
+- [Help](#help)
 - [Badge](#badge)
 - [Known limitations](#known-limitations)
 - [Upcoming features](#upcoming-features)
@@ -401,6 +402,10 @@ source <(vr completions zsh)
 
 [Velociraptor support for VSCode](https://marketplace.visualstudio.com/items?itemName=umbo.vscode-velociraptor) adds code assistance for script configuration files (both `yaml` and `json`).
 
+## Help
+
+If you need any help feel free to ask in the [chat](https://discord.gg/M5K7TBd) or on [StackOverflow](https://stackoverflow.com/questions/tagged/velociraptor) using the `velociraptor` tag. 
+
 ## Badge
 
 Show your collaborators/users you use velociraptor:
@@ -423,7 +428,7 @@ As a workaround you can tell Velociraptor to use `PowerShell` instead of `cmd` (
 
 ## Contributing
 
-Feedback and PRs are welcome! Just make sure to run `deno fmt` before committing ✨
+Feedback and PRs are welcome! Take a look at the [contributing guidelines](CONTRIBUTING.md).
 
 ## License
 
