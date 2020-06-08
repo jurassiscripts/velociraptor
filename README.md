@@ -96,7 +96,7 @@ scripts:
   test: deno test --allow-net server_test.ts
 ```
 
-`.json` is supported as well:
+`.json` and `.ts` config files are supported as well:
 
 ```json
 // scripts.json
@@ -106,6 +106,16 @@ scripts:
     "test": "deno test --allow-net server_test.ts"
   }
 }
+```
+
+```ts
+// scripts.ts
+export default {
+  scripts: {
+    start: "deno run --allow-net server.ts",
+    test: "deno test --allow-net server_test.ts",
+  },
+};
 ```
 
 ### Basic scripts
