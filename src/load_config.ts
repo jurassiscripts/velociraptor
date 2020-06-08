@@ -41,14 +41,13 @@ function parent(dir: string) {
 
 async function parseConfig(
   configPath: string,
-  isJavascript: boolean,
+  isTypescript: boolean,
 ): Promise<ScriptsConfiguration> {
-  return new Promise(async (resolve: any) => {
-    if (isJavascript) {
-      return resolve(await import(configPath));
-    }
-    return resolve(parseYaml(
-      readFileStrSync(configPath, { encoding: "utf8" }),
-    ) as ScriptsConfiguration);
-  });
+  if (isTypescript) {
+    return (await import(`file://${configPath}`))
+      .default as ScriptsConfiguration;
+  }
+  return parseYaml(
+    readFileStrSync(configPath, { encoding: "utf8" }),
+  ) as ScriptsConfiguration;
 }
