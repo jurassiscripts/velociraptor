@@ -54,6 +54,9 @@ One of the things that many developers find disorientating about Deno is the fac
 $ deno install -qA -n vr https://deno.land/x/velociraptor@v1.0.0-beta.10/cli.ts
 ```
 
+**Upgrade**  
+To upgrade from an older version run the above command with the `-f` flag.
+
 To get help with the CLI run `vr help`, or `vr help <SUBCOMMAND>` for specific commands.
 
 ## Project status
