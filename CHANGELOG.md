@@ -1,4 +1,17 @@
 
+## [1.0.0-beta.11](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2020-06-09)
+
+
+### Features
+
+* add support for `.ts` config files ([df27540](https://github.com/umbopepato/velociraptor/commit/df275400bb0e5fb232f5fbc72237f679006a032a))
+
+### Bug Fixes
+
+* **cli:** default help option not working ([4a88bfa](https://github.com/umbopepato/velociraptor/commit/4a88bfa299cfdf535e2e9cafdb4ea1c47ff7beda)), closes [#32](https://github.com/umbopepato/velociraptor/issues/32)
+* **config:** use the file:// protocol to import ts config files ([e82be9c](https://github.com/umbopepato/velociraptor/commit/e82be9ca12eaa35aa3a7f3967ed094f11312d607))
+* **export:** execute exported scripts in the correct workdir ([446962f](https://github.com/umbopepato/velociraptor/commit/446962f612b168bdfdd0a3eb87a3941a37ce96c0))
+
 ## [1.0.0-beta.10](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.9...v1.0.0-beta.10) (2020-06-05)
 
 
