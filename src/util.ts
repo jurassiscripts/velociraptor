@@ -10,5 +10,9 @@ export function escape(str: string, ...exp: string[]): string {
 }
 
 export function makeFileExecutable(filePath: string) {
-  Deno.chmodSync(filePath, 0o0755);
+  try {
+    Deno.chmodSync(filePath, 0o0755);
+  } catch (e) {
+    // Windows
+  }
 }

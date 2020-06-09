@@ -16,6 +16,6 @@ function validateShellFile(shell: string | undefined) {
   try {
     return shell && Deno.statSync(shell).isFile; // TODO check executable
   } catch (e) {
-    // use fallback shell
+    // Use fallback shell
   }
 }
