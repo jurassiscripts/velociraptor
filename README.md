@@ -85,7 +85,9 @@ scripts:
 
 ```ts
 // scripts.ts
-export default {
+import { ScriptsConfiguration } from "https://deno.land/x/velociraptor@v1.0.0-beta.10/mod.ts";
+
+export default <ScriptsConfiguration>{
   scripts: {
     start: "deno run --allow-net server.ts",
     test: "deno test --allow-net server_test.ts",
@@ -290,7 +292,7 @@ scripts:
 
 ### Script file model
 
-See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.10/src/scripts_config.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
+See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.10/mod.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
 
 ## Listing scripts
 
