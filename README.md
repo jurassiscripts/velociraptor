@@ -51,33 +51,8 @@ One of the things that many developers find disorientating about Deno is the fac
 ## Install
 
 ```sh
-$ deno install --allow-read --allow-write --allow-env --allow-run -n vr https://deno.land/x/velociraptor/cli.ts
+$ deno install -qA -n vr https://deno.land/x/velociraptor@v1.0.0-beta.10/cli.ts
 ```
-
-<details>
-<summary>Upgrade</summary>
-
-The above command will always install the latest version. If you're updating from an older version you might need to run the command with the `-f` flag.
-
-</details>
-
-<details>
-<summary>Install a specific version</summary>
-
-To install a specific version, run the install command with a specific version tag:
-
-```sh
-$ deno install ... https://deno.land/x/velociraptor@<version>/cli.ts
-                                                    ^^^^^^^^^
-```
-
-For example
-
-```sh
-$ deno install --allow-read --allow-write --allow-env --allow-run -n vr https://deno.land/x/velociraptor@v1.0.0-beta.10/cli.ts
-```
-
-</details>
 
 To get help with the CLI run `vr help`, or `vr help <SUBCOMMAND>` for specific commands.
 

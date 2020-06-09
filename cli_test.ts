@@ -3,9 +3,7 @@ const wd = "./test";
 const cliArgs = [
   "deno",
   "run",
-  "--allow-read",
-  "--allow-run",
-  "--allow-env",
+  "-qA",
   "../cli.ts",
 ];
 const expectedOutput = "Works!";
