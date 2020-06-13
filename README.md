@@ -12,8 +12,9 @@
  <img alt="Version" src="https://img.shields.io/github/v/release/umbopepato/velociraptor?logo=github&include_prereleases">
  <a href="https://github.com/umbopepato/velociraptor"><img alt="GitHub stars" src="https://img.shields.io/github/stars/umbopepato/velociraptor?logo=github"></a>
  <a href="#badge"><img alt="vr scripts" src="https://badges.velociraptor.run/flat.svg"/></a>
- <a href="https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.9/src/scripts_config.ts#ScriptsConfiguration"><img src="https://img.shields.io/badge/deno-doc-blue?logo=deno"></a>
+ <a href="https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.11/src/scripts_config.ts#ScriptsConfiguration"><img src="https://img.shields.io/badge/deno-doc-blue?logo=deno"></a>
  <a href="https://deno.land"><img src="https://img.shields.io/badge/deno-%5E1.0.0-green?logo=deno"/></a>
+ <a href="https://discord.gg/M5K7TBd"><img src="https://img.shields.io/badge/join-chat-7289DA?logo=discord&logoColor=white"/></a>
  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen"/></a>
 
 </p>
@@ -33,6 +34,7 @@
 - [Current working directory](#current-working-directory)
 - [Shell completions](#shell-completions)
 - [Editor support](#editor-support)
+- [Help](#help)
 - [Badge](#badge)
 - [Known limitations](#known-limitations)
 - [Upcoming features](#upcoming-features)
@@ -49,33 +51,11 @@ One of the things that many developers find disorientating about Deno is the fac
 ## Install
 
 ```sh
-$ deno install --allow-read --allow-write --allow-env --allow-run -n vr https://deno.land/x/velociraptor/cli.ts
+$ deno install -qA -n vr https://deno.land/x/velociraptor@v1.0.0-beta.11/cli.ts
 ```
 
-<details>
-<summary>Upgrade</summary>
-
-The above command will always install the latest version. If you're updating from an older version you might need to run the command with the `-f` flag.
-
-</details>
-
-<details>
-<summary>Install a specific version</summary>
-
-To install a specific version, run the install command with a specific version tag:
-
-```sh
-$ deno install ... https://deno.land/x/velociraptor@<version>/cli.ts
-                                                    ^^^^^^^^^
-```
-
-For example
-
-```sh
-$ deno install --allow-read --allow-write --allow-env --allow-run -n vr https://deno.land/x/velociraptor@v1.0.0-beta.9/cli.ts
-```
-
-</details>
+**Upgrade**  
+To upgrade from an older version run the above command with the `-f` flag.
 
 To get help with the CLI run `vr help`, or `vr help <SUBCOMMAND>` for specific commands.
 
@@ -94,7 +74,7 @@ scripts:
   test: deno test --allow-net server_test.ts
 ```
 
-`.json` is supported as well:
+`.json` and `.ts` config files are supported as well:
 
 ```json
 // scripts.json
@@ -106,13 +86,25 @@ scripts:
 }
 ```
 
+```ts
+// scripts.ts
+import { ScriptsConfiguration } from "https://deno.land/x/velociraptor@v1.0.0-beta.11/mod.ts";
+
+export default <ScriptsConfiguration>{
+  scripts: {
+    start: "deno run --allow-net server.ts",
+    test: "deno test --allow-net server_test.ts",
+  },
+};
+```
+
 ### Basic scripts
 
 In its simplest form, the `scripts` property behaves like in package.json: the keys are script names and the values are the command strings.
 
 ### Compact deno run
 
-When a command starts with a `.ts` file, `deno run` is automatically prepended:
+When a command starts with a `.ts` or `.js` file, `deno run` is automatically prepended:
 
 ```yaml
 scripts:
@@ -303,7 +295,7 @@ scripts:
 
 ### Script file model
 
-See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.9/src/scripts_config.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
+See [ScriptConfiguration](https://doc.deno.land/https/deno.land/x/velociraptor@v1.0.0-beta.11/mod.ts#ScriptsConfiguration) for a detailed description of the structure of script files.
 
 ## Listing scripts
 
@@ -400,6 +392,10 @@ source <(vr completions zsh)
 
 [Velociraptor support for VSCode](https://marketplace.visualstudio.com/items?itemName=umbo.vscode-velociraptor) adds code assistance for script configuration files (both `yaml` and `json`).
 
+## Help
+
+If you need any help feel free to ask in the [chat](https://discord.gg/M5K7TBd) or on [StackOverflow](https://stackoverflow.com/questions/tagged/velociraptor) using the `velociraptor` tag. 
+
 ## Badge
 
 Show your collaborators/users you use velociraptor:
@@ -422,7 +418,7 @@ As a workaround you can tell Velociraptor to use `PowerShell` instead of `cmd` (
 
 ## Contributing
 
-Feedback and PRs are welcome! Just make sure to run `deno fmt` before committing ✨
+Feedback and PRs are welcome! Take a look at the [contributing guidelines](CONTRIBUTING.md).
 
 ## License
 

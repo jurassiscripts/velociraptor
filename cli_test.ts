@@ -3,9 +3,7 @@ const wd = "./test";
 const cliArgs = [
   "deno",
   "run",
-  "--allow-read",
-  "--allow-run",
-  "--allow-env",
+  "-qA",
   "../cli.ts",
 ];
 const expectedOutput = "Works!";
@@ -70,4 +68,9 @@ Deno.test("tsconfig", async () => {
 Deno.test("importmap", async () => {
   const output = await runScript("importmap");
   assertStrContains(output, expectedOutput);
+});
+
+Deno.test("--help", async () => {
+  const output = await runScript("--help");
+  assertStrContains(output, "--version");
 });

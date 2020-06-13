@@ -26,7 +26,7 @@ export async function exportScripts(
 ) {
   validateConfigData(configData);
   const { cwd, config } = configData as ConfigData;
-  const outDirPath = path.join(cwd, outDir);
+  const outDirPath = path.isAbsolute(outDir) ? outDir : path.join(cwd, outDir);
   ensureDirSync(outDirPath);
   if (!scripts || scripts.length < 1) {
     scripts = Object.keys(config.scripts);
@@ -37,7 +37,7 @@ export async function exportScripts(
       const scriptDef = config.scripts[script];
       const { scripts, ...rootConfig } = config;
       const commands = normalizeScript(scriptDef, rootConfig);
-      const content = generateExecutableFile(commands);
+      const content = generateExecutableFile(commands, cwd);
       if (content) {
         const filePath = path.join(outDirPath, script);
         if (
@@ -55,6 +55,7 @@ export async function exportScripts(
 
 function generateExecutableFile(
   commands: CompoundCommandItem[],
+  cwd: string,
 ) {
   if (isWindows) {
     log.warning("Scripts exporting only supports sh.");
@@ -62,12 +63,13 @@ function generateExecutableFile(
   return `#!/bin/sh
 # ${VR_MARK}
 
-${exportCommands(commands)}
+${exportCommands(commands, cwd)}
 `;
 }
 
 function exportCommands(
   commands: CompoundCommandItem[],
+  cwd: string,
 ): string {
   const _exportCommands = (
     commands: OneOrMore<CompoundCommandItem>,
@@ -75,16 +77,15 @@ function exportCommands(
   ): string => {
     if (!commands) return "";
     if (Array.isArray(commands)) {
-      let res = commands.map((c) =>
-        _exportCommands(c, commands.length > 1 ? true : false)
-      ).join(" && ");
-      if (doGroup) res = `(${res})`;
+      let res = commands.map((c) => _exportCommands(c, commands.length > 1))
+        .join(" && ");
+      if (doGroup) res = `( ${res} )`;
       return res;
     } else {
       if (isParallel(commands)) {
-        return `(${
+        return `( ${
           commands.pll.map((c) => _exportCommands(c, true)).join(" & ")
-        }; wait)`;
+        }; wait )`;
       }
       const cmd = commands;
       let res = "";
@@ -97,9 +98,9 @@ function exportCommands(
         }
       }
       res += buildCommandString(cmd) + ' "$@"';
-      if (doGroup) res = `(${res})`;
+      if (doGroup) res = `( ${res} )`;
       return res;
     }
   };
-  return _exportCommands(commands);
+  return `( cd "${escape(cwd, '"')}" && ${_exportCommands(commands)} )`;
 }
