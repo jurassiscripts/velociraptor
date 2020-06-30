@@ -1,4 +1,11 @@
 
+## [1.0.0-beta.12](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.11...v1.0.0-beta.12) (2020-06-30)
+
+
+### Revert
+
+* feat(export): execute exported scripts in the correct workdir ([ec6c502](https://github.com/umbopepato/velociraptor/commit/ec6c502a2b5016cae038374bc46420a54e3d2e1f))
+
 ## [1.0.0-beta.11](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2020-06-09)
 
 
