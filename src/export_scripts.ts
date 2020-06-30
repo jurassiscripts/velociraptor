@@ -37,7 +37,7 @@ export async function exportScripts(
       const scriptDef = config.scripts[script];
       const { scripts, ...rootConfig } = config;
       const commands = normalizeScript(scriptDef, rootConfig);
-      const content = generateExecutableFile(commands, cwd);
+      const content = generateExecutableFile(commands);
       if (content) {
         const filePath = path.join(outDirPath, script);
         if (
@@ -53,24 +53,18 @@ export async function exportScripts(
   );
 }
 
-function generateExecutableFile(
-  commands: CompoundCommandItem[],
-  cwd: string,
-) {
+function generateExecutableFile(commands: CompoundCommandItem[]) {
   if (isWindows) {
     log.warning("Scripts exporting only supports sh.");
   }
   return `#!/bin/sh
 # ${VR_MARK}
 
-${exportCommands(commands, cwd)}
+${exportCommands(commands)}
 `;
 }
 
-function exportCommands(
-  commands: CompoundCommandItem[],
-  cwd: string,
-): string {
+function exportCommands(commands: CompoundCommandItem[]): string {
   const _exportCommands = (
     commands: OneOrMore<CompoundCommandItem>,
     doGroup: boolean = false,
@@ -102,5 +96,5 @@ function exportCommands(
       return res;
     }
   };
-  return `( cd "${escape(cwd, '"')}" && ${_exportCommands(commands)} )`;
+  return _exportCommands(commands);
 }
