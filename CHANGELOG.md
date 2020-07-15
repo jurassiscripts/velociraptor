@@ -1,4 +1,11 @@
 
+## [1.0.0-beta.13](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.12...v1.0.0-beta.13) (2020-07-15)
+
+
+### Bug Fixes
+
+* std errors with deno 1.2.0 ([848999a](https://github.com/umbopepato/velociraptor/commit/848999a4136ca3f68101b1e0025c11a6818d1dba))
+
 ## [1.0.0-beta.12](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.11...v1.0.0-beta.12) (2020-06-30)
 
 

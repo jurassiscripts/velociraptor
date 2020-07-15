@@ -1,7 +1,7 @@
 name: velociraptor
 description: An npm-style script runner for Deno
 stable: false
-version: 1.0.0-beta.12
+version: 1.0.0-beta.13
 repository: https://github.com/umbopepato/velociraptor/
 files:
   - src/**/*
