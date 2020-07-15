@@ -4,7 +4,7 @@ import { FlagsObject, ScriptOptions } from "./scripts_config.ts";
 const denoCmdOptions: { [key: string]: string[] } = {
   bundle: ["cert", "imap", "log"],
   cache: ["cert", "tsconfig", "imap", "lock", "log"],
-  install: ["allow", "log"],
+  install: ["cert", "allow", "log", "tsconfig"],
   run: [
     "allow",
     "cert",
