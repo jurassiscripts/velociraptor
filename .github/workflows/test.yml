@@ -15,7 +15,7 @@ jobs:
   test:
     strategy:
       matrix:
-        deno: ['v1.0.5']
+        deno: ['v1.x']
         os: [ubuntu-latest, macOS-latest, windows-latest]
     runs-on: ${{ matrix.os }}
 
