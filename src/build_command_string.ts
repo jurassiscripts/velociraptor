@@ -1,44 +1,167 @@
 import { Command } from "./command.ts";
 import { FlagsObject, ScriptOptions } from "./scripts_config.ts";
+import { escape } from "./util.ts";
 
-const denoCmdOptions: { [key: string]: string[] } = {
-  bundle: ["cert", "imap", "log"],
-  cache: ["cert", "tsconfig", "imap", "lock", "log"],
-  install: ["cert", "allow", "log", "tsconfig"],
+enum DenoOptions {
+  allow = "allow",
+  cachedOnly = "cachedOnly",
+  cert = "cert",
+  imap = "imap",
+  inspect = "inspect",
+  inspectBrk = "inspectBrk",
+  lock = "lock",
+  log = "log",
+  noCheck = "noCheck",
+  noRemote = "noRemote",
+  quiet = "quiet",
+  reload = "reload",
+  tsconfig = "tsconfig",
+  unstable = "unstable",
+  v8Flags = "v8Flags",
+  watch = "watch",
+}
+
+const denoCmdOptions: { [key: string]: DenoOptions[] } = {
+  bundle: [
+    DenoOptions.cert,
+    DenoOptions.imap,
+    DenoOptions.lock,
+    DenoOptions.log,
+    DenoOptions.noRemote,
+    DenoOptions.quiet,
+    DenoOptions.reload,
+    DenoOptions.tsconfig,
+    DenoOptions.unstable,
+  ],
+  install: [
+    DenoOptions.allow,
+    DenoOptions.cert,
+    DenoOptions.log,
+    DenoOptions.noCheck,
+    DenoOptions.quiet,
+    DenoOptions.tsconfig,
+    DenoOptions.unstable,
+  ],
   run: [
-    "allow",
-    "cert",
-    "tsconfig",
-    "imap",
-    "inspect",
-    "inspectBrk",
-    "lock",
-    "log",
-    "v8Flags",
+    DenoOptions.allow,
+    DenoOptions.cachedOnly,
+    DenoOptions.cert,
+    DenoOptions.imap,
+    DenoOptions.inspect,
+    DenoOptions.inspectBrk,
+    DenoOptions.lock,
+    DenoOptions.log,
+    DenoOptions.noCheck,
+    DenoOptions.noRemote,
+    DenoOptions.quiet,
+    DenoOptions.reload,
+    DenoOptions.tsconfig,
+    DenoOptions.unstable,
+    DenoOptions.v8Flags,
+    DenoOptions.watch,
   ],
   test: [
-    "allow",
-    "cert",
-    "tsconfig",
-    "imap",
-    "inspect",
-    "inspectBrk",
-    "lock",
-    "log",
-    "v8Flags",
+    DenoOptions.allow,
+    DenoOptions.cachedOnly,
+    DenoOptions.cert,
+    DenoOptions.imap,
+    DenoOptions.inspect,
+    DenoOptions.inspectBrk,
+    DenoOptions.lock,
+    DenoOptions.log,
+    DenoOptions.noCheck,
+    DenoOptions.noRemote,
+    DenoOptions.quiet,
+    DenoOptions.reload,
+    DenoOptions.tsconfig,
+    DenoOptions.unstable,
+    DenoOptions.v8Flags,
+  ],
+  cache: [
+    DenoOptions.cert,
+    DenoOptions.imap,
+    DenoOptions.lock,
+    DenoOptions.log,
+    DenoOptions.noCheck,
+    DenoOptions.noRemote,
+    DenoOptions.quiet,
+    DenoOptions.reload,
+    DenoOptions.tsconfig,
+    DenoOptions.unstable,
+  ],
+  doc: [
+    DenoOptions.log,
+    DenoOptions.quiet,
+    DenoOptions.reload,
+    DenoOptions.unstable,
+  ],
+  eval: [
+    DenoOptions.cachedOnly,
+    DenoOptions.cert,
+    DenoOptions.imap,
+    DenoOptions.inspect,
+    DenoOptions.inspectBrk,
+    DenoOptions.lock,
+    DenoOptions.log,
+    DenoOptions.noCheck,
+    DenoOptions.noRemote,
+    DenoOptions.quiet,
+    DenoOptions.reload,
+    DenoOptions.tsconfig,
+    DenoOptions.unstable,
+    DenoOptions.v8Flags,
+  ],
+  repl: [
+    DenoOptions.cachedOnly,
+    DenoOptions.cert,
+    DenoOptions.imap,
+    DenoOptions.inspect,
+    DenoOptions.inspectBrk,
+    DenoOptions.lock,
+    DenoOptions.log,
+    DenoOptions.noCheck,
+    DenoOptions.noRemote,
+    DenoOptions.quiet,
+    DenoOptions.reload,
+    DenoOptions.tsconfig,
+    DenoOptions.unstable,
+    DenoOptions.v8Flags,
+  ],
+  fmt: [
+    DenoOptions.log,
+    DenoOptions.quiet,
+    DenoOptions.unstable,
+  ],
+  lint: [
+    DenoOptions.log,
+    DenoOptions.quiet,
+    DenoOptions.unstable,
+  ],
+  types: [
+    DenoOptions.log,
+    DenoOptions.quiet,
+    DenoOptions.unstable,
+  ],
+  info: [
+    DenoOptions.cert,
+    DenoOptions.log,
+    DenoOptions.quiet,
+    DenoOptions.reload,
+    DenoOptions.unstable,
   ],
 };
 
-const denoOption: { [key: string]: string } = {
-  allow: "allow-",
-  cert: "cert",
-  imap: "importmap",
-  inspect: "inspect",
-  inspectBrk: "inspect-brk",
-  lock: "lock",
-  log: "log-level",
-  tsconfig: "config",
-  v8Flags: "v8-flags",
+const denoOption: Record<DenoOptions, string> = {
+  ...DenoOptions,
+  [DenoOptions.allow]: "allow-",
+  [DenoOptions.imap]: "importmap",
+  [DenoOptions.inspectBrk]: "inspect-brk",
+  [DenoOptions.log]: "log-level",
+  [DenoOptions.tsconfig]: "config",
+  [DenoOptions.v8Flags]: "v8-flags",
+  [DenoOptions.noCheck]: "no-check",
+  [DenoOptions.noRemote]: "no-remote",
+  [DenoOptions.cachedOnly]: "cached-only",
 };
 
 export function buildCommandString(command: Command): string {
@@ -54,29 +177,79 @@ export function buildCommandString(command: Command): string {
       for (let optionName of options) {
         const option = command[optionName as keyof ScriptOptions];
         if (option) {
-          if (optionName === "allow") {
-            const flags = generateFlagOptions(
-              option as FlagsObject,
-              denoOption[optionName],
-            );
-            if (flags && flags.length > 0) {
-              cmd = insertOptions(cmd, insertAt, ...flags);
+          switch (optionName) {
+            case DenoOptions.allow: {
+              const flags = generateFlagOptions(
+                option as FlagsObject,
+                denoOption[optionName],
+              );
+              if (flags && flags.length > 0) {
+                cmd = insertOptions(cmd, insertAt, ...flags);
+              }
+              break;
             }
-          } else if (optionName === "v8Flags") {
-            const flags = generateFlagOptions(option as FlagsObject);
-            if (flags && flags.length > 0) {
+
+            case DenoOptions.v8Flags: {
+              const flags = generateFlagOptions(option as FlagsObject);
+              if (flags && flags.length > 0) {
+                cmd = insertOptions(
+                  cmd,
+                  insertAt,
+                  `--${denoOption[optionName]}=${flags.join(",")}`,
+                );
+              }
+              break;
+            }
+
+            case DenoOptions.cachedOnly:
+            case DenoOptions.noCheck:
+            case DenoOptions.noRemote:
+            case DenoOptions.quiet:
+            case DenoOptions.unstable:
+            case DenoOptions.watch: {
+              if (option === true) {
+                cmd = insertOptions(
+                  cmd,
+                  insertAt,
+                  `--${denoOption[optionName]}`,
+                );
+              }
+              break;
+            }
+
+            case DenoOptions.reload: {
+              if (option === true) {
+                cmd = insertOptions(
+                  cmd,
+                  insertAt,
+                  `--${denoOption[optionName]}`,
+                );
+              } else if (typeof option === "string") {
+                cmd = insertOptions(
+                  cmd,
+                  insertAt,
+                  `--${denoOption[optionName]}=${escapeCliOption(option)}`,
+                );
+              } else if (Array.isArray(option)) {
+                cmd = insertOptions(
+                  cmd,
+                  insertAt,
+                  `--${denoOption[optionName]}=${
+                    (<string[]> option).map(escapeCliOption).join(",")
+                  }`,
+                );
+              }
+              break;
+            }
+
+            default:
               cmd = insertOptions(
                 cmd,
                 insertAt,
-                `--${denoOption[optionName]}=${flags.join(",")}`,
+                `--${denoOption[optionName]}=${
+                  escapeCliOption(option as string)
+                }`,
               );
-            }
-          } else {
-            cmd = insertOptions(
-              cmd,
-              insertAt,
-              `--${denoOption[optionName]}=${option}`,
-            );
           }
         }
       }
@@ -99,7 +272,7 @@ function generateFlagOptions(
   prefix: string = "",
 ): string[] {
   return Object.entries(flags).map(([k, v]) =>
-    `--${prefix}${k}${v !== true ? `="${v}"` : ""}`
+    `--${prefix}${k}${v !== true ? `="${escapeCliOption(v.toString())}"` : ""}`
   );
 }
 
@@ -111,4 +284,8 @@ function matchCompactRun(command: string) {
   return command.match(
     /^'(?:\\'|.)*?\.[tj]s'|^"(?:\\"|.)*?\.[tj]s"|^(?:\\\ |\S)+\.[tj]s/,
   );
+}
+
+function escapeCliOption(option: string) {
+  return escape(option, '"', " ");
 }

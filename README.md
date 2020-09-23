@@ -46,7 +46,7 @@
 
 ## Motivation
 
-One of the things that many developers find disorientating about Deno is the fact that it [doesn't have](https://deno.land/manual#philosophy) an external package manager like npm. On one side this new paradigm simplifies many aspects of development; on the other, the lack of some npm features - notably scripts - can be really limiting: Deno cli commands can become _very_ long and difficult to track without a place to store them and there's not an easy way to share workflow scripts, git hooks and external tooling with contributors. Velociraptor tries to provide a relatively lightweight solution to this problems by expanding the concept of npm scripts.
+Deno [doesn't have](https://deno.land/manual#philosophy) a dedicated package manager like npm. While this simplifies many aspects of development, working without the added tooling that npm comes with (such as scripts) may turn out to be challenging: as projects grow Deno cli commands can become quite long and difficult to track and there's not an easy way to share workflow scripts, git hooks and external tooling with collaborators. Velociraptor tries to provide a relatively lightweight solution to these problems by expanding the concept of npm scripts.
 
 ## Install
 
@@ -164,6 +164,19 @@ scripts:
       net: 127.0.0.1
 ```
 
+### Watch
+
+Use the `watch` property to watch for file changes and restart processes automatically
+
+> Only local files from entry point module graph are watched
+
+```yaml
+scripts:
+  start:
+    cmd: server.ts
+    watch: true
+```
+
 ### Tsconfig
 
 To specify a `tsconfig`, set the `tsconfig` property.
@@ -186,7 +199,7 @@ scripts:
     imap: importmap.json
 ```
 
-> 🧪 Import maps are currently marked as unstable so the `--unstable` flag must be provided.
+> 🧪 Import maps are currently marked as unstable so the `--unstable` flag must be provided (see [other boolean flags](#other-boolean-flags)).
 
 ### Inspect
 
@@ -211,6 +224,37 @@ scripts:
 ```
 
 > ⚠️ Setting this option doesn't create a lock file: you will have to create/update it by passing the `--lock-write` option manually to your script at the appropriate time. More info [here](https://deno.land/manual/linking_to_external_code/integrity_checking).
+
+### Reload
+
+Reload source code cache (recompile TypeScript).
+
+```yaml
+scripts:
+  start:
+    cmd: server.ts
+    reload: true                  # Reload everything
+    reload: https://deno.land/std # Reload only standard modules
+    reload:                       # Reload specific modules
+      - https://deno.land/std/fs/utils.ts
+      - https://deno.land/std/fmt/colors.ts
+```
+
+### Other boolean flags
+
+The `--cached-only`, `--no-check`, `--no-remote`, `--quiet`, `--unstable` options can
+be applied using the following properties:
+
+```yaml
+scripts:
+  start:
+    cmd: server.ts
+    cahcedOnly: true
+    noCheck: true
+    noRemote: true
+    quiet: true
+    unstable: true
+```
 
 ### Log
 
