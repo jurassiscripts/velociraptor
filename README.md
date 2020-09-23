@@ -166,7 +166,7 @@ scripts:
 
 ### Watch
 
-Use the `watch` property to watch for file changes and restart processes automatically
+Use the `watch` property to watch for file changes and restart processes automatically.
 
 > Only local files from entry point module graph are watched
 
