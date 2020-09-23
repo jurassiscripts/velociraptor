@@ -1,4 +1,4 @@
 export {
   assertStringContains,
   assertMatch,
-} from "https://deno.land/std@v0.61.0/testing/asserts.ts";
+} from "https://deno.land/std@0.70.0/testing/asserts.ts";

@@ -1,9 +1,9 @@
-import { BaseCommand, HelpCommand } from "../../../deps.ts";
+import { Command } from "../../../deps.ts";
 import { ScriptIdType } from "../script_id_type.ts";
 import { ConfigData } from "../../load_config.ts";
 import { exportScripts } from "../../export_scripts.ts";
 
-export class ExportCommand extends BaseCommand {
+export class ExportCommand extends Command {
   constructor(private configData: ConfigData | null) {
     super();
     this.description("Export one or more scripts as executable files")

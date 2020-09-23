@@ -11,8 +11,6 @@ import { escape } from "./util.ts";
 import {
   path,
   existsSync,
-  readFileStrSync,
-  writeFileStr,
   moveSync,
   ensureDirSync,
 } from "../deps.ts";
@@ -42,11 +40,11 @@ export async function exportScripts(
         const filePath = path.join(outDirPath, script);
         if (
           existsSync(filePath) &&
-          !readFileStrSync(filePath).includes(VR_MARK)
+          !Deno.readTextFileSync(filePath).includes(VR_MARK)
         ) {
           moveSync(filePath, `${filePath}.bkp`);
         }
-        await writeFileStr(filePath, content);
+        await Deno.writeTextFile(filePath, content);
         makeFileExecutable(filePath);
       }
     }),
