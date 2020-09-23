@@ -1,4 +1,4 @@
-import { Command } from "../../../deps.ts";
+import { Command, CompletionsCommand } from "../../../deps.ts";
 import { version } from "../../version.ts";
 import { ScriptIdType } from "../script_id_type.ts";
 import { ConfigData } from "../../load_config.ts";
@@ -30,6 +30,7 @@ export class VrCommand extends Command {
       })
       .command("run", new RunCommand(this.configData))
       .command("export", new ExportCommand(this.configData))
+      .command("completions", new CompletionsCommand())
       .reset();
   }
 }

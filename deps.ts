@@ -18,4 +18,5 @@ export { LevelName } from "https://deno.land/std@0.70.0/log/levels.ts";
 export {
   Command,
   StringType,
+  CompletionsCommand,
 } from "https://deno.land/x/cliffy@v0.14.1/command/mod.ts";

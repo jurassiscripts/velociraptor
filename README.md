@@ -384,8 +384,9 @@ to execute the `start` script.
 
 ## Exporting scripts
 
-You may find yourself in a situation where you want to use velociraptor to manage your scripts during development, but you're not comfortable installing it (or just can't install it) in your production environment.
-In this case the `export` subcommand may be of help: it allows you to export one or more scripts as standalone executable shell files:
+If you want to use velociraptor to manage your scripts, but you want to be able to execute them in environments where
+you can't (or don't want to) install vr, the `export` subcommand may be of help: it allows you to export one or more
+scripts as standalone executable shell files together with their env variables, Deno cli options etc.:
 
 ```sh
 $ vr export [SCRIPTS]...
@@ -402,7 +403,7 @@ For example, run
 $ vr export start
 ```
 
-to export the `start` script, together with its env variables, deno cli options etc. Now you can execute it by running
+to export the `start` script. Now you can execute it by running
 
 ```sh
 $ ./bin/start [ARGS]...
@@ -422,13 +423,17 @@ Velociraptor searches for script files up the folder tree starting from the dire
 
 ## Shell completions
 
-To enable zsh tab-completion for velociraptor commands, add the following line to your `~/.zshrc`
+To enable shell tab-completion for velociraptor commands, add the following line to your `~/.zshrc`
 
 ```sh
 source <(vr completions zsh)
 ```
 
-> Bash is not supported yet, but will be added.
+or `~/.bashrc`
+
+```sh
+source <(vr completions bash)
+```
 
 ## Editor support
 
