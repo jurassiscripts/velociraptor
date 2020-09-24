@@ -50,14 +50,27 @@ Deno [doesn't have](https://deno.land/manual#philosophy) a dedicated package man
 
 ## Install
 
+### Deno.land
+
 ```sh
 $ deno install -qA -n vr https://deno.land/x/velociraptor@1.0.0-beta.13/cli.ts
 ```
 
-**Upgrade**  
-To upgrade from an older version run the above command with the `-f` flag.
+### Nest.land
 
-To get help with the CLI run `vr help`, or `vr help <SUBCOMMAND>` for specific commands.
+```sh
+$ deno install -qA -n vr https://x.nest.land/velociraptor@1.0.0-beta.13/cli.ts
+```
+
+<details>
+
+<summary>Upgrade</summary>
+
+To upgrade from an older version run the above commands with the `-f` flag.
+
+</details>
+
+To get help with the CLI run `vr --help`, or `vr <SUBCOMMAND> --help` for specific commands.
 
 ## Project status
 
