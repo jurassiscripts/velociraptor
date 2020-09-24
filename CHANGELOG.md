@@ -1,4 +1,12 @@
 
+## [1.0.0-beta.14](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.13...v1.0.0-beta.14) (2020-09-24)
+
+
+### Features
+
+* **cli:** add bash completions support ([84a7214](https://github.com/umbopepato/velociraptor/commit/84a72147df35ada2e4d9457123d4102663644a8b))
+* **config:** add new Deno cli options ([9dcff3e](https://github.com/umbopepato/velociraptor/commit/9dcff3e4f9c3f7b52d1f4ef71ca7a50d68c3ab4d))
+
 ## [1.0.0-beta.13](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.12...v1.0.0-beta.13) (2020-07-15)
 
 
