@@ -50,13 +50,13 @@ Deno [doesn't have](https://deno.land/manual#philosophy) a dedicated package man
 
 ## Install
 
-### Deno.land
+### 🦕 [Deno.land](https://deno.land/x/velociraptor@1.0.0-beta.14)
 
 ```sh
 $ deno install -qA -n vr https://deno.land/x/velociraptor@1.0.0-beta.14/cli.ts
 ```
 
-### Nest.land
+### 🥚 [Nest.land](https://nest.land/package/velociraptor)
 
 ```sh
 $ deno install -qA -n vr https://x.nest.land/velociraptor@1.0.0-beta.14/cli.ts
