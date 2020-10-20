@@ -452,7 +452,7 @@ To enable shell tab-completion for velociraptor commands, add the corresponding 
 
 - fish: `~/.config/fish/config.fish`
 
-   ```sh
+   ```fish
    source (vr completions fish | psub)
    ```
 
