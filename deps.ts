@@ -7,16 +7,16 @@ export * as path from "https://deno.land/std@0.70.0/path/mod.ts";
 export * as logger from "https://deno.land/std@0.70.0/log/mod.ts";
 export {
   blue,
-  yellow,
-  red,
   bold,
   gray,
+  red,
+  yellow,
 } from "https://deno.land/std@0.70.0/fmt/colors.ts";
 export { ConsoleHandler } from "https://deno.land/std@0.70.0/log/handlers.ts";
 export { LogRecord } from "https://deno.land/std@0.70.0/log/logger.ts";
 export { LevelName } from "https://deno.land/std@0.70.0/log/levels.ts";
 export {
   Command,
-  StringType,
   CompletionsCommand,
+  StringType,
 } from "https://deno.land/x/cliffy@v0.14.3/command/mod.ts";

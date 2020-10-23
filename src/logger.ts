@@ -1,12 +1,12 @@
 import {
   blue,
-  yellow,
-  red,
   bold,
-  logger,
   ConsoleHandler,
-  LogRecord,
   LevelName,
+  logger,
+  LogRecord,
+  red,
+  yellow,
 } from "../deps.ts";
 
 const LEVEL_PREFIX: { [key: number]: string } = {

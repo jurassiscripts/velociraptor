@@ -1,8 +1,4 @@
-import {
-  parseYaml,
-  path,
-  existsSync,
-} from "../deps.ts";
+import { existsSync, parseYaml, path } from "../deps.ts";
 import { ScriptsConfiguration } from "./scripts_config.ts";
 
 const CONFIG_FILE_NAMES = ["scripts", "velociraptor"];
