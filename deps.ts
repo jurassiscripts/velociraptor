@@ -19,4 +19,4 @@ export {
   Command,
   StringType,
   CompletionsCommand,
-} from "https://deno.land/x/cliffy@v0.14.1/command/mod.ts";
+} from "https://deno.land/x/cliffy@v0.14.3/command/mod.ts";
