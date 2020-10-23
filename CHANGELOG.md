@@ -1,5 +1,5 @@
 
-## [1.0.0-beta.14](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.13...v1.0.0-beta.14) (2020-09-24)
+## [1.0.0-beta.14](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.13...1.0.0-beta.14) (2020-09-24)
 
 
 ### Features
