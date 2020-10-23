@@ -436,17 +436,25 @@ Velociraptor searches for script files up the folder tree starting from the dire
 
 ## Shell completions
 
-To enable shell tab-completion for velociraptor commands, add the following line to your `~/.zshrc`
+To enable shell tab-completion for velociraptor commands, add the corresponding line to your shell's config:
 
-```sh
-source <(vr completions zsh)
-```
+- zsh: `~/.zshrc`
 
-or `~/.bashrc`
+   ```sh
+   source <(vr completions zsh)
+   ```
 
-```sh
-source <(vr completions bash)
-```
+- bash: `~/.bashrc`
+
+   ```sh
+   source <(vr completions bash)
+   ```
+
+- fish: `~/.config/fish/config.fish`
+
+   ```fish
+   source (vr completions fish | psub)
+   ```
 
 ## Editor support
 
