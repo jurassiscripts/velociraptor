@@ -1,4 +1,11 @@
 
+## [1.0.0-beta.15](https://github.com/umbopepato/velociraptor/compare/1.0.0-beta.14...1.0.0-beta.15) (2020-10-23)
+
+
+### Features
+
+* **cli:** add fish completions support ([b9729b9](https://github.com/umbopepato/velociraptor/commit/b9729b94b7e306172b2b11a2c3a95931e0b074a5)) [@kidonng](https://github.com/kidonng)
+
 ## [1.0.0-beta.14](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.13...1.0.0-beta.14) (2020-09-24)
 
 
