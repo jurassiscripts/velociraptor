@@ -1,9 +1,4 @@
-import {
-  parseYaml,
-  path,
-  existsSync,
-  readFileStrSync,
-} from "../deps.ts";
+import { existsSync, parseYaml, path } from "../deps.ts";
 import { ScriptsConfiguration } from "./scripts_config.ts";
 
 const CONFIG_FILE_NAMES = ["scripts", "velociraptor"];
@@ -48,6 +43,6 @@ async function parseConfig(
       .default as ScriptsConfiguration;
   }
   return parseYaml(
-    readFileStrSync(configPath, { encoding: "utf8" }),
+    Deno.readTextFileSync(configPath),
   ) as ScriptsConfiguration;
 }

@@ -1,2 +1,2 @@
-import { sprintf } from "fmt/mod.ts";
-console.log(sprintf("%s!", "Works"));
+import { printf } from "fmt/printf.ts";
+printf("%s!", "Works");

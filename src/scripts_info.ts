@@ -1,8 +1,8 @@
 import { blue, bold, gray } from "../deps.ts";
 import {
-  ScriptsConfiguration,
-  ScriptDefinition,
   isScriptObject,
+  ScriptDefinition,
+  ScriptsConfiguration,
 } from "./scripts_config.ts";
 import { flattenCommands, normalizeScript } from "./normalize_script.ts";
 

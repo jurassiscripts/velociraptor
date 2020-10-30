@@ -1,4 +1,45 @@
 
+## [1.0.0-beta.16](https://github.com/umbopepato/velociraptor/compare/1.0.0-beta.15...1.0.0-beta.16) (2020-10-30)
+
+
+### Features
+
+* **cli:** add deno 1.5.0 new cli options ([eada07f](https://github.com/umbopepato/velociraptor/commit/eada07f106b23b99b3b7506b29706579cce0a5ce))
+
+
+### Bug Fixes
+
+* deno 1.5.0 incompatibility ([726a66c](https://github.com/umbopepato/velociraptor/commit/726a66c133e33dc4d2d4ab7438a812615b11b2d1))
+
+## [1.0.0-beta.15](https://github.com/umbopepato/velociraptor/compare/1.0.0-beta.14...1.0.0-beta.15) (2020-10-23)
+
+
+### Features
+
+* **cli:** add fish completions support ([b9729b9](https://github.com/umbopepato/velociraptor/commit/b9729b94b7e306172b2b11a2c3a95931e0b074a5)) [@kidonng](https://github.com/kidonng)
+
+## [1.0.0-beta.14](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.13...1.0.0-beta.14) (2020-09-24)
+
+
+### Features
+
+* **cli:** add bash completions support ([84a7214](https://github.com/umbopepato/velociraptor/commit/84a72147df35ada2e4d9457123d4102663644a8b))
+* **config:** add new Deno cli options ([9dcff3e](https://github.com/umbopepato/velociraptor/commit/9dcff3e4f9c3f7b52d1f4ef71ca7a50d68c3ab4d))
+
+## [1.0.0-beta.13](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.12...v1.0.0-beta.13) (2020-07-15)
+
+
+### Bug Fixes
+
+* std errors with deno 1.2.0 ([848999a](https://github.com/umbopepato/velociraptor/commit/848999a4136ca3f68101b1e0025c11a6818d1dba))
+
+## [1.0.0-beta.12](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.11...v1.0.0-beta.12) (2020-06-30)
+
+
+### Revert
+
+* feat(export): execute exported scripts in the correct workdir ([ec6c502](https://github.com/umbopepato/velociraptor/commit/ec6c502a2b5016cae038374bc46420a54e3d2e1f))
+
 ## [1.0.0-beta.11](https://github.com/umbopepato/velociraptor/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2020-06-09)
 
 

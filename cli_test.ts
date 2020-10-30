@@ -1,4 +1,4 @@
-import { assertStrContains, assertMatch } from "./dev_deps.ts";
+import { assertMatch, assertStringIncludes } from "./dev_deps.ts";
 const wd = "./test";
 const cliArgs = [
   "deno",
@@ -27,22 +27,22 @@ async function runScript(name: string): Promise<string> {
 
 Deno.test("basic script with env variable", async () => {
   const output = await runScript("basic");
-  assertStrContains(output, expectedOutput);
+  assertStringIncludes(output, expectedOutput);
 });
 
 Deno.test("deno run", async () => {
   const output = await runScript("denorun");
-  assertStrContains(output, expectedOutput);
+  assertStringIncludes(output, expectedOutput);
 });
 
 Deno.test("compact deno run", async () => {
   const output = await runScript("compactrun");
-  assertStrContains(output, expectedOutput);
+  assertStringIncludes(output, expectedOutput);
 });
 
 Deno.test("shell script", async () => {
   const output = await runScript("sh");
-  assertStrContains(output, expectedOutput);
+  assertStringIncludes(output, expectedOutput);
 });
 
 Deno.test("serial scripts", async () => {
@@ -57,20 +57,20 @@ Deno.test("parallel scripts", async () => {
 
 Deno.test("deno permissions", async () => {
   const output = await runScript("allow");
-  assertStrContains(output, expectedOutput);
+  assertStringIncludes(output, expectedOutput);
 });
 
 Deno.test("tsconfig", async () => {
   const output = await runScript("tsconfig");
-  assertStrContains(output, expectedOutput);
+  assertStringIncludes(output, expectedOutput);
 });
 
 Deno.test("importmap", async () => {
   const output = await runScript("importmap");
-  assertStrContains(output, expectedOutput);
+  assertStringIncludes(output, expectedOutput);
 });
 
 Deno.test("--help", async () => {
   const output = await runScript("--help");
-  assertStrContains(output, "--version");
+  assertStringIncludes(output, "--version");
 });

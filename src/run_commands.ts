@@ -1,13 +1,11 @@
-import { isWindows, OneOrMore, escape } from "./util.ts";
+import { escape, isWindows, OneOrMore } from "./util.ts";
 import { log } from "./logger.ts";
+import { EnvironmentVariables } from "./scripts_config.ts";
 import {
-  EnvironmentVariables,
-} from "./scripts_config.ts";
-import {
-  ParallelCommands,
   Command,
-  isParallel,
   CompoundCommandItem,
+  isParallel,
+  ParallelCommands,
 } from "./command.ts";
 import { buildCommandString } from "./build_command_string.ts";
 
