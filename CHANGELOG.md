@@ -1,4 +1,16 @@
 
+## [1.0.0-beta.16](https://github.com/umbopepato/velociraptor/compare/1.0.0-beta.15...1.0.0-beta.16) (2020-10-30)
+
+
+### Features
+
+* **cli:** add deno 1.5.0 new cli options ([eada07f](https://github.com/umbopepato/velociraptor/commit/eada07f106b23b99b3b7506b29706579cce0a5ce))
+
+
+### Bug Fixes
+
+* deno 1.5.0 incompatibility ([726a66c](https://github.com/umbopepato/velociraptor/commit/726a66c133e33dc4d2d4ab7438a812615b11b2d1))
+
 ## [1.0.0-beta.15](https://github.com/umbopepato/velociraptor/compare/1.0.0-beta.14...1.0.0-beta.15) (2020-10-23)
 
 
