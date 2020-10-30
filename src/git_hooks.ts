@@ -31,33 +31,46 @@ vr run-hook ${hook} "$@"
 `;
 }
 
-function areGitHooksInstalled(cwd: string): boolean {
-  return existsSync(path.join(cwd, ".git", "hooks", ".velociraptor"));
+function areGitHooksInstalled(gitDir: string): boolean {
+  return existsSync(path.join(gitDir, "hooks", ".velociraptor"));
 }
 
-function installGitHooks(cwd: string) {
-  const hooksFolder = path.join(cwd, ".git", "hooks");
+function installGitHooks(gitDir: string) {
+  const hooksDir = path.join(gitDir, "hooks");
   hooks.forEach((hook) => {
-    const hookFile = path.join(hooksFolder, hook);
-    writeFileStrSync(hookFile, hookScript(hook));
+    const hookFile = path.join(hooksDir, hook);
+    Deno.writeTextFileSync(hookFile, hookScript(hook));
     try {
       Deno.chmodSync(hookFile, 0o0755);
     } catch (e) {
-      // silently fail
+      // Windows
     }
   });
-  writeFileStrSync(path.join(hooksFolder, ".velociraptor"), "");
+  Deno.writeTextFileSync(path.join(hooksDir, ".velociraptor"), "");
+  console.log(`
+  ✅ ${blue("Git hooks installed successfully")}
+  `);
 }
 
-export function checkGitHooks(config: ScriptsConfiguration, cwd: string) {
-  if (
-    !areGitHooksInstalled(cwd) &&
-    Object.values(config.scripts)
-      .filter((s) => s instanceof Object && isScriptObject(s)) // TODO move instanceof in isScriptObject
-      .some((s: any) => {
-        return "githook" in s && hooks.includes(s.githook);
-      })
-  ) {
-    installGitHooks(cwd);
+export async function checkGitHooks(configData: ConfigData) {
+  if (Deno.env.get(VR_HOOKS) === "false") return;
+  try {
+    const gitDir = await spawn(
+      ["git", "rev-parse", "--git-common-dir"],
+      configData.cwd,
+    );
+    const absGitDir = path.join(configData.cwd, gitDir.trim());
+    if (
+      !areGitHooksInstalled(absGitDir) &&
+      Object.values(configData.config.scripts)
+        .filter(isScriptObject)
+        .some((s: any) => {
+          return "githook" in s && hooks.includes(s.githook);
+        })
+    ) {
+      installGitHooks(absGitDir);
+    }
+  } catch (e) {
+    // Not a git repo
   }
 }
