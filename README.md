@@ -518,7 +518,6 @@ As a workaround you can tell Velociraptor to use `PowerShell` instead of `cmd` (
 ## Upcoming features
 
 - [ ] Self-update: run `vr upgrade` to install the latest version.
-- [ ] Husky style git hooks: use the `hook` property to link a script to a git hook.
 
 ## Contributing
 
