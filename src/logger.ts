@@ -8,6 +8,7 @@ import {
   red,
   yellow,
 } from "../deps.ts";
+import { VR_LOG } from "./consts.ts";
 
 const LEVEL_PREFIX: { [key: number]: string } = {
   [logger.LogLevels.INFO]: blue("info"),
@@ -27,7 +28,7 @@ await logger.setup({
   },
   loggers: {
     default: {
-      level: Deno.env.get("VR_LOG") as LevelName || "WARNING",
+      level: Deno.env.get(VR_LOG) as LevelName || "WARNING",
       handlers: ["console"],
     },
   },
