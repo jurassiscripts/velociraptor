@@ -47,7 +47,7 @@ export interface ScriptObject extends ScriptOptions {
   /**
    * A git hook where to execute this command
    */
-  githook?: string;
+  githook?: GitHook;
 }
 
 /**
@@ -206,8 +206,21 @@ export type FlagsObject = Record<string, any>;
 
 export type EnvironmentVariables = Record<string, string>;
 
-export const isScriptObject = (script: object): script is ScriptObject =>
-  "cmd" in script;
-
-export const isParallelScripts = (script: object): script is ParallelScripts =>
-  "pll" in script;
+export type GitHook =
+  | "applypatch-msg"
+  | "pre-applypatch"
+  | "post-applypatch"
+  | "pre-commit"
+  | "pre-merge-commit"
+  | "prepare-commit-msg"
+  | "commit-msg"
+  | "post-commit"
+  | "pre-rebase"
+  | "post-checkout"
+  | "post-merge"
+  | "pre-push"
+  | "post-update"
+  | "push-to-checkout"
+  | "pre-auto-gc"
+  | "post-rewrite"
+  | "sendemail-validate";

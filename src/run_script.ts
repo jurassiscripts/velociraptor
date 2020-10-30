@@ -5,16 +5,14 @@ import { bold } from "../deps.ts";
 import { normalizeScript } from "./normalize_script.ts";
 import { resolveShell } from "./resolve_shell.ts";
 import { runCommands } from "./run_commands.ts";
-import { validateConfigData } from "./validate_config_data.ts";
 import { validateScript } from "./validate_script.ts";
 
 export async function runScript(
-  configData: ConfigData | null,
+  configData: ConfigData,
   script: string,
   additionalArgs: string[] = [],
 ) {
-  validateConfigData(configData);
-  const { cwd, config } = configData as ConfigData;
+  const { cwd, config } = configData;
   if (script == null || script.length < 1) {
     printScriptsInfo(config);
     Deno.exit();
