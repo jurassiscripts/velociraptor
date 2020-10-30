@@ -1,8 +1,12 @@
 import { ConfigData } from "./load_config.ts";
 import { log } from "./logger.ts";
+import { isScriptObject } from "./util.ts";
+import { hooks } from "./git_hooks.ts";
+import { didYouMean } from "./did_you_mean.ts";
+import { blue, red } from "../deps.ts";
 
-export function validateConfigData(configData: ConfigData | null) {
-  if (!configData) {
+export function validateConfigData(configData: ConfigData | null): ConfigData {
+  if (configData == null) {
     throw new Error("No scripts file found.");
   }
   if (
@@ -14,4 +18,17 @@ export function validateConfigData(configData: ConfigData | null) {
     );
     Deno.exit();
   }
+  Object.entries(configData.config.scripts)
+    .forEach(([id, value]) => {
+      if (
+        isScriptObject(value) && value.githook && !hooks.includes(value.githook)
+      ) {
+        log.warning(
+          `Invalid git hook name ${red(value.githook)} in script ${blue(id)}`,
+        );
+        const suggestion = didYouMean(value.githook, hooks);
+        if (suggestion) console.log(`Did you mean ${red(suggestion)}?`);
+      }
+    });
+  return configData;
 }
