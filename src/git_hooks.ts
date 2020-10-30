@@ -1,14 +1,10 @@
-import {
-  writeFileStrSync,
-  existsSync,
-  path,
-} from "../deps.ts";
-import {
-  ScriptsConfiguration,
-  isScriptObject,
-} from "./scripts_config.ts";
+import { blue, existsSync, path } from "../deps.ts";
+import { isScriptObject, spawn } from "./util.ts";
+import { version } from "./version.ts";
+import { VR_HOOKS, VR_MARK } from "./consts.ts";
+import { ConfigData } from "./load_config.ts";
 
-const hooks = [
+export const hooks = [
   "applypatch-msg",
   "pre-applypatch",
   "post-applypatch",
@@ -29,8 +25,9 @@ const hooks = [
 ];
 
 function hookScript(hook: string): string {
-  return `!/bin/sh
-vr --git-hook=${hook} "$@"
+  return `#!/bin/sh
+# ${VR_MARK} ${version}
+vr run-hook ${hook} "$@"
 `;
 }
 
