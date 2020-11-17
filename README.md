@@ -262,7 +262,7 @@ be applied using the following properties:
 scripts:
   start:
     cmd: server.ts
-    cahcedOnly: true
+    cachedOnly: true
     noCheck: true
     noRemote: true
     quiet: true
