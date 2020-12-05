@@ -1,4 +1,5 @@
-import { escape, isWindows, OneOrMore, parseEnvFile } from "./util.ts";
+import { getEnvVars } from "./env.ts";
+import { escape, isWindows, OneOrMore } from "./util.ts";
 import { log } from "./logger.ts";
 import { EnvironmentVariables } from "./scripts_config.ts";
 import {
@@ -50,17 +51,8 @@ async function runCommand(
   let runOptions: Deno.RunOptions = {
     cmd: [shell, ...buildShellArgs(shell, cmd, additionalArgs)],
     cwd,
+    env: getEnvVars(command),
   };
-  const env: Record<string, string> = {};
-  if (command.env_file) {
-    Object.assign(env, parseEnvFile(command.env_file));
-  }
-  if(command.env) {
-    Object.assign(env, stringifyEnv(command.env));
-  }
-  if (Object.entries(env).length > 0) {
-    runOptions.env = env;
-  }
   log.info(
     `Running > ${cmd}${
       additionalArgs && additionalArgs.length > 0
@@ -76,15 +68,6 @@ async function runCommand(
   if (status.code !== 0) {
     throw new Error(`Command returned error code ${status.code}`);
   }
-}
-
-function stringifyEnv(env: EnvironmentVariables): EnvironmentVariables {
-  for (let key in env) {
-    if (key in env) {
-      env[key] = String(env[key]);
-    }
-  }
-  return env;
 }
 
 function buildShellArgs(
