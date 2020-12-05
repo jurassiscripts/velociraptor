@@ -26,8 +26,13 @@ async function runScript(name: string): Promise<string> {
 }
 
 Deno.test("basic script with env variable", async () => {
-  const output = await runScript("basic");
-  assertEquals(output, "Works! Works 1! Works 2! Works 3! Works 4!\n");
+  const output = await runScript(
+    Deno.build.os === "windows" ? "basic:win" : "basic",
+  );
+  assertStringIncludes(
+    output.trim(),
+    "Works! Works 1! Works 2! Works 3! Works 4!",
+  );
 });
 
 Deno.test("deno run", async () => {
