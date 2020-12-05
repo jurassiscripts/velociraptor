@@ -1,4 +1,4 @@
-import { assertMatch, assertStringIncludes } from "./dev_deps.ts";
+import { assertEquals, assertMatch, assertStringIncludes } from "./dev_deps.ts";
 const wd = "./test";
 const cliArgs = [
   "deno",
@@ -27,7 +27,7 @@ async function runScript(name: string): Promise<string> {
 
 Deno.test("basic script with env variable", async () => {
   const output = await runScript("basic");
-  assertStringIncludes(output, expectedOutput);
+  assertEquals(output, "Works! Works 1! Works 2! Works 3! Works 4!\n");
 });
 
 Deno.test("deno run", async () => {
