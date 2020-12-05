@@ -1,7 +1,7 @@
 import { ConfigData } from "./load_config.ts";
 import { validateConfigData } from "./validate_config_data.ts";
 import { validateScript } from "./validate_script.ts";
-import { isWindows, makeFileExecutable, OneOrMore } from "./util.ts";
+import { isWindows, makeFileExecutable, OneOrMore, parseEnvFile } from "./util.ts";
 import { normalizeScript } from "./normalize_script.ts";
 import { CompoundCommandItem } from "./command.ts";
 import { log } from "./logger.ts";
@@ -76,8 +76,15 @@ function exportCommands(commands: CompoundCommandItem[]): string {
       }
       const cmd = commands;
       let res = "";
-      if (cmd.env) {
-        const envVars = Object.entries(cmd.env);
+      if (cmd.env || cmd.env_file) {
+        const env: Record<string, string> = {};
+        if(cmd.env_file) {
+          Object.assign(env, parseEnvFile(cmd.env_file));
+        }
+        if(cmd.env) {
+          Object.assign(env, cmd.env);
+        }
+        const envVars = Object.entries(env);
         if (envVars.length > 0) {
           res += envVars
             .map(([key, val]) => `${key}="${escape(val, '"')}"`)

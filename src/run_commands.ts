@@ -1,4 +1,4 @@
-import { escape, isWindows, OneOrMore } from "./util.ts";
+import { escape, isWindows, OneOrMore, parseEnvFile } from "./util.ts";
 import { log } from "./logger.ts";
 import { EnvironmentVariables } from "./scripts_config.ts";
 import {
@@ -51,8 +51,15 @@ async function runCommand(
     cmd: [shell, ...buildShellArgs(shell, cmd, additionalArgs)],
     cwd,
   };
-  if (command.env && Object.entries(command.env).length > 0) {
-    runOptions.env = stringifyEnv(command.env);
+  const env: Record<string, string> = {};
+  if (command.env_file) {
+    Object.assign(env, parseEnvFile(command.env_file));
+  }
+  if(command.env) {
+    Object.assign(env, stringifyEnv(command.env));
+  }
+  if (Object.entries(env).length > 0) {
+    runOptions.env = env;
   }
   log.info(
     `Running > ${cmd}${

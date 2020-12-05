@@ -145,19 +145,40 @@ In this case the command(s) are specified in the `cmd` property. Use the `desc` 
 
 ### Environment variables
 
-Environment variables can be specified in the `env` mapping.
+Environment variables can be specified in the `env` mapping. You can also pass multiple environment variables from an external file with `env_file`. Environment variables define with `env` will override environment variables defined with `env_file`.
 
 ```yaml
 # Env vars specified here are sent to
 # all the scripts
+env_file: .env
 env:
   PORT: 8081
 
 scripts:
   start:
     cmd: deno run --allow-net server.ts
-    env: # and these are script-specific
+    # and these are script-specific
+    env_file: .server_env
+    env:
       PORT: 8082
+```
+
+The format of the `env_file` looks like this.
+
+```
+AWS_S3_TOKEN=d84a83539134f28f412c652b09f9f98eff96c9a
+SECRET_KEY=7c6c72d959416d5aa368a409362ec6e2ac90d7f
+MONGO_URI=mongodb://127.0.0.1:27017
+PORT=3001
+```
+
+The `export` keyword and `quotes` are also supported.
+
+```
+export AWS_S3_TOKEN="d84a83539134f28f412c652b09f9f98eff96c9a"
+export SECRET_KEY='7c6c72d959416d5aa368a409362ec6e2ac90d7f'
+export MONGO_URI=mongodb://127.0.0.1:27017
+export PORT=3001
 ```
 
 ### Permissions

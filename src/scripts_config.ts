@@ -71,6 +71,10 @@ export interface ParallelScripts {
  */
 export interface ScriptOptions extends DenoCliOptions {
   /**
+   * A file with a list of environment variables to be passed to the script
+   */
+  env_file?: string;
+  /**
    * A map of environment variables to be passed to the script
    */
   env?: EnvironmentVariables;
