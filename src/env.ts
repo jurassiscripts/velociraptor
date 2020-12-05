@@ -1,4 +1,5 @@
 import { Command } from "./command.ts";
+import { log } from "./logger.ts";
 import { EnvironmentVariables } from "./scripts_config.ts";
 
 const envCache: Record<string, EnvironmentVariables> = {};
@@ -20,21 +21,30 @@ function parseEnvFile(envFile: string): EnvironmentVariables {
   if (envCache[envFile]) {
     return envCache[envFile];
   }
-  const buffer: Uint8Array = Deno.readFileSync(envFile);
-  return envCache[envFile] = new TextDecoder()
-    .decode(buffer)
-    .trim()
-    .split(/\n+/g)
-    .map((val: string) => val.trim())
-    .filter((val: string) => val[0] !== "#")
-    .reduce((env: EnvironmentVariables, line: string) => {
-      const [name, value] = line
-        .replace(/^export\s+/, "")
-        .split("=", 2)
-        .map((val: string) => val.trim());
-      env[name] = stripeQuotes(value);
-      return env;
-    }, {});
+  try {
+    const buffer: Uint8Array = Deno.readFileSync(envFile);
+    return envCache[envFile] = new TextDecoder()
+      .decode(buffer)
+      .trim()
+      .split(/\n+/g)
+      .map((val: string) => val.trim())
+      .filter((val: string) => val[0] !== "#")
+      .reduce((env: EnvironmentVariables, line: string) => {
+        const [name, value] = line
+          .replace(/^export\s+/, "")
+          .split("=", 2)
+          .map((val: string) => val.trim());
+        env[name] = stripeQuotes(value);
+        return env;
+      }, {});
+  } catch (error) {
+    if (error instanceof Deno.errors.NotFound) {
+      log.error(`env_file not found: ${envFile}`);
+    } else {
+      log.error(`Failed to parse env_file: ${envFile}`);
+    }
+    Deno.exit(1);
+  }
 }
 
 function stripeQuotes(value: string) {
