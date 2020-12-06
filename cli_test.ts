@@ -15,13 +15,14 @@ async function runScript(name: string): Promise<string> {
     stdout: "piped",
   });
   const { code } = await process.status();
+  const rawOutput: Uint8Array = await process.output();
+  const stdout: string = new TextDecoder().decode(rawOutput);
   if (code === 0) {
-    const rawOutput = await process.output();
     process.close();
-    return new TextDecoder().decode(rawOutput);
+    return stdout;
   } else {
     process.close();
-    throw new Error(`Process exited with error code ${code}`);
+    throw new Error(`Process exited with error code ${code}\n${stdout}`);
   }
 }
 

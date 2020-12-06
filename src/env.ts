@@ -26,9 +26,9 @@ function parseEnvFile(envFile: string): EnvironmentVariables {
     return envCache[envFile] = new TextDecoder()
       .decode(buffer)
       .trim()
-      .split(/\n+/g)
+      .split(/\r?\n/g)
       .map((val: string) => val.trim())
-      .filter((val: string) => val[0] !== "#")
+      .filter((val: string) => val && val[0] !== "#")
       .reduce((env: EnvironmentVariables, line: string) => {
         const [name, value] = line
           .replace(/^export\s+/, "")
@@ -43,7 +43,7 @@ function parseEnvFile(envFile: string): EnvironmentVariables {
     } else {
       log.error(`Failed to parse env_file: ${envFile}`);
     }
-    Deno.exit(1);
+    throw error;
   }
 }
 
