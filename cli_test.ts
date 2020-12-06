@@ -30,7 +30,7 @@ Deno.test("basic script with env variable", async () => {
   const output = await runScript(
     Deno.build.os === "windows" ? "basic:win" : "basic",
   );
-  assertStringIncludes(
+  assertEquals(
     output.trim(),
     "Works! Works 1! Works 2! Works 3! Works 4!",
   );
