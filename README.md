@@ -145,12 +145,13 @@ In this case the command(s) are specified in the `cmd` property. Use the `desc` 
 
 ### Environment variables
 
-Environment variables can be specified in the `env` mapping. You can also pass multiple environment variables from an external file with `env_file`. Environment variables define with `env` will override environment variables defined with `env_file`.
+Environment variables can be specified in the `env` mapping. You can also read environment variables from multiple files with specified with `env_file`. Environment variables define with `env` will override environment variables defined with `env_file`.
 
 ```yaml
 # Env vars specified here are sent to
 # all the scripts
-env_file: .env
+env_file:
+  - .env
 env:
   PORT: 8081
 
@@ -158,7 +159,8 @@ scripts:
   start:
     cmd: deno run --allow-net server.ts
     # and these are script-specific
-    env_file: .server_env
+    env_file:
+      - .server_env
     env:
       PORT: 8082
 ```
