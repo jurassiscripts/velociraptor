@@ -73,7 +73,7 @@ export interface ScriptOptions extends DenoCliOptions {
   /**
    * A file with a list of environment variables to be passed to the script
    */
-  env_file?: Array<string>;
+  envFile?: string | Array<string>;
   /**
    * A map of environment variables to be passed to the script
    */

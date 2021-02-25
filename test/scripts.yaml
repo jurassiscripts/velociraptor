@@ -1,4 +1,4 @@
-env_file:
+envFile:
   - .env
 env:
   ENV_TEST: Works!

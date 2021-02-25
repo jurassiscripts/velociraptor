@@ -6,9 +6,13 @@ const envCache: Record<string, EnvironmentVariables> = {};
 
 export function getEnvVars(cmd: Command): EnvironmentVariables | undefined {
   const envVars: EnvironmentVariables = {};
-  if (cmd.env_file) {
-    for (const file of cmd.env_file) {
-      Object.assign(envVars, parseEnvFile(file));
+  if (cmd.envFile) {
+    if (Array.isArray(cmd.envFile)) {
+      for (const file of cmd.envFile) {
+        Object.assign(envVars, parseEnvFile(file));
+      }
+    } else {
+      Object.assign(envVars, parseEnvFile(cmd.envFile));
     }
   }
   if (cmd.env && Object.entries(cmd.env).length > 0) {
@@ -41,9 +45,9 @@ function parseEnvFile(envFile: string): EnvironmentVariables {
       }, {});
   } catch (error) {
     if (error instanceof Deno.errors.NotFound) {
-      log.error(`env_file not found: ${envFile}`);
+      log.error(`envFile not found: ${envFile}`);
     } else {
-      log.error(`Failed to parse env_file: ${envFile}`);
+      log.error(`Failed to parse envFile: ${envFile}`);
     }
     throw error;
   }
