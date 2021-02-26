@@ -1,4 +1,6 @@
+import { getEnvVars } from "./env.ts";
 import { ConfigData } from "./load_config.ts";
+import { EnvironmentVariables } from "./scripts_config.ts";
 import { validateConfigData } from "./validate_config_data.ts";
 import { validateScript } from "./validate_script.ts";
 import { isWindows, makeFileExecutable, OneOrMore } from "./util.ts";
@@ -76,13 +78,11 @@ function exportCommands(commands: CompoundCommandItem[]): string {
       }
       const cmd = commands;
       let res = "";
-      if (cmd.env) {
-        const envVars = Object.entries(cmd.env);
-        if (envVars.length > 0) {
-          res += envVars
-            .map(([key, val]) => `${key}="${escape(val, '"')}"`)
-            .join(" ") + " ";
-        }
+      const envVars: EnvironmentVariables | undefined = getEnvVars(cmd);
+      if (envVars) {
+        res += Object.entries(envVars)
+          .map(([key, val]) => `${key}="${escape(val, '"')}"`)
+          .join(" ") + " ";
       }
       res += buildCommandString(cmd) + ' "$@"';
       if (doGroup) res = `( ${res} )`;
