@@ -1,7 +1,7 @@
 import { getEnvVars } from "./env.ts";
 import { escape, isWindows, OneOrMore } from "./util.ts";
 import { log } from "./logger.ts";
-import { EnvironmentVariables } from "./scripts_config.ts";
+
 import {
   Command,
   CompoundCommandItem,
