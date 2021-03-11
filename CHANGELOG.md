@@ -1,4 +1,11 @@
 
+## [1.0.0-beta.17](https://github.com/umbopepato/velociraptor/compare/1.0.0-beta.16...1.0.0-beta.17) (2021-03-11)
+
+
+### Features
+
+* add env_file option ([ea486a9](https://github.com/umbopepato/velociraptor/commit/ea486a9dec0d3ea77d3836f1ee57b2d01a595f5d))
+
 ## [1.0.0-beta.16](https://github.com/umbopepato/velociraptor/compare/1.0.0-beta.15...1.0.0-beta.16) (2020-10-30)
 
 
