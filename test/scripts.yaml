@@ -1,8 +1,11 @@
+envFile:
+  - .env
 env:
   ENV_TEST: Works!
 
 scripts:
-  basic: echo Works!
+  basic: echo $ENV_TEST $ENV_FILE_TEST_1 $ENV_FILE_TEST_2 $ENV_FILE_TEST_3 $ENV_FILE_TEST_4 $ENV_FILE_TEST_5
+  basic:win: echo "$Env:ENV_TEST $Env:ENV_FILE_TEST_1 $Env:ENV_FILE_TEST_2 $Env:ENV_FILE_TEST_3 $Env:ENV_FILE_TEST_4 $Env:ENV_FILE_TEST_5"
   denorun: deno run test.ts
   compactrun: test.ts
   sh: cat test.ts | deno

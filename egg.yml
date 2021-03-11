@@ -1,9 +1,9 @@
 name: velociraptor
 description: An npm-style script runner for Deno
 unstable: true
-version: 1.0.0-beta.16
-repository: 'https://github.com/umbopepato/velociraptor/'
-entry: cli.ts
+version: 1.0.0-beta.17
+repository: 'https://github.com/jurassiscripts/velociraptor/'
+entry: ./cli.ts
 files:
   - ./src/**/*
   - ./cli.ts
@@ -15,5 +15,5 @@ files:
 checkAll: true
 unlisted: false
 check: true
-homepage: 'https://github.com/umbopepato/velociraptor/'
+homepage: 'https://velociraptor.run'
 ignore: []
