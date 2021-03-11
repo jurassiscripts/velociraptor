@@ -1,1 +1,1 @@
-export { ScriptsConfiguration } from "./src/scripts_config.ts";
+export type { ScriptsConfiguration } from "./src/scripts_config.ts";
