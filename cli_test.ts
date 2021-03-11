@@ -1,5 +1,4 @@
-import { assertMatch, assertStringIncludes } from "./dev_deps.ts";
-import { spawn } from "./src/util.ts";
+import { assertEquals, assertMatch, assertStringIncludes } from "./dev_deps.ts";
 const wd = "./test";
 const cliArgs = [
   "deno",
@@ -10,12 +9,31 @@ const cliArgs = [
 const expectedOutput = "Works!";
 
 async function runScript(name: string): Promise<string> {
-  return spawn([...cliArgs, name], wd);
+  const process = Deno.run({
+    cmd: [...cliArgs, name],
+    cwd: wd,
+    stdout: "piped",
+  });
+  const { code } = await process.status();
+  const rawOutput: Uint8Array = await process.output();
+  const stdout: string = new TextDecoder().decode(rawOutput);
+  if (code === 0) {
+    process.close();
+    return stdout;
+  } else {
+    process.close();
+    throw new Error(`Process exited with error code ${code}\n${stdout}`);
+  }
 }
 
 Deno.test("basic script with env variable", async () => {
-  const output = await runScript("basic");
-  assertStringIncludes(output, expectedOutput);
+  const output = await runScript(
+    Deno.build.os === "windows" ? "basic:win" : "basic",
+  );
+  assertEquals(
+    output.trim(),
+    "Works! Works 1! Works 2! Works 3! Works 4!",
+  );
 });
 
 Deno.test("deno run", async () => {
