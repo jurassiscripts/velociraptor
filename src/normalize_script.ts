@@ -1,12 +1,11 @@
 import {
-  isParallelScripts,
-  isScriptObject,
   ParallelScripts,
   ScriptDefinition,
   ScriptOptions,
 } from "./scripts_config.ts";
 import { Command, isParallel, ParallelCommands } from "./command.ts";
 import { mergeParams } from "./merge_params.ts";
+import { isParallelScripts, isScriptObject } from "./util.ts";
 
 /**
  * Normalizes a script definition to a list of `Command` objects

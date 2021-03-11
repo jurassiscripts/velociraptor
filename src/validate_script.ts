@@ -1,13 +1,13 @@
 import { log } from "./logger.ts";
-import { bold } from "../deps.ts";
+import { blue, bold } from "../deps.ts";
 import { didYouMean } from "./did_you_mean.ts";
 import { ScriptsConfiguration } from "./scripts_config.ts";
 
 export function validateScript(script: string, config: ScriptsConfiguration) {
   if (!(script in config.scripts)) {
-    log.error(`Script ${bold(script)} not found`);
-    const suggestion = didYouMean(script, config.scripts);
-    if (suggestion) console.log(`Did you mean ${bold(suggestion)}?`);
+    log.error(`Script ${blue(script)} not found`);
+    const suggestion = didYouMean(script, Object.keys(config.scripts));
+    if (suggestion) console.log(`Did you mean ${blue(suggestion)}?`);
     else {
       console.log(
         `Run ${

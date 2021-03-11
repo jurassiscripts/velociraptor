@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  Velociraptor is a script runner for Deno, inspired by npm's package.json scripts. It offers a similar experience but with out-of-the-box support for declarative deno cli options, environment variables, concurrency and (soon) git hooks.
+  Velociraptor is a script runner for Deno, inspired by npm's package.json scripts. It offers a similar experience but with out-of-the-box support for declarative deno cli options, environment variables, concurrency and git hooks.
 </p>
 
 <p align="center">
@@ -30,6 +30,7 @@
 - [Listing scripts](#listing-scripts)
 - [Running scripts](#running-scripts)
 - [Exporting scripts](#exporting-scripts)
+- [Git hooks](#git-hooks)
 - [Shell scripting](#shell-scripting)
 - [Current working directory](#current-working-directory)
 - [Shell completions](#shell-completions)
@@ -447,6 +448,39 @@ $ ./bin/start [ARGS]...
 
 > Scripts exporting currently only supports `sh`.
 
+## Git hooks
+
+### Linking scripts to hooks
+
+To link one of your scripts to a particular git hook add a `gitHook` property to its definition:
+
+```yaml
+scripts:
+  format:
+    cmd: deno fmt
+    gitHook: pre-commit
+```
+
+### Installing hooks
+
+To start using hooks, [link](#linking-scripts-to-hooks) at least one of your scripts to a git hook, then run any `vr` command:
+
+```sh
+$ vr
+```
+
+If you see the message
+
+> ✅ Git hooks successfully installed
+
+you're good to go! From now on your git hooks will be managed by Velociraptor.
+
+Don't forget to tell your users or teammates to run `vr` at least once in order to activate hooks.
+
+### Skipping hooks
+
+To prevent Velociraptor from installing and running hooks, set the `VR_HOOKS` env variable to `false` (for example in your CI config file).
+
 ## Shell scripting
 
 Like in `npm` scripts, vr commands are executed inside a shell. The shell is determined by the `SHELL` env variable on Unix-like systems and by `ComSpec` on Windows, with respectively `sh` and `cmd.exe` as fallback values. To customize the shell without changing your default shell env variables you can use the `VR_SHELL` variable (a full path is required).
@@ -507,7 +541,6 @@ As a workaround you can tell Velociraptor to use `PowerShell` instead of `cmd` (
 ## Upcoming features
 
 - [ ] Self-update: run `vr upgrade` to install the latest version.
-- [ ] Husky style git hooks: use the `hook` property to link a script to a git hook.
 
 ## Contributing
 
