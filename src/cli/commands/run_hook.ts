@@ -18,7 +18,7 @@ export class RunHookCommand extends Command {
           const script = Object.entries(this.configData.config.scripts)
             .find(([_, value]) =>
               isScriptObject(value) &&
-              value.githook === hook
+              value.gitHook === hook
             );
           if (script) {
             await runScript(this.configData, script[0], args);

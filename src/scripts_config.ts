@@ -47,7 +47,7 @@ export interface ScriptObject extends ScriptOptions {
   /**
    * A git hook where to execute this command
    */
-  githook?: GitHook;
+  gitHook?: GitHook;
 }
 
 /**

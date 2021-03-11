@@ -48,7 +48,7 @@ function installGitHooks(gitDir: string) {
   });
   Deno.writeTextFileSync(path.join(hooksDir, ".velociraptor"), "");
   console.log(`
-  ✅ ${blue("Git hooks installed successfully")}
+  ✅ ${blue("Git hooks successfully installed")}
   `);
 }
 
@@ -65,7 +65,7 @@ export async function checkGitHooks(configData: ConfigData) {
       Object.values(configData.config.scripts)
         .filter(isScriptObject)
         .some((s: any) => {
-          return "githook" in s && hooks.includes(s.githook);
+          return "gitHook" in s && hooks.includes(s.gitHook);
         })
     ) {
       installGitHooks(absGitDir);

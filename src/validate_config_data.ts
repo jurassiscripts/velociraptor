@@ -21,12 +21,12 @@ export function validateConfigData(configData: ConfigData | null): ConfigData {
   Object.entries(configData.config.scripts)
     .forEach(([id, value]) => {
       if (
-        isScriptObject(value) && value.githook && !hooks.includes(value.githook)
+        isScriptObject(value) && value.gitHook && !hooks.includes(value.gitHook)
       ) {
         log.warning(
-          `Invalid git hook name ${red(value.githook)} in script ${blue(id)}`,
+          `Invalid git hook name ${red(value.gitHook)} in script ${blue(id)}`,
         );
-        const suggestion = didYouMean(value.githook, hooks);
+        const suggestion = didYouMean(value.gitHook, hooks);
         if (suggestion) console.log(`Did you mean ${red(suggestion)}?`);
       }
     });

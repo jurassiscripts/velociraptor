@@ -28,8 +28,8 @@ function scriptInfo(script: ScriptDefinition): string {
   const info = [];
   if (isScriptObject(script)) {
     if (script.desc) info.push(`    ${script.desc}`);
-    if (script.githook) {
-      info.push(`    ${gray("Runs at")} ${red(script.githook)}`);
+    if (script.gitHook) {
+      info.push(`    ${gray("Runs at")} ${red(script.gitHook)}`);
     }
   }
   const commands = flattenCommands(normalizeScript(script, {}));

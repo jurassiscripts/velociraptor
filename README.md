@@ -452,13 +452,13 @@ $ ./bin/start [ARGS]...
 
 ### Linking scripts to hooks
 
-To link one of your scripts to a particular git hook add a `githook` property to its definition:
+To link one of your scripts to a particular git hook add a `gitHook` property to its definition:
 
 ```yaml
 scripts:
   format:
     cmd: deno fmt
-    githook: pre-commit
+    gitHook: pre-commit
 ```
 
 ### Installing hooks
@@ -471,11 +471,11 @@ $ vr
 
 If you see the message
 
-> ✅ Git hooks installed successfully
+> ✅ Git hooks successfully installed
 
 you're good to go! From now on your git hooks will be managed by Velociraptor.
 
-Don't forget to tell your users or collaborators to run `vr` at least once in order to activate hooks.
+Don't forget to tell your users or teammates to run `vr` at least once in order to activate hooks.
 
 ### Skipping hooks
 
