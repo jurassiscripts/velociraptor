@@ -1,5 +1,5 @@
 import { blue, existsSync, path } from "../deps.ts";
-import { isScriptObject, spawn } from "./util.ts";
+import { isScriptObject, makeFileExecutable, spawn } from "./util.ts";
 import { version } from "./version.ts";
 import { VR_HOOKS, VR_MARK } from "./consts.ts";
 import { ConfigData } from "./load_config.ts";
@@ -39,12 +39,11 @@ function installGitHooks(gitDir: string) {
   const hooksDir = path.join(gitDir, "hooks");
   hooks.forEach((hook) => {
     const hookFile = path.join(hooksDir, hook);
-    Deno.writeTextFileSync(hookFile, hookScript(hook));
-    try {
-      Deno.chmodSync(hookFile, 0o0755);
-    } catch (e) {
-      // Windows
+    if (existsSync(hookFile)) {
+      Deno.renameSync(hookFile, `${hookFile}.bkp`);
     }
+    Deno.writeTextFileSync(hookFile, hookScript(hook));
+    makeFileExecutable(hookFile);
   });
   Deno.writeTextFileSync(path.join(hooksDir, ".velociraptor"), "");
   console.log(`
