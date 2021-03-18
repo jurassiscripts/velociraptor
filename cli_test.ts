@@ -1,14 +1,15 @@
 import { assertEquals, assertMatch, assertStringIncludes } from "./dev_deps.ts";
-const wd = "./test";
+const yamlWd = "./test/yaml";
+const tsWd = "./test/ts";
 const cliArgs = [
   "deno",
   "run",
   "-qA",
-  "../cli.ts",
+  "../../cli.ts",
 ];
 const expectedOutput = "Works!";
 
-async function runScript(name: string): Promise<string> {
+async function runScript(name: string, wd: string = yamlWd): Promise<string> {
   const process = Deno.run({
     cmd: [...cliArgs, name],
     cwd: wd,
@@ -34,6 +35,11 @@ Deno.test("basic script with env variable", async () => {
     output.trim(),
     "Works! Works 1! Works 2! Works 3! Works 4!",
   );
+});
+
+Deno.test("ts config file", async () => {
+  const output = await runScript("test", tsWd);
+  assertStringIncludes(output, expectedOutput);
 });
 
 Deno.test("deno run", async () => {
