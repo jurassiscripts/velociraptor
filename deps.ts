@@ -19,4 +19,5 @@ export {
   Command,
   CompletionsCommand,
   StringType,
+  ValidationError,
 } from "https://deno.land/x/cliffy@v0.18.1/command/mod.ts";
