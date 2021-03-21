@@ -1,9 +1,10 @@
 import { ConfigData } from "./load_config.ts";
 import { log } from "./logger.ts";
+import { ValidationError } from "../deps.ts";
 
 export function validateConfigData(configData: ConfigData | null) {
   if (!configData) {
-    throw new Error("No scripts file found.");
+    throw new ValidationError("No scripts file found.");
   }
   if (
     !configData.config.scripts ||
