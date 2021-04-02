@@ -7,7 +7,9 @@ import { validateConfigData } from "../../validate_config_data.ts";
 export class ExportCommand extends Command {
   constructor(private configData: ConfigData | null) {
     super();
-    this.description("Export one or more scripts as standalone executable files")
+    this.description(
+      "Export one or more scripts as standalone executable files",
+    )
       .arguments("[scripts...:scriptid]")
       .option(
         "-o, --out-dir [dir:string]",

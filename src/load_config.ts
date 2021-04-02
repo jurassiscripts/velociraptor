@@ -10,22 +10,22 @@ export interface ConfigData {
 }
 
 export async function loadConfig(): Promise<ConfigData | null> {
-    let ext, name, dir = Deno.cwd();
-    while (parent(dir) !== dir) {
-      for (ext of CONFIG_FILE_EXTENSIONS) {
-        for (name of CONFIG_FILE_NAMES) {
-          const p = `${path.join(dir, name)}.${ext}`;
-          if (existsSync(p)) {
-            return {
-              cwd: dir,
-              config: await parseConfig(p, ext == "ts"),
-            };
-          }
+  let ext, name, dir = Deno.cwd();
+  while (parent(dir) !== dir) {
+    for (ext of CONFIG_FILE_EXTENSIONS) {
+      for (name of CONFIG_FILE_NAMES) {
+        const p = `${path.join(dir, name)}.${ext}`;
+        if (existsSync(p)) {
+          return {
+            cwd: dir,
+            config: await parseConfig(p, ext == "ts"),
+          };
         }
       }
-      dir = parent(dir);
     }
-    return null;
+    dir = parent(dir);
+  }
+  return null;
 }
 
 function parent(dir: string) {
