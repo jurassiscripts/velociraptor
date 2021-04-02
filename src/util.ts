@@ -23,7 +23,8 @@ export async function spawn(args: string[], cwd: string): Promise<string> {
   const process = Deno.run({
     cmd: args,
     cwd,
-    stdout: "piped",
+    stdout: 'piped',
+    stderr: 'null',
   });
   const { code } = await process.status();
   if (code === 0) {
