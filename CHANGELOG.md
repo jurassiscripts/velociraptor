@@ -1,4 +1,11 @@
 
+## [1.0.0-beta.18](https://github.com/jurassiscripts/velociraptor/compare/1.0.0-beta.17...1.0.0-beta.18) (2021-03-21)
+
+
+### Bug Fixes
+
+* **cli:** fix shell completions ([216de2c](https://github.com/jurassiscripts/velociraptor/commit/216de2cf4f4fc312eda6f644d1feb4ff9e859193))
+
 ## [1.0.0-beta.17](https://github.com/umbopepato/velociraptor/compare/1.0.0-beta.16...1.0.0-beta.17) (2021-03-11)
 
 

@@ -4,10 +4,11 @@ import { isScriptObject } from "./util.ts";
 import { hooks } from "./git_hooks.ts";
 import { didYouMean } from "./did_you_mean.ts";
 import { blue, red } from "../deps.ts";
+import { ValidationError } from "../deps.ts";
 
 export function validateConfigData(configData: ConfigData | null): ConfigData {
-  if (configData == null) {
-    throw new Error("No scripts file found.");
+  if (!configData) {
+    throw new ValidationError("No scripts file found.");
   }
   if (
     !configData.config.scripts ||

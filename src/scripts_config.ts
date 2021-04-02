@@ -204,6 +204,7 @@ export interface AllowFlags {
   plugin?: boolean;
   read?: string | boolean;
   run?: boolean;
+  write?: string | boolean;
 }
 
 export type FlagsObject = Record<string, any>;
