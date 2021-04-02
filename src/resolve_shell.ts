@@ -6,6 +6,9 @@ const OS_FALLBACK_SHELL = isWindows ? "cmd.exe" : "sh";
 
 export function resolveShell(): string {
   let shell = Deno.env.get(VR_SHELL);
+  if (!shell && isWindows) {
+    shell = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe";
+  }
   if (validateShellFile(shell)) return shell as string;
   shell = Deno.env.get(OS_SHELL_ENV_NAME);
   if (validateShellFile(shell)) return shell as string;
