@@ -11,8 +11,8 @@ export function validateConfigData(configData: ConfigData | null): ConfigData {
     throw new ValidationError("No scripts file found.");
   }
   if (
-    !configData.config.scripts ||
-    Object.entries(configData.config.scripts).length < 1
+    !configData.config?.scripts ||
+    Object.entries(configData.config?.scripts).length < 1
   ) {
     log.warning(
       "No scripts available.\nSee https://velociraptor.run for guidance on how to create scripts.",
