@@ -36,7 +36,10 @@ export async function runCommands(
   try {
     await _runCommands(commands as Array<Command | ParallelCommands>);
   } catch (e) {
-    runningProcesses.forEach((p) => p.close());
+    runningProcesses.forEach((p) => {
+      p.kill(Deno.Signal.SIGKILL);
+      p.close();
+    });
     throw e;
   }
 }
