@@ -22,3 +22,10 @@ export {
   ValidationError,
 } from "https://deno.land/x/cliffy@v0.18.1/command/mod.ts";
 export { kill } from "https://deno.land/x/process@v0.3.0/mod.ts";
+export {
+  DenoLand,
+  latestVersion,
+  parseURL,
+  UpdateNotifier,
+} from "https://x.nest.land/hatcher@0.10.1/mod.ts";
+export * as semver from "https://deno.land/x/semver@v1.0.0/mod.ts";

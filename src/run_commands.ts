@@ -56,7 +56,7 @@ async function runCommand(
     cwd,
     env: getEnvVars(command),
   };
-  log.info(
+  log.debug(
     `Running > ${cmd}${
       additionalArgs && additionalArgs.length > 0
         ? ` -- ${additionalArgs.join(" ")}`

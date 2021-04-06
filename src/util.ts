@@ -19,12 +19,12 @@ export function makeFileExecutable(filePath: string) {
   }
 }
 
-export async function spawn(args: string[], cwd: string): Promise<string> {
+export async function spawn(args: string[], cwd?: string): Promise<string> {
   const process = Deno.run({
     cmd: args,
     cwd,
     stdout: "piped",
-    stderr: "null",
+    stderr: "piped",
   });
   const { code } = await process.status();
   if (code === 0) {

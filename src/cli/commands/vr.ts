@@ -9,6 +9,7 @@ import { RunHookCommand } from "./run_hook.ts";
 import { VR_HOOKS, VR_LOG, VR_SHELL } from "../../consts.ts";
 import { checkGitHooks } from "../../git_hooks.ts";
 import { validateConfigData } from "../../validate_config_data.ts";
+import { UpgradeCommand } from "./upgrade.ts";
 
 export class VrCommand extends Command {
   constructor(private configData: ConfigData | null) {
@@ -41,6 +42,7 @@ export class VrCommand extends Command {
       .command("run", new RunCommand(this.configData))
       .command("run-hook", new RunHookCommand(this.configData))
       .command("export", new ExportCommand(this.configData))
+      .command("upgrade", new UpgradeCommand())
       .command("completions", new CompletionsCommand())
       .reset();
   }
