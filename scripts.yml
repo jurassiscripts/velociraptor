@@ -1,5 +1,9 @@
 scripts:
 
+  test:
+    cmd: deno test -Ar
+    gitHook: pre-push
+
   format:
     cmd: >
       FILES=$(git diff --cached --name-only --diff-filter=ACMR "*.ts");
