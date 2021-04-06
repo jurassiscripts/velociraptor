@@ -1,7 +1,7 @@
+import { kill } from "../deps.ts";
 import { getEnvVars } from "./env.ts";
 import { escape, isWindows, OneOrMore } from "./util.ts";
 import { log } from "./logger.ts";
-
 import {
   Command,
   CompoundCommandItem,
@@ -37,7 +37,7 @@ export async function runCommands(
     await _runCommands(commands as Array<Command | ParallelCommands>);
   } catch (e) {
     runningProcesses.forEach((p) => {
-      p.kill(Deno.Signal.SIGKILL);
+      kill(p.pid, { force: true, tree: true });
       p.close();
     });
     throw e;
