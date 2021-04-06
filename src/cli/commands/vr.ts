@@ -43,7 +43,7 @@ export class VrCommand extends Command {
       .command("run-hook", new RunHookCommand(this.configData))
       .command("export", new ExportCommand(this.configData))
       .command("upgrade", new UpgradeCommand())
-      .command("completions", new CompletionsCommand())
+      .command("completions", new CompletionsCommand().hidden())
       .reset();
   }
 }
