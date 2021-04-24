@@ -6,10 +6,11 @@ import { RunCommand } from "./run.ts";
 import { ExportCommand } from "./export.ts";
 import { ArgsForwardingMode, runScript } from "../../run_script.ts";
 import { RunHookCommand } from "./run_hook.ts";
-import { VR_HOOKS, VR_LOG, VR_SHELL } from "../../consts.ts";
+import { UPGRADE_COMMAND, VR_HOOKS, VR_LOG, VR_SHELL } from "../../consts.ts";
 import { checkGitHooks } from "../../git_hooks.ts";
 import { validateConfigData } from "../../validate_config_data.ts";
 import { UpgradeCommand } from "./upgrade.ts";
+import { notifier, withUpdateChecks } from "../../update_notifier.ts";
 
 export class VrCommand extends Command {
   constructor(private configData: ConfigData | null) {
@@ -34,14 +35,16 @@ export class VrCommand extends Command {
       .type("scriptid", new ScriptIdType(this.configData), { global: true })
       .arguments("[script:scriptid] [additionalArgs...]")
       .stopEarly()
-      .action(async (options, script: string, additionalArgs: string[]) => {
-        validateConfigData(this.configData);
-        await checkGitHooks(this.configData as ConfigData);
-        await runScript({
-          configData: this.configData!,
-          script,
-          additionalArgs,
-          argsForwardingMode: ArgsForwardingMode.DIRECT,
+      .action((options, script: string, additionalArgs: string[]) => {
+        return withUpdateChecks(async () => {
+          validateConfigData(this.configData);
+          await checkGitHooks(this.configData as ConfigData);
+          await runScript({
+            configData: this.configData!,
+            script,
+            additionalArgs,
+            argsForwardingMode: ArgsForwardingMode.DIRECT,
+          });
         });
       })
       .command("run", new RunCommand(this.configData))
