@@ -43,3 +43,5 @@ export const isScriptObject = (script: any): script is ScriptObject =>
 
 export const isParallelScripts = (script: any): script is ParallelScripts =>
   script instanceof Object && "pll" in script;
+
+export const notNull = (o: any) => o != null;

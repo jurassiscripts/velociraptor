@@ -1,6 +1,6 @@
 import { Command } from "../../../deps.ts";
 import { ConfigData } from "../../load_config.ts";
-import { runScript } from "../../run_script.ts";
+import { ArgsForwardingMode, runScript } from "../../run_script.ts";
 import { VR_HOOKS } from "../../consts.ts";
 import { validateConfigData } from "../../validate_config_data.ts";
 import { isScriptObject } from "../../util.ts";
@@ -21,7 +21,13 @@ export class RunHookCommand extends Command {
               value.gitHook === hook
             );
           if (script) {
-            await runScript(this.configData, script[0], args);
+            await runScript({
+              configData: this.configData!,
+              script: script[0],
+              prefix: `GIT_ARGS=("$@");`,
+              additionalArgs: args,
+              argsForwardingMode: ArgsForwardingMode.INDIRECT,
+            });
           }
         }
       });

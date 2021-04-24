@@ -7,10 +7,22 @@ import { resolveShell } from "./resolve_shell.ts";
 import { runCommands } from "./run_commands.ts";
 import { validateScript } from "./validate_script.ts";
 
+export enum ArgsForwardingMode {
+  DIRECT,
+  INDIRECT,
+}
+
+export interface RunScriptOptions {
+  configData: ConfigData;
+  script: string;
+  prefix?: string;
+  additionalArgs?: string[];
+  argsForwardingMode?: ArgsForwardingMode;
+}
+
 export async function runScript(
-  configData: ConfigData,
-  script: string,
-  additionalArgs: string[] = [],
+  { configData, script, prefix, additionalArgs, argsForwardingMode }:
+    RunScriptOptions,
 ) {
   const { cwd, config } = configData;
   if (script == null || script.length < 1) {
@@ -23,7 +35,14 @@ export async function runScript(
   const commands = normalizeScript(scriptDef, rootConfig);
   const shell = resolveShell();
   try {
-    await runCommands(commands, shell, additionalArgs, cwd);
+    await runCommands({
+      shell,
+      cwd,
+      commands,
+      prefix,
+      additionalArgs,
+      argsForwardingMode,
+    });
   } catch (e) {
     log.error(`Failed at the ${bold(script)} script`);
     Deno.exit(3);

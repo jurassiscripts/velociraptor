@@ -4,7 +4,7 @@ import { ScriptIdType } from "../types/script_id_type.ts";
 import { ConfigData } from "../../load_config.ts";
 import { RunCommand } from "./run.ts";
 import { ExportCommand } from "./export.ts";
-import { runScript } from "../../run_script.ts";
+import { ArgsForwardingMode, runScript } from "../../run_script.ts";
 import { RunHookCommand } from "./run_hook.ts";
 import { VR_HOOKS, VR_LOG, VR_SHELL } from "../../consts.ts";
 import { checkGitHooks } from "../../git_hooks.ts";
@@ -37,7 +37,12 @@ export class VrCommand extends Command {
       .action(async (options, script: string, additionalArgs: string[]) => {
         validateConfigData(this.configData);
         await checkGitHooks(this.configData as ConfigData);
-        await runScript(this.configData as ConfigData, script, additionalArgs);
+        await runScript({
+          configData: this.configData!,
+          script,
+          additionalArgs,
+          argsForwardingMode: ArgsForwardingMode.DIRECT,
+        });
       })
       .command("run", new RunCommand(this.configData))
       .command("run-hook", new RunHookCommand(this.configData))

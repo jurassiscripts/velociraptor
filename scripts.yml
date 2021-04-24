@@ -1,7 +1,7 @@
 scripts:
 
   test:
-    cmd: 'deno test -Ar #'
+    cmd: deno test -Ar
     desc: Runs the tests
     gitHook: pre-push
 
@@ -15,6 +15,6 @@ scripts:
     gitHook: pre-commit
 
   commitlint:
-    cmd: npx commitlint -x @commitlint/config-conventional -e $1
+    cmd: echo "Args ${GIT_ARGS[1]}"; npx commitlint -x @commitlint/config-conventional -e ${GIT_ARGS[1]}
     desc: Checks commit messages format
     gitHook: commit-msg

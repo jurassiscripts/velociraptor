@@ -1,6 +1,6 @@
 import { kill } from "../deps.ts";
 import { getEnvVars } from "./env.ts";
-import { escape, isWindows, OneOrMore } from "./util.ts";
+import { escape, isWindows, notNull, OneOrMore } from "./util.ts";
 import { log } from "./logger.ts";
 import {
   Command,
@@ -9,15 +9,27 @@ import {
   ParallelCommands,
 } from "./command.ts";
 import { buildCommandString } from "./build_command_string.ts";
+import { ArgsForwardingMode } from "./run_script.ts";
 
 const runningProcesses: Set<Deno.Process> = new Set();
 
-export async function runCommands(
-  commands: CompoundCommandItem[],
-  shell: string,
-  additionalArgs: string[],
-  cwd: string,
-): Promise<void> {
+interface RunCommandsOptions {
+  shell: string;
+  cwd: string;
+  commands: CompoundCommandItem[];
+  prefix?: string;
+  additionalArgs?: string[];
+  argsForwardingMode?: ArgsForwardingMode;
+}
+
+export async function runCommands({
+  shell,
+  cwd,
+  commands,
+  prefix,
+  additionalArgs,
+  argsForwardingMode,
+}: RunCommandsOptions): Promise<void> {
   const _runCommands = async (
     commands: OneOrMore<CompoundCommandItem>,
   ): Promise<unknown> => {
@@ -30,7 +42,15 @@ export async function runCommands(
       if (isParallel(commands)) {
         return Promise.all(commands.pll.map((c) => _runCommands(c)));
       }
-      return runCommand(commands, shell, additionalArgs, cwd);
+      const command = commands as Command;
+      return runCommand({
+        shell,
+        cwd,
+        command,
+        prefix,
+        additionalArgs,
+        argsForwardingMode,
+      });
     }
   };
   try {
@@ -44,23 +64,42 @@ export async function runCommands(
   }
 }
 
-async function runCommand(
-  command: Command,
-  shell: string,
-  additionalArgs: string[],
-  cwd: string,
-): Promise<void> {
+type RunCommandOptions = Omit<RunCommandsOptions, "commands"> & {
+  command: Command;
+};
+
+async function runCommand({
+  shell,
+  cwd,
+  command,
+  prefix,
+  additionalArgs,
+  argsForwardingMode,
+}: RunCommandOptions): Promise<void> {
   const cmd = buildCommandString(command);
   let runOptions: Deno.RunOptions = {
-    cmd: [shell, ...buildShellArgs(shell, cmd, additionalArgs)],
+    cmd: [
+      shell,
+      ...buildShellArgs({
+        shell,
+        command: cmd,
+        prefix,
+        additionalArgs,
+        argsForwardingMode,
+      }),
+    ],
     cwd,
     env: getEnvVars(command),
   };
   log.debug(
-    `Running > ${cmd}${
-      additionalArgs && additionalArgs.length > 0
-        ? ` -- ${additionalArgs.join(" ")}`
-        : ""
+    `Running > ${
+      [
+        prefix,
+        cmd,
+        additionalArgs && additionalArgs.length > 0
+          ? additionalArgs.join(" ")
+          : null,
+      ].filter(notNull).join(" ")
     }`,
   );
   const process = Deno.run(runOptions);
@@ -73,18 +112,34 @@ async function runCommand(
   }
 }
 
-function buildShellArgs(
-  shell: string,
-  command: string,
-  additionalArgs: string[],
-): string[] {
-  const fullCmd = additionalArgs.length < 1
-    ? command
-    : `${command} ${
-      additionalArgs.map((a) => `"${escape(a, '"')}"`).join(" ")
-    }`;
+type BuildShellArgsOptions = Omit<RunCommandOptions, "command" | "cwd"> & {
+  command: string;
+};
+
+function buildShellArgs({
+  shell,
+  command,
+  prefix,
+  additionalArgs,
+  argsForwardingMode,
+}: BuildShellArgsOptions): string[] {
+  const cmd = [
+    prefix,
+    command,
+    argsForwardingMode === ArgsForwardingMode.DIRECT && additionalArgs &&
+      additionalArgs.length > 0
+      ? additionalArgs.map((a) => `"${escape(a, '"')}"`).join(" ")
+      : null,
+  ].filter(notNull)
+    .join(" ");
   if (isWindows && /^(?:.*\\)?cmd(?:\.exe)?$/i.test(shell)) {
-    return ["/d", "/s", "/c", fullCmd];
+    return ["/d", "/s", "/c", cmd];
   }
-  return ["-c", fullCmd];
+  return [
+    "-c",
+    cmd,
+    ...(argsForwardingMode === ArgsForwardingMode.INDIRECT && additionalArgs
+      ? additionalArgs
+      : []),
+  ];
 }

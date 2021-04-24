@@ -1,6 +1,6 @@
 import { Command } from "../../../deps.ts";
 import { ConfigData } from "../../load_config.ts";
-import { runScript } from "../../run_script.ts";
+import { ArgsForwardingMode, runScript } from "../../run_script.ts";
 import { checkGitHooks } from "../../git_hooks.ts";
 import { validateConfigData } from "../../validate_config_data.ts";
 
@@ -17,7 +17,12 @@ export class RunCommand extends Command {
         }
         validateConfigData(this.configData);
         await checkGitHooks(this.configData as ConfigData);
-        await runScript(this.configData as ConfigData, script, additionalArgs);
+        await runScript({
+          configData: this.configData!,
+          script,
+          additionalArgs,
+          argsForwardingMode: ArgsForwardingMode.DIRECT,
+        });
       });
   }
 }
