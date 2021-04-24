@@ -15,6 +15,6 @@ scripts:
     gitHook: pre-commit
 
   commitlint:
-    cmd: echo "Args ${GIT_ARGS[1]}"; npx commitlint -x @commitlint/config-conventional -e ${GIT_ARGS[1]}
+    cmd: npx commitlint -x @commitlint/config-conventional -e ${GIT_ARGS[1]}
     desc: Checks commit messages format
     gitHook: commit-msg
