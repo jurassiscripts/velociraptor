@@ -1,4 +1,35 @@
 
+## [1.0.0](https://github.com/jurassiscripts/velociraptor/compare/1.0.0-beta.18...1.0.0) (2021-05-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **run:** use PowerShell by default on Windows
+
+### Features
+
+* **cli:** add git hook to script info output ([dba1ba6](https://github.com/jurassiscripts/velociraptor/commit/dba1ba64e76535c06fe26cda6827870898f7f939))
+* **cli:** add hooks command ([561a4fd](https://github.com/jurassiscripts/velociraptor/commit/561a4fd05fba8bc619386b6382d392eb0d65a292))
+* **cli:** add run-hook command ([66f127f](https://github.com/jurassiscripts/velociraptor/commit/66f127f83a847235ce8c97f6c82ae7145a8d2254))
+* **cli:** add upgrade command and update notifier ([8bcf024](https://github.com/jurassiscripts/velociraptor/commit/8bcf0249aed7de2a7fa73b34fa59de2779be91be))
+* **git-hooks:** draft git hooks integration ([210f0b7](https://github.com/jurassiscripts/velociraptor/commit/210f0b7798abf0ff02391bfdd155159991a00d7e))
+* **hooks:** add githook typing ([02abd70](https://github.com/jurassiscripts/velociraptor/commit/02abd7036e4ded0a209746bf2ada0e4eddc7649c))
+* **hooks:** add hooks installation checks ([98c9f43](https://github.com/jurassiscripts/velociraptor/commit/98c9f43094127f2175e08e9eec2e1d9fd7a842a5))
+* **hooks:** backup user-defined hooks before installing ([39ab6be](https://github.com/jurassiscripts/velociraptor/commit/39ab6be4ed60f4af89a9a620a55490fdcb884ba5))
+* **hooks:** use git cli to get the correct git dir ([26ed86c](https://github.com/jurassiscripts/velociraptor/commit/26ed86c3a154227705203c3d044445d2627d0518))
+* **run:** use PowerShell by default on Windows ([bb64b3e](https://github.com/jurassiscripts/velociraptor/commit/bb64b3e50b6ddec6f9a3b085e61f651a46f174d6))
+
+
+### Bug Fixes
+
+* **config:** add missing "write" permission flag ([4172957](https://github.com/jurassiscripts/velociraptor/commit/417295779ab170139e479b1b2c8c6622bbc3e225))
+* **config:** prevent error when a config file is completely empty ([83f1bf9](https://github.com/jurassiscripts/velociraptor/commit/83f1bf953a6fae37fd42f7b63381410242084cc9))
+* **hooks:** forward git hooks through a variable to avoid breaking scripts ([5ee07e0](https://github.com/jurassiscripts/velociraptor/commit/5ee07e0a46150757bbfb6381cc49263ffddf56ec))
+* **hooks:** prevent git subprocess from printing errors ([a931a84](https://github.com/jurassiscripts/velociraptor/commit/a931a84db7c814a2688cb5cb97b1d9d2a48e144e))
+* **hooks:** typo in hook script template ([0a14727](https://github.com/jurassiscripts/velociraptor/commit/0a147279428ae0d839a59ca613788e1ce21b1bfd))
+* **scripts:** kill processes in addition to closing them on errors ([1b437b6](https://github.com/jurassiscripts/velociraptor/commit/1b437b65d6dd7b313e37f77399e4a841ed995f6a))
+* **scripts:** use /x/process to correctly kill processes on all platforms ([13136e8](https://github.com/jurassiscripts/velociraptor/commit/13136e84402bae1323026ecc6734febc008fd13e))
+
 ## [1.0.0-beta.18](https://github.com/jurassiscripts/velociraptor/compare/1.0.0-beta.17...1.0.0-beta.18) (2021-03-21)
 
 
