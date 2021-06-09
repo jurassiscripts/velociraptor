@@ -1,6 +1,5 @@
 name: velociraptor
 description: The npm-style script runner for Deno
-unstable: true
 version: 1.0.0
 repository: 'https://github.com/jurassiscripts/velociraptor/'
 entry: ./cli.ts
