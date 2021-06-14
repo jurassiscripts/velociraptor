@@ -12,7 +12,7 @@
  <img alt="Version" src="https://img.shields.io/github/v/release/umbopepato/velociraptor?logo=github&include_prereleases">
  <a href="https://github.com/umbopepato/velociraptor"><img alt="GitHub stars" src="https://img.shields.io/github/stars/umbopepato/velociraptor?logo=github"></a>
  <a href="#badge"><img alt="vr scripts" src="https://badges.velociraptor.run/flat.svg"/></a>
- <a href="https://doc.deno.land/https/deno.land/x/velociraptor@1.0.0/src/scripts_config.ts#ScriptsConfiguration"><img src="https://img.shields.io/badge/deno-doc-blue?logo=deno"></a>
+ <a href="https://doc.deno.land/https/deno.land/x/velociraptor@1.0.1/src/scripts_config.ts#ScriptsConfiguration"><img src="https://img.shields.io/badge/deno-doc-blue?logo=deno"></a>
  <a href="https://deno.land"><img src="https://img.shields.io/badge/deno-%5E1.0.0-green?logo=deno"/></a>
  <a href="https://discord.gg/M5K7TBd"><img src="https://img.shields.io/badge/join-chat-7289DA?logo=discord&logoColor=white"/></a>
  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen"/></a>
