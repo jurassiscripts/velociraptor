@@ -26,3 +26,5 @@ scripts:
   importmap:
     cmd: deno run --unstable imap.ts
     imap: importmap.json
+  forward:
+    cmd: echo deno test --lock=lock.json --cached-only

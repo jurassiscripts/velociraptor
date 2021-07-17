@@ -9,9 +9,13 @@ const cliArgs = [
 ];
 const expectedOutput = "Works!";
 
-async function runScript(name: string, wd: string = yamlWd): Promise<string> {
+async function runScript(
+  name: string,
+  wd: string = yamlWd,
+  additionalArgs: Array<string> = [],
+): Promise<string> {
   const process = Deno.run({
-    cmd: [...cliArgs, name],
+    cmd: [...cliArgs, name, ...additionalArgs],
     cwd: wd,
     stdout: "piped",
   });
@@ -85,4 +89,12 @@ Deno.test("importmap", async () => {
 Deno.test("--help", async () => {
   const output = await runScript("--help");
   assertStringIncludes(output, "--version");
+});
+
+Deno.test("forward arguments", async () => {
+  const output = await runScript("forward", yamlWd, ["--shuffle=1234"]);
+  assertStringIncludes(
+    output.replace(/\r\n|\r|\n/g, " "),
+    "deno test --lock=lock.json --cached-only --shuffle=1234",
+  );
 });
