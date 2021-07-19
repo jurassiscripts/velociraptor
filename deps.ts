@@ -20,7 +20,7 @@ export {
   CompletionsCommand,
   StringType,
   ValidationError,
-} from "https://deno.land/x/cliffy@v0.19.1/command/mod.ts";
+} from "https://deno.land/x/cliffy@v0.19.3/command/mod.ts";
 export { kill } from "https://deno.land/x/process@v0.3.0/mod.ts";
 export {
   DenoLand,
