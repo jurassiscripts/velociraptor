@@ -1,4 +1,4 @@
-import { ParallelScripts, ScriptObject } from "./scripts_config.ts";
+import { ParallelScripts, Script, ScriptObject } from "./scripts_config.ts";
 
 export type OneOrMore<T> = T | T[];
 
@@ -43,5 +43,9 @@ export const isScriptObject = (script: any): script is ScriptObject =>
 
 export const isParallelScripts = (script: any): script is ParallelScripts =>
   script instanceof Object && "pll" in script;
+
+export const isNonParallelCompositeScript = (
+  script: any,
+): script is Array<Script | ParallelScripts> => Array.isArray(script);
 
 export const notNull = (o: any) => o != null;
