@@ -44,7 +44,7 @@ export const isScriptObject = (script: any): script is ScriptObject =>
 export const isParallelScripts = (script: any): script is ParallelScripts =>
   script instanceof Object && "pll" in script;
 
-export const isNonParallelCompositeScript = (
+export const isMultiCompositeScript = (
   script: any,
 ): script is Array<Script | ParallelScripts> => Array.isArray(script);
 

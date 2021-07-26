@@ -5,7 +5,7 @@ import {
   ScriptsConfiguration,
 } from "./scripts_config.ts";
 import { flattenCommands, normalizeScript } from "./normalize_script.ts";
-import { isNonParallelCompositeScript, isScriptObject } from "./util.ts";
+import { isMultiCompositeScript, isScriptObject } from "./util.ts";
 
 export function printScriptsInfo(config: ScriptsConfiguration) {
   const scripts = Object.entries(config.scripts);
@@ -36,7 +36,7 @@ function scriptInfo(script: ScriptDefinition): string {
     if (script.gitHook) {
       info.push(`${indent}${gray("Runs at")} ${red(script.gitHook)}`);
     }
-  } else if (isNonParallelCompositeScript(script)) {
+  } else if (isMultiCompositeScript(script)) {
     const scripts = script.filter((s) => isScriptObject(s)) as Array<
       ScriptObject
     >;
