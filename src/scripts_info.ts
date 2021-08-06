@@ -1,7 +1,11 @@
 import { blue, bold, gray, red } from "../deps.ts";
-import { ScriptDefinition, ScriptsConfiguration } from "./scripts_config.ts";
+import {
+  ScriptDefinition,
+  ScriptObject,
+  ScriptsConfiguration,
+} from "./scripts_config.ts";
 import { flattenCommands, normalizeScript } from "./normalize_script.ts";
-import { isScriptObject } from "./util.ts";
+import { isMultiCompositeScript, isScriptObject } from "./util.ts";
 
 export function printScriptsInfo(config: ScriptsConfiguration) {
   const scripts = Object.entries(config.scripts);
@@ -26,16 +30,26 @@ ${
 
 function scriptInfo(script: ScriptDefinition): string {
   const info = [];
+  const indent = " ".repeat(4);
   if (isScriptObject(script)) {
     if (script.desc) info.push(`    ${script.desc}`);
     if (script.gitHook) {
-      info.push(`    ${gray("Runs at")} ${red(script.gitHook)}`);
+      info.push(`${indent}${gray("Runs at")} ${red(script.gitHook)}`);
     }
+  } else if (isMultiCompositeScript(script)) {
+    const scripts = script.filter((s) => isScriptObject(s)) as Array<
+      ScriptObject
+    >;
+    const combinedDescriptions = scripts.flatMap((s) => {
+      if (typeof s === "string") return [];
+      return s.desc;
+    }).filter(Boolean);
+    info.push(`${indent}${combinedDescriptions.join(", ")}`);
   }
   const commands = flattenCommands(normalizeScript(script, {}));
   info.push(
     gray(
-      `    $ ${commands.map((c) => c.cmd).slice(0, 3).join(", ")}${
+      `${indent}$ ${commands.map((c) => c.cmd).slice(0, 3).join(", ")}${
         commands.length > 3 ? "..." : ""
       }`,
     ),

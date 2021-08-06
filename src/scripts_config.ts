@@ -40,8 +40,6 @@ export interface ScriptObject extends ScriptOptions {
    * A textual description of what this script does.
    * This will be shown in the list of available scripts,
    * when calling `vr` without arguments.
-   *
-   * **Note** nested `ScriptObject`'s `desc` are ignored
    */
   desc?: string;
   /**
