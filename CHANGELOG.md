@@ -1,4 +1,11 @@
 
+## [1.1.0](https://github.com/jurassiscripts/velociraptor/compare/1.0.2...1.1.0) (2021-08-06)
+
+
+### Features
+
+* **script:** combined descriptions for composite scripts ([cf17689](https://github.com/jurassiscripts/velociraptor/commit/cf17689a6ef99dd903c5cc8c6af8ee52237e858f))
+
 ### [1.0.2](https://github.com/jurassiscripts/velociraptor/compare/1.0.1...1.0.2) (2021-07-19)
 
 
