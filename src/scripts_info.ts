@@ -45,6 +45,8 @@ function scriptInfo(script: ScriptDefinition): string {
       return s.desc;
     }).filter(Boolean);
     info.push(`${indent}${combinedDescriptions.join(", ")}`);
+  } else if (isParallelScripts(script)) {
+    if (script.desc) info.push(`${indent}${script.desc}`);
   }
   const commands = flattenCommands(normalizeScript(script, {}));
   info.push(
