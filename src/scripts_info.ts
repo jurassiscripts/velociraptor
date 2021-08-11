@@ -5,7 +5,11 @@ import {
   ScriptsConfiguration,
 } from "./scripts_config.ts";
 import { flattenCommands, normalizeScript } from "./normalize_script.ts";
-import { isMultiCompositeScript, isScriptObject } from "./util.ts";
+import {
+  isMultiCompositeScript,
+  isParallelScripts,
+  isScriptObject,
+} from "./util.ts";
 
 export function printScriptsInfo(config: ScriptsConfiguration) {
   const scripts = Object.entries(config.scripts);
