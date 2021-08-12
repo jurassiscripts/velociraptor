@@ -19,6 +19,7 @@ enum DenoOptions {
   unstable = "unstable",
   v8Flags = "v8Flags",
   watch = "watch",
+  shuffle = "shuffle",
 }
 
 const denoCmdOptions: { [key: string]: DenoOptions[] } = {
@@ -85,6 +86,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
     DenoOptions.tsconfig,
     DenoOptions.unstable,
     DenoOptions.v8Flags,
+    DenoOptions.shuffle,
   ],
   cache: [
     DenoOptions.cert,

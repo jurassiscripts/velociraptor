@@ -205,7 +205,7 @@ export interface AllowFlags {
   env?: boolean;
   hrtime?: boolean;
   net?: string | boolean;
-  plugin?: boolean;
+  ffi?: boolean;
   read?: string | boolean;
   run?: boolean;
   write?: string | boolean;
