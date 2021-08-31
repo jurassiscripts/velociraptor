@@ -14,3 +14,4 @@ jobs:
           workflow: 9529629
           repo: jurassiscripts/velociraptor-dot-run
           token: ${{ secrets.DOCS_TOKEN }}
+          ref: main
