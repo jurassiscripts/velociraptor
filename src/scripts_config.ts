@@ -60,6 +60,12 @@ export type CompositeScript = ParallelScripts | Array<Script | ParallelScripts>;
  */
 export interface ParallelScripts {
   /**
+   * A textual description of what this set of scripts do.
+   * This will be shown in the list of available scripts,
+   * when calling `vr` without arguments.
+   */
+  desc?: string;
+  /**
    * The list of script to be executed in parallel
    */
   pll: Script[];
@@ -199,7 +205,7 @@ export interface AllowFlags {
   env?: boolean;
   hrtime?: boolean;
   net?: string | boolean;
-  plugin?: boolean;
+  ffi?: boolean;
   read?: string | boolean;
   run?: boolean;
   write?: string | boolean;

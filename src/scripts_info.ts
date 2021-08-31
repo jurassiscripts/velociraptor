@@ -5,7 +5,11 @@ import {
   ScriptsConfiguration,
 } from "./scripts_config.ts";
 import { flattenCommands, normalizeScript } from "./normalize_script.ts";
-import { isMultiCompositeScript, isScriptObject } from "./util.ts";
+import {
+  isMultiCompositeScript,
+  isParallelScripts,
+  isScriptObject,
+} from "./util.ts";
 
 export function printScriptsInfo(config: ScriptsConfiguration) {
   const scripts = Object.entries(config.scripts);
@@ -45,6 +49,8 @@ function scriptInfo(script: ScriptDefinition): string {
       return s.desc;
     }).filter(Boolean);
     info.push(`${indent}${combinedDescriptions.join(", ")}`);
+  } else if (isParallelScripts(script)) {
+    if (script.desc) info.push(`${indent}${script.desc}`);
   }
   const commands = flattenCommands(normalizeScript(script, {}));
   info.push(
