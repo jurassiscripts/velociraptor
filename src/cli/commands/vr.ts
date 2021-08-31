@@ -6,11 +6,11 @@ import { RunCommand } from "./run.ts";
 import { ExportCommand } from "./export.ts";
 import { ArgsForwardingMode, runScript } from "../../run_script.ts";
 import { RunHookCommand } from "./run_hook.ts";
-import { UPGRADE_COMMAND, VR_HOOKS, VR_LOG, VR_SHELL } from "../../consts.ts";
+import { VR_HOOKS, VR_LOG, VR_SHELL } from "../../consts.ts";
 import { checkGitHooks } from "../../git_hooks.ts";
 import { validateConfigData } from "../../validate_config_data.ts";
 import { UpgradeCommand } from "./upgrade.ts";
-import { notifier, withUpdateChecks } from "../../update_notifier.ts";
+import { withUpdateChecks } from "../../update_notifier.ts";
 
 export class VrCommand extends Command {
   constructor(private configData: ConfigData | null) {

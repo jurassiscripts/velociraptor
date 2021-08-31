@@ -1,0 +1,16 @@
+name: Trigger docs website build
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: 9529629
+          repo: jurassiscripts/velociraptor-dot-run
+          token: ${{ secrets.DOCS_TOKEN }}
