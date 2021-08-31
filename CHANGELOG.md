@@ -1,4 +1,12 @@
 
+## [1.2.0](https://github.com/jurassiscripts/velociraptor/compare/1.1.0...1.2.0) (2021-08-31)
+
+
+### Features
+
+* support desc field for parallel scripts ([142482f](https://github.com/jurassiscripts/velociraptor/commit/142482f0b8c687a0ec296dd862eca47e9e2d59dd))
+* support for Deno v1.13.x ([00fd1b1](https://github.com/jurassiscripts/velociraptor/commit/00fd1b1744c25fd9cc44ce43593d5926f05797b6))
+
 ## [1.1.0](https://github.com/jurassiscripts/velociraptor/compare/1.0.2...1.1.0) (2021-08-06)
 
 
