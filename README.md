@@ -8,7 +8,7 @@
 
 <p align="center">
 
- <img alt="CI" src="https://github.com/umbopepato/velociraptor/workflows/Deno%20CI/badge.svg"/>
+ <img alt="CI" src="https://github.com/jurassiscripts/velociraptor/actions/workflows/test.yml/badge.svg"/>
  <img alt="Version" src="https://img.shields.io/github/v/release/umbopepato/velociraptor?logo=github&include_prereleases">
  <a href="https://github.com/umbopepato/velociraptor"><img alt="GitHub stars" src="https://img.shields.io/github/stars/umbopepato/velociraptor?logo=github"></a>
  <a href="#badge"><img alt="vr scripts" src="https://badges.velociraptor.run/flat.svg"/></a>
