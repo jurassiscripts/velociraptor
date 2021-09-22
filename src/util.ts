@@ -19,6 +19,16 @@ export function makeFileExecutable(filePath: string) {
   }
 }
 
+export function getScriptPrefix(): string {
+  let prefix;
+  if (isWindows) {
+    prefix = `set GIT_ARGS=("$args");`;
+  } else {
+    prefix = `GIT_ARGS=("$@");`;
+  }
+  return prefix;
+}
+
 export async function spawn(args: string[], cwd?: string): Promise<string> {
   const process = Deno.run({
     cmd: args,
