@@ -1,5 +1,3 @@
-import { path } from "../deps.ts";
-
 import { ParallelScripts, Script, ScriptObject } from "./scripts_config.ts";
 
 export type OneOrMore<T> = T | T[];
@@ -19,26 +17,6 @@ export function makeFileExecutable(filePath: string) {
   } catch (e) {
     // Windows
   }
-}
-
-export function getScriptPrefix(shell: string): string {
-  let prefix;
-  const nameShell = path.basename(shell);
-  switch (nameShell) {
-    case "cmd.exe":
-    case "powershell.exe":
-      prefix = `set GIT_ARGS=("$args");`;
-      break;
-    case "fish":
-      prefix = `set GIT_ARGS $argv;`;
-      break;
-    case "bash":
-    case "zsh":
-    default:
-      prefix = `GIT_ARGS=("$@")`;
-      break;
-  }
-  return prefix;
 }
 
 export async function spawn(args: string[], cwd?: string): Promise<string> {
