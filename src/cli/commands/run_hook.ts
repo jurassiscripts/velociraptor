@@ -3,10 +3,8 @@ import { ConfigData } from "../../load_config.ts";
 import { ArgsForwardingMode, runScript } from "../../run_script.ts";
 import { VR_HOOKS } from "../../consts.ts";
 import { validateConfigData } from "../../validate_config_data.ts";
-import { getScriptPrefix, isScriptObject } from "../../util.ts";
-import { resolveShell } from "../../resolve_shell.ts";
-
-const shell = resolveShell();
+import { isScriptObject } from "../../util.ts";
+import { getScriptPrefix } from "../../git_hooks.ts";
 
 export class RunHookCommand extends Command {
   constructor(private configData: ConfigData | null) {
@@ -24,11 +22,10 @@ export class RunHookCommand extends Command {
               value.gitHook === hook
             );
           if (script) {
-            const scriptPrefix = getScriptPrefix(shell);
             await runScript({
               configData: this.configData!,
               script: script[0],
-              prefix: scriptPrefix,
+              prefix: getScriptPrefix,
               additionalArgs: args,
               argsForwardingMode: ArgsForwardingMode.INDIRECT,
             });
