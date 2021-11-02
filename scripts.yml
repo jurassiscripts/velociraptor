@@ -15,6 +15,6 @@ scripts:
     gitHook: pre-commit
 
   commitlint:
-    cmd: npx --no-install commitlint -x @commitlint/config-conventional -e
+    cmd: npx commitlint -x @commitlint/config-conventional -e
     desc: Checks commit messages format
     gitHook: commit-msg
