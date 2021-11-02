@@ -4,6 +4,7 @@ import { ArgsForwardingMode, runScript } from "../../run_script.ts";
 import { VR_HOOKS } from "../../consts.ts";
 import { validateConfigData } from "../../validate_config_data.ts";
 import { isScriptObject } from "../../util.ts";
+import { getScriptPrefix } from "../../git_hooks.ts";
 
 export class RunHookCommand extends Command {
   constructor(private configData: ConfigData | null) {
@@ -24,7 +25,7 @@ export class RunHookCommand extends Command {
             await runScript({
               configData: this.configData!,
               script: script[0],
-              prefix: `GIT_ARGS=("$@");`,
+              prefix: getScriptPrefix,
               additionalArgs: args,
               argsForwardingMode: ArgsForwardingMode.INDIRECT,
             });

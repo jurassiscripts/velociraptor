@@ -15,7 +15,7 @@ export enum ArgsForwardingMode {
 export interface RunScriptOptions {
   configData: ConfigData;
   script: string;
-  prefix?: string;
+  prefix?: string | ((shell: string) => string);
   additionalArgs?: string[];
   argsForwardingMode?: ArgsForwardingMode;
 }
@@ -39,7 +39,7 @@ export async function runScript(
       shell,
       cwd,
       commands,
-      prefix,
+      prefix: typeof prefix === "function" ? prefix(shell) : prefix,
       additionalArgs,
       argsForwardingMode,
     });

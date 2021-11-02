@@ -73,3 +73,22 @@ export async function checkGitHooks(configData: ConfigData) {
     // Not a git repo
   }
 }
+
+export function getScriptPrefix(shell: string): string {
+  let prefix;
+  const nameShell = path.basename(shell);
+  switch (nameShell) {
+    case "powershell.exe":
+      prefix = `set GIT_ARGS=("$args");`;
+      break;
+    case "fish":
+      prefix = `set GIT_ARGS $argv;`;
+      break;
+    case "bash":
+    case "zsh":
+    default:
+      prefix = `GIT_ARGS=("$0" "$@");`;
+      break;
+  }
+  return prefix;
+}

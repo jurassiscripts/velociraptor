@@ -91,17 +91,7 @@ async function runCommand({
     cwd,
     env: getEnvVars(command),
   };
-  log.debug(
-    `Running > ${
-      [
-        prefix,
-        cmd,
-        additionalArgs && additionalArgs.length > 0
-          ? additionalArgs.join(" ")
-          : null,
-      ].filter(notNull).join(" ")
-    }`,
-  );
+  log.debug(`Running ${JSON.stringify(runOptions, null, "  ")}`);
   const process = Deno.run(runOptions);
   runningProcesses.add(process);
   const status = await process.status();
