@@ -1,4 +1,17 @@
 
+## [1.3.0](https://github.com/jurassiscripts/velociraptor/compare/1.2.0...1.3.0) (2021-11-02)
+
+
+### Features
+
+* **hooks:** change script prefix to works on windows ([b076cca](https://github.com/jurassiscripts/velociraptor/commit/b076cca67787e68fd1049b14d3692e8da8371654))
+* **hooks:** create multishell prefix ([2e6ab58](https://github.com/jurassiscripts/velociraptor/commit/2e6ab5887b77607d3be44b1d4780e5c6a17ce3dd))
+
+
+### Bug Fixes
+
+* **hooks:** first argument missing from GIT_ARGS ([5ecea0e](https://github.com/jurassiscripts/velociraptor/commit/5ecea0e7d73c814bf6709e261da4136facc4f54c)), closes [#82](https://github.com/jurassiscripts/velociraptor/issues/82)
+
 ## [1.2.0](https://github.com/jurassiscripts/velociraptor/compare/1.1.0...1.2.0) (2021-08-31)
 
 
