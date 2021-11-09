@@ -8,7 +8,7 @@
 
 <p align="center">
 
- <img alt="CI" src="https://github.com/jurassiscripts/velociraptor/actions/workflows/test.yml/badge.svg"/>
+<img alt="CI" src="https://github.com/jurassiscripts/velociraptor/actions/workflows/test.yml/badge.svg"/>
  <img alt="Version" src="https://img.shields.io/github/v/release/umbopepato/velociraptor?logo=github&include_prereleases">
  <a href="https://github.com/umbopepato/velociraptor"><img alt="GitHub stars" src="https://img.shields.io/github/stars/umbopepato/velociraptor?logo=github"></a>
  <a href="#badge"><img alt="vr scripts" src="https://badges.velociraptor.run/flat.svg"/></a>
@@ -25,7 +25,9 @@ To get started visit [velociraptor.run](https://velociraptor.run).
 
 ## Help
 
-If you need any help feel free to ask in [discussions](https://github.com/jurassiscripts/velociraptor/discussions) or in the [chat](https://discord.gg/M5K7TBd). 
+If you need any help feel free to ask in
+[discussions](https://github.com/jurassiscripts/velociraptor/discussions) or in
+the [chat](https://discord.gg/M5K7TBd).
 
 ## Badge
 
@@ -39,8 +41,10 @@ Show your collaborators/users you use velociraptor:
 
 ## Contributing
 
-Feedback and PRs are welcome! Take a look at the [contributing guidelines](CONTRIBUTING.md).
+Feedback and PRs are welcome! Take a look at the
+[contributing guidelines](CONTRIBUTING.md).
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for
+details.

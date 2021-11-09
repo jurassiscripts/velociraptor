@@ -41,7 +41,7 @@ function _normalizeScript(
   if (isScriptObject(node)) {
     const { cmd, ...nodeParams } = node;
     return _normalizeScript(
-      node.cmd,
+      cmd,
       mergeParams(nodeParams, parentParams),
     ) as Command;
   }

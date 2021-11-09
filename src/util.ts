@@ -14,7 +14,7 @@ export function escape(str: string, ...exp: string[]): string {
 export function makeFileExecutable(filePath: string) {
   try {
     Deno.chmodSync(filePath, 0o0755);
-  } catch (e) {
+  } catch {
     // Windows
   }
 }
@@ -38,14 +38,14 @@ export async function spawn(args: string[], cwd?: string): Promise<string> {
   }
 }
 
-export const isScriptObject = (script: any): script is ScriptObject =>
+export const isScriptObject = (script: unknown): script is ScriptObject =>
   script instanceof Object && "cmd" in script;
 
-export const isParallelScripts = (script: any): script is ParallelScripts =>
+export const isParallelScripts = (script: unknown): script is ParallelScripts =>
   script instanceof Object && "pll" in script;
 
 export const isMultiCompositeScript = (
-  script: any,
+  script: unknown,
 ): script is Array<Script | ParallelScripts> => Array.isArray(script);
 
-export const notNull = (o: any) => o != null;
+export const notNull = (o: unknown) => o != null;

@@ -63,7 +63,7 @@ function stripeQuotes(value: string) {
 }
 
 function stringifyEnv(env: EnvironmentVariables): EnvironmentVariables {
-  for (let key in env) {
+  for (const key in env) {
     if (key in env) {
       env[key] = String(env[key]);
     }

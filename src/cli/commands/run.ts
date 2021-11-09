@@ -11,7 +11,7 @@ export class RunCommand extends Command {
     this.description("Run a script")
       .arguments("<script:scriptid> [additionalArgs...]")
       .useRawArgs()
-      .action((options, script: string, ...additionalArgs: string[]) => {
+      .action((_options, script: string, ...additionalArgs: string[]) => {
         return withUpdateChecks(async () => {
           if (script === "--help" || script === "-h") {
             console.log(this.getHelp());

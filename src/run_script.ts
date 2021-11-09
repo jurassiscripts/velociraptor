@@ -31,7 +31,7 @@ export async function runScript(
   }
   validateScript(script, config);
   const scriptDef = config.scripts[script];
-  const { scripts, ...rootConfig } = config;
+  const { scripts: _scripts, ...rootConfig } = config;
   const commands = normalizeScript(scriptDef, rootConfig);
   const shell = resolveShell();
   try {
@@ -43,7 +43,7 @@ export async function runScript(
       additionalArgs,
       argsForwardingMode,
     });
-  } catch (e) {
+  } catch {
     log.error(`Failed at the ${bold(script)} script`);
     Deno.exit(3);
   }

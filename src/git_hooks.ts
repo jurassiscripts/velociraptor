@@ -63,13 +63,13 @@ export async function checkGitHooks(configData: ConfigData) {
       !areGitHooksInstalled(absGitDir) &&
       Object.values(configData.config.scripts)
         .filter(isScriptObject)
-        .some((s: any) => {
-          return "gitHook" in s && hooks.includes(s.gitHook);
+        .some((s) => {
+          return "gitHook" in s && s.gitHook !== undefined && hooks.includes(s.gitHook);
         })
     ) {
       installGitHooks(absGitDir);
     }
-  } catch (e) {
+  } catch {
     // Not a git repo
   }
 }

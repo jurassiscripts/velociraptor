@@ -178,16 +178,17 @@ const denoOption: Record<DenoOptions, string> = {
 };
 
 export function buildCommandString(command: Command): string {
-  let cmd = command.cmd.concat(), match;
-  if (match = matchCompactRun(cmd)) {
+  let cmd = command.cmd.concat();
+  if (matchCompactRun(cmd)) {
     cmd = "deno run " + cmd;
   }
-  if (match = matchDenoCommand(cmd)) {
+  const match = matchDenoCommand(cmd)
+  if (match && match.length > 1) {
     const subCommand = match[1];
     if (subCommand && subCommand in denoCmdOptions) {
       const insertAt = match[0].length;
       const options = denoCmdOptions[subCommand];
-      for (let optionName of options) {
+      for (const optionName of options) {
         const option = command[optionName as keyof ScriptOptions];
         if (option) {
           switch (optionName) {
@@ -282,7 +283,7 @@ function insertOptions(
 
 function generateFlagOptions(
   flags: FlagsObject,
-  prefix: string = "",
+  prefix = "",
 ): string[] {
   return Object.entries(flags).map(([k, v]) =>
     `--${prefix}${k}${v !== true ? `="${escapeCliOption(v.toString())}"` : ""}`

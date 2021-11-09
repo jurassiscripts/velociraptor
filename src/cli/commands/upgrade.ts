@@ -11,7 +11,7 @@ export class UpgradeCommand extends Command {
       "Upgrade Velociraptor to the latest version or to a specific one",
     )
       .arguments("[version:string]")
-      .action(async (options, version: string | undefined) => {
+      .action(async (_options, version: string | undefined) => {
         let newVersion = version;
         if (!newVersion) {
           newVersion = await DenoLand.latestVersion(VR_NAME);

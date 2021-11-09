@@ -35,7 +35,7 @@ export async function runCommands({
   ): Promise<unknown> => {
     if (!commands) return;
     if (Array.isArray(commands)) {
-      for (let command of commands) {
+      for (const command of commands) {
         await _runCommands(command);
       }
     } else {
@@ -77,7 +77,7 @@ async function runCommand({
   argsForwardingMode,
 }: RunCommandOptions): Promise<void> {
   const cmd = buildCommandString(command);
-  let runOptions: Deno.RunOptions = {
+  const runOptions: Deno.RunOptions = {
     cmd: [
       shell,
       ...buildShellArgs({
