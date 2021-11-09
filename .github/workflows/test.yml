@@ -28,5 +28,11 @@ jobs:
         with:
           deno-version: ${{ matrix.deno }}
 
+      - name: Check Format
+        run: deno fmt --check
+
+      - name: Linting
+        run: deno lint
+
       - name: Run tests
         run: deno test --allow-run

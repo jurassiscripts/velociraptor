@@ -1,0 +1,57 @@
+name: Update version
+
+on:
+  workflow_run:
+    workflows: 
+      - test
+    branches:
+      - main
+    types:
+      - completed
+
+jobs:
+
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get new tag version
+        id: tag_version_dry
+        uses: mathieudutour/github-tag-action@v5.3
+        with:
+          dry_run: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Sync release version
+        uses: tj-actions/sync-release-version@v9
+        id: sync-release-version
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          current_version: ${{ steps.tag_version_dry.outputs.previous_tag }}
+          new_version: ${{ steps.tag_version_dry.outputs.new_tag }}
+          pattern: 'version = "'
+          paths: |
+            src/version.ts
+      - uses: EndBug/add-and-commit@v7.1.0
+        with:
+          author_name: github-actions
+          author_email: 41898282+github-actions[bot]@users.noreply.github.com
+          add: src/version.ts 
+          message: >
+            Upgraded from ${{ steps.sync-release-version.outputs.old_version }} 
+            -> ${{ steps.sync-release-version.outputs.new_version }}
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v5.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create a GitHub release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: |
+            ${{ steps.tag_version.outputs.changelog }}
+          draft: false
+          prerelease: false
