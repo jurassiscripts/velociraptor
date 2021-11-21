@@ -121,7 +121,7 @@ export interface DenoCliOptions {
    *
    * **Note** This currently requires the `--unstable` flag
    */
-  imap?: string;
+  importmap?: string;
 
   /**
    * The hostname and port where to start the inspector,

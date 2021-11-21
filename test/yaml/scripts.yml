@@ -24,7 +24,7 @@ scripts:
     cmd: deno run test.ts
     tsconfig: tsconfig.json
   importmap:
-    cmd: deno run --unstable imap.ts
-    imap: importmap.json
+    cmd: deno run --unstable importmap.ts
+    importmap: importmap.json
   forward:
     cmd: echo deno test --lock=lock.json --cached-only

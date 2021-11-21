@@ -6,7 +6,7 @@ enum DenoOptions {
   allow = "allow",
   cachedOnly = "cachedOnly",
   cert = "cert",
-  imap = "imap",
+  importmap = "importmap",
   inspect = "inspect",
   inspectBrk = "inspectBrk",
   lock = "lock",
@@ -25,7 +25,7 @@ enum DenoOptions {
 const denoCmdOptions: { [key: string]: DenoOptions[] } = {
   bundle: [
     DenoOptions.cert,
-    DenoOptions.imap,
+    DenoOptions.importmap,
     DenoOptions.lock,
     DenoOptions.log,
     DenoOptions.noCheck,
@@ -39,7 +39,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
     DenoOptions.allow,
     DenoOptions.cachedOnly,
     DenoOptions.cert,
-    DenoOptions.imap,
+    DenoOptions.importmap,
     DenoOptions.inspect,
     DenoOptions.inspectBrk,
     DenoOptions.lock,
@@ -56,7 +56,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
     DenoOptions.allow,
     DenoOptions.cachedOnly,
     DenoOptions.cert,
-    DenoOptions.imap,
+    DenoOptions.importmap,
     DenoOptions.inspect,
     DenoOptions.inspectBrk,
     DenoOptions.lock,
@@ -74,7 +74,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
     DenoOptions.allow,
     DenoOptions.cachedOnly,
     DenoOptions.cert,
-    DenoOptions.imap,
+    DenoOptions.importmap,
     DenoOptions.inspect,
     DenoOptions.inspectBrk,
     DenoOptions.lock,
@@ -90,7 +90,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
   ],
   cache: [
     DenoOptions.cert,
-    DenoOptions.imap,
+    DenoOptions.importmap,
     DenoOptions.lock,
     DenoOptions.log,
     DenoOptions.noCheck,
@@ -101,7 +101,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
     DenoOptions.unstable,
   ],
   doc: [
-    DenoOptions.imap,
+    DenoOptions.importmap,
     DenoOptions.log,
     DenoOptions.quiet,
     DenoOptions.reload,
@@ -110,7 +110,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
   eval: [
     DenoOptions.cachedOnly,
     DenoOptions.cert,
-    DenoOptions.imap,
+    DenoOptions.importmap,
     DenoOptions.inspect,
     DenoOptions.inspectBrk,
     DenoOptions.lock,
@@ -126,7 +126,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
   repl: [
     DenoOptions.cachedOnly,
     DenoOptions.cert,
-    DenoOptions.imap,
+    DenoOptions.importmap,
     DenoOptions.inspect,
     DenoOptions.inspectBrk,
     DenoOptions.lock,
@@ -156,7 +156,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
   ],
   info: [
     DenoOptions.cert,
-    DenoOptions.imap,
+    DenoOptions.importmap,
     DenoOptions.log,
     DenoOptions.quiet,
     DenoOptions.reload,
@@ -167,7 +167,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
 const denoOption: Record<DenoOptions, string> = {
   ...DenoOptions,
   [DenoOptions.allow]: "allow-",
-  [DenoOptions.imap]: "importmap",
+  [DenoOptions.importmap]: "importmap",
   [DenoOptions.inspectBrk]: "inspect-brk",
   [DenoOptions.log]: "log-level",
   [DenoOptions.tsconfig]: "config",
