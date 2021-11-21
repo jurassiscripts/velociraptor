@@ -26,6 +26,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
   bundle: [
     DenoOptions.cert,
     DenoOptions.importmap,
+    DenoOptions.imap,
     DenoOptions.lock,
     DenoOptions.log,
     DenoOptions.noCheck,
@@ -40,6 +41,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
     DenoOptions.cachedOnly,
     DenoOptions.cert,
     DenoOptions.importmap,
+    DenoOptions.imap,
     DenoOptions.inspect,
     DenoOptions.inspectBrk,
     DenoOptions.lock,
@@ -57,6 +59,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
     DenoOptions.cachedOnly,
     DenoOptions.cert,
     DenoOptions.importmap,
+    DenoOptions.imap,
     DenoOptions.inspect,
     DenoOptions.inspectBrk,
     DenoOptions.lock,
@@ -75,6 +78,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
     DenoOptions.cachedOnly,
     DenoOptions.cert,
     DenoOptions.importmap,
+    DenoOptions.imap,
     DenoOptions.inspect,
     DenoOptions.inspectBrk,
     DenoOptions.lock,
@@ -91,6 +95,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
   cache: [
     DenoOptions.cert,
     DenoOptions.importmap,
+    DenoOptions.imap,
     DenoOptions.lock,
     DenoOptions.log,
     DenoOptions.noCheck,
@@ -102,6 +107,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
   ],
   doc: [
     DenoOptions.importmap,
+    DenoOptions.imap,
     DenoOptions.log,
     DenoOptions.quiet,
     DenoOptions.reload,
@@ -111,6 +117,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
     DenoOptions.cachedOnly,
     DenoOptions.cert,
     DenoOptions.importmap,
+    DenoOptions.imap,
     DenoOptions.inspect,
     DenoOptions.inspectBrk,
     DenoOptions.lock,
@@ -127,6 +134,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
     DenoOptions.cachedOnly,
     DenoOptions.cert,
     DenoOptions.importmap,
+    DenoOptions.imap,
     DenoOptions.inspect,
     DenoOptions.inspectBrk,
     DenoOptions.lock,
@@ -157,6 +165,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
   info: [
     DenoOptions.cert,
     DenoOptions.importmap,
+    DenoOptions.imap,
     DenoOptions.log,
     DenoOptions.quiet,
     DenoOptions.reload,
@@ -168,6 +177,7 @@ const denoOption: Record<DenoOptions, string> = {
   ...DenoOptions,
   [DenoOptions.allow]: "allow-",
   [DenoOptions.importmap]: "importmap",
+  [DenoOptions.imap]: "importmap",
   [DenoOptions.inspectBrk]: "inspect-brk",
   [DenoOptions.log]: "log-level",
   [DenoOptions.tsconfig]: "config",
@@ -255,7 +265,10 @@ export function buildCommandString(command: Command): string {
               break;
             }
 
-            default:
+            default: {
+              if (optionName === "imap") {
+                console.warn("The `imap` option is deprecated in favor of `importmap`. Please use `importmap` going forward as `imap` will be removed with the release of 2.0.0.");
+              }
               cmd = insertOptions(
                 cmd,
                 insertAt,
@@ -263,6 +276,7 @@ export function buildCommandString(command: Command): string {
                   escapeCliOption(option as string)
                 }`,
               );
+            }
           }
         }
       }
