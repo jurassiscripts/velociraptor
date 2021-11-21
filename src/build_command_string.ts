@@ -7,6 +7,7 @@ enum DenoOptions {
   cachedOnly = "cachedOnly",
   cert = "cert",
   importmap = "importmap",
+  imap = "imap",
   inspect = "inspect",
   inspectBrk = "inspectBrk",
   lock = "lock",
