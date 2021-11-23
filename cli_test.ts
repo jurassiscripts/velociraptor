@@ -82,7 +82,7 @@ Deno.test("tsconfig", async () => {
 });
 
 Deno.test("import map", async () => {
-  const output = await runScript("import_map");
+  const output = await runScript("importMap");
   assertStringIncludes(output, expectedOutput);
 });
 
