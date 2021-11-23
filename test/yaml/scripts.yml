@@ -23,8 +23,8 @@ scripts:
   tsconfig:
     cmd: deno run test.ts
     tsconfig: tsconfig.json
-  importmap:
-    cmd: deno run --unstable importmap.ts
-    importmap: importmap.json
+  importMap:
+    cmd: deno run --unstable import_map.ts
+    importMap: import_map.json
   forward:
     cmd: echo deno test --lock=lock.json --cached-only

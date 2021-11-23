@@ -116,12 +116,12 @@ export interface DenoCliOptions {
   cert?: string;
 
   /**
-   * The path to an importmap json file,
-   * passed to deno cli's `--importmap` option.
+   * The path to an import map json file,
+   * passed to deno cli's `--import-map` option.
    *
    * **Note** This currently requires the `--unstable` flag
    */
-  importmap?: string;
+  importMap?: string;
 
   /**
    * The hostname and port where to start the inspector,
