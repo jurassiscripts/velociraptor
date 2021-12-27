@@ -1,6 +1,7 @@
 import { assertEquals, assertMatch, assertStringIncludes } from "./dev_deps.ts";
 const yamlWd = "./test/yaml";
 const tsWd = "./test/ts";
+const jsonWd = "./test/json";
 const cliArgs = [
   "deno",
   "run",
@@ -43,6 +44,11 @@ Deno.test("basic script with env variable", async () => {
 
 Deno.test("ts config file", async () => {
   const output = await runScript("test", tsWd);
+  assertStringIncludes(output, expectedOutput);
+});
+
+Deno.test("deno.json(c) config file", async () => {
+  const output = await runScript("test", jsonWd);
   assertStringIncludes(output, expectedOutput);
 });
 
@@ -89,6 +95,11 @@ Deno.test("importmap", async () => {
 Deno.test("--help", async () => {
   const output = await runScript("--help");
   assertStringIncludes(output, "--version");
+});
+
+Deno.test("--config", async () => {
+  const output = await runScript("config", yamlWd);
+  assertMatch(output, /^\s*$/);
 });
 
 Deno.test("forward arguments", async () => {
