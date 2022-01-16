@@ -116,7 +116,7 @@ export interface DenoCliOptions {
   cert?: string;
 
   /**
-   * The path to a deno configuration file,
+   * The path to a deno/TypeScript configuration file,
    * passed to deno cli's `--config` option.
    */
   config?: string;

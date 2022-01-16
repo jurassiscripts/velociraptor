@@ -24,7 +24,7 @@ enum DenoOptions {
   shuffle = "shuffle",
 }
 
-const denoCmdOptions: { [key: string]: DenoOptions[] } = {
+export const denoCmdOptions: { [key: string]: DenoOptions[] } = {
   bundle: [
     DenoOptions.cert,
     DenoOptions.config,
@@ -38,6 +38,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
     DenoOptions.reload,
     DenoOptions.tsconfig,
     DenoOptions.unstable,
+    DenoOptions.watch,
   ],
   install: [
     DenoOptions.allow,
@@ -161,12 +162,14 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
     DenoOptions.log,
     DenoOptions.quiet,
     DenoOptions.unstable,
+    DenoOptions.watch,
   ],
   lint: [
     DenoOptions.config,
     DenoOptions.log,
     DenoOptions.quiet,
     DenoOptions.unstable,
+    DenoOptions.watch,
   ],
   types: [
     DenoOptions.log,
@@ -184,7 +187,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
   ],
 };
 
-const denoOption: Record<DenoOptions, string> = {
+export const denoOption: Record<DenoOptions, string> = {
   ...DenoOptions,
   [DenoOptions.allow]: "allow-",
   [DenoOptions.importMap]: "import-map",
@@ -278,7 +281,9 @@ export function buildCommandString(command: Command): string {
 
             default: {
               if (optionName === "imap") {
-                console.warn("The `imap` option is deprecated in favor of `importMap`. Please use `importMap` going forward as `imap` will be removed with the release of 2.0.0.");
+                console.warn(
+                  "The `imap` option is deprecated in favor of `importMap`. Please use `importMap` going forward as `imap` will be removed with the release of 2.0.0.",
+                );
               }
               cmd = insertOptions(
                 cmd,
@@ -307,7 +312,7 @@ function insertOptions(
 
 function generateFlagOptions(
   flags: FlagsObject,
-  prefix: string = "",
+  prefix = "",
 ): string[] {
   return Object.entries(flags).map(([k, v]) =>
     `--${prefix}${k}${v !== true ? `="${escapeCliOption(v.toString())}"` : ""}`
