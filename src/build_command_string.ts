@@ -6,6 +6,7 @@ enum DenoOptions {
   allow = "allow",
   cachedOnly = "cachedOnly",
   cert = "cert",
+  config = "config",
   importMap = "importMap",
   imap = "imap",
   inspect = "inspect",
@@ -26,6 +27,7 @@ enum DenoOptions {
 const denoCmdOptions: { [key: string]: DenoOptions[] } = {
   bundle: [
     DenoOptions.cert,
+    DenoOptions.config,
     DenoOptions.importMap,
     DenoOptions.imap,
     DenoOptions.lock,
@@ -41,6 +43,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
     DenoOptions.allow,
     DenoOptions.cachedOnly,
     DenoOptions.cert,
+    DenoOptions.config,
     DenoOptions.importMap,
     DenoOptions.imap,
     DenoOptions.inspect,
@@ -59,6 +62,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
     DenoOptions.allow,
     DenoOptions.cachedOnly,
     DenoOptions.cert,
+    DenoOptions.config,
     DenoOptions.importMap,
     DenoOptions.imap,
     DenoOptions.inspect,
@@ -78,6 +82,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
     DenoOptions.allow,
     DenoOptions.cachedOnly,
     DenoOptions.cert,
+    DenoOptions.config,
     DenoOptions.importMap,
     DenoOptions.imap,
     DenoOptions.inspect,
@@ -95,6 +100,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
   ],
   cache: [
     DenoOptions.cert,
+    DenoOptions.config,
     DenoOptions.importMap,
     DenoOptions.imap,
     DenoOptions.lock,
@@ -117,6 +123,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
   eval: [
     DenoOptions.cachedOnly,
     DenoOptions.cert,
+    DenoOptions.config,
     DenoOptions.importMap,
     DenoOptions.imap,
     DenoOptions.inspect,
@@ -134,6 +141,7 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
   repl: [
     DenoOptions.cachedOnly,
     DenoOptions.cert,
+    DenoOptions.config,
     DenoOptions.importMap,
     DenoOptions.imap,
     DenoOptions.inspect,
@@ -149,11 +157,13 @@ const denoCmdOptions: { [key: string]: DenoOptions[] } = {
     DenoOptions.v8Flags,
   ],
   fmt: [
+    DenoOptions.config,
     DenoOptions.log,
     DenoOptions.quiet,
     DenoOptions.unstable,
   ],
   lint: [
+    DenoOptions.config,
     DenoOptions.log,
     DenoOptions.quiet,
     DenoOptions.unstable,

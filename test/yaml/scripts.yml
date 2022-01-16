@@ -28,3 +28,6 @@ scripts:
     importMap: import_map.json
   forward:
     cmd: echo deno test --lock=lock.json --cached-only
+  config:
+    cmd: deno lint test_config.ts
+    config: ../json/deno.jsonc

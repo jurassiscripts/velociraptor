@@ -116,10 +116,14 @@ export interface DenoCliOptions {
   cert?: string;
 
   /**
+   * The path to a deno configuration file,
+   * passed to deno cli's `--config` option.
+   */
+  config?: string;
+
+  /**
    * The path to an import map json file,
    * passed to deno cli's `--import-map` option.
-   *
-   * **Note** This currently requires the `--unstable` flag
    */
   importMap?: string;
 
@@ -167,12 +171,6 @@ export interface DenoCliOptions {
    * Reload source code cache (recompile TypeScript)
    */
   reload?: boolean | string | string[];
-
-  /**
-   * The path to a tsconfig json file,
-   * passed to deno cli's `--tsconfig` option.
-   */
-  tsconfig?: string;
 
   /**
    * Enable unstable APIs
