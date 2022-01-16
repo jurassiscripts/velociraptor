@@ -193,9 +193,13 @@ export interface DenoCliOptions {
   v8Flags?: string[] | FlagsObject;
 
   /**
-   * Watch for file changes and restart process automatically
+   * Watch for file changes and restart process automatically.
+   * Local files from entry point module graph are watched by default.
+   * Additional paths might be watched by passing them as arguments to this option.
+   *
+   * 🧪 Unstable
    */
-  watch?: boolean;
+  watch?: boolean | string | string[];
 }
 
 export interface AllowFlags {

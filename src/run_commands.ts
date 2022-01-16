@@ -77,7 +77,7 @@ async function runCommand({
   argsForwardingMode,
 }: RunCommandOptions): Promise<void> {
   const cmd = buildCommandString(command);
-  let runOptions: Deno.RunOptions = {
+  const runOptions: Deno.RunOptions = {
     cmd: [
       shell,
       ...buildShellArgs({

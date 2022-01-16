@@ -1,8 +1,9 @@
 import { Command } from "./command.ts";
 import { FlagsObject, ScriptOptions } from "./scripts_config.ts";
 import { escape } from "./util.ts";
+import { log } from "./logger.ts";
 
-enum DenoOptions {
+export enum DenoOptions {
   allow = "allow",
   cachedOnly = "cachedOnly",
   cert = "cert",
@@ -24,7 +25,7 @@ enum DenoOptions {
   shuffle = "shuffle",
 }
 
-export const denoCmdOptions: { [key: string]: DenoOptions[] } = {
+export const denoCmdOptions: Record<string, DenoOptions[]> = {
   bundle: [
     DenoOptions.cert,
     DenoOptions.config,
@@ -201,6 +202,46 @@ export const denoOption: Record<DenoOptions, string> = {
   [DenoOptions.cachedOnly]: "cached-only",
 };
 
+export const optionTypes = {
+  multiArgObject: [DenoOptions.allow],
+  singleArgObject: [DenoOptions.v8Flags],
+  boolean: [
+    DenoOptions.cachedOnly,
+    DenoOptions.noCheck,
+    DenoOptions.noRemote,
+    DenoOptions.quiet,
+    DenoOptions.unstable,
+    DenoOptions.watch,
+    DenoOptions.inspect,
+    DenoOptions.inspectBrk,
+    DenoOptions.reload,
+    DenoOptions.watch,
+  ],
+  string: [
+    DenoOptions.inspect,
+    DenoOptions.inspectBrk,
+    DenoOptions.reload,
+    DenoOptions.watch,
+    DenoOptions.cert,
+    DenoOptions.config,
+    DenoOptions.tsconfig,
+    DenoOptions.importMap,
+    DenoOptions.imap,
+    DenoOptions.lock,
+    DenoOptions.log,
+    DenoOptions.shuffle,
+  ],
+  strings: [
+    DenoOptions.reload,
+    DenoOptions.watch,
+  ],
+};
+
+const deprecatedOptionNames = {
+  [DenoOptions.imap]: DenoOptions.importMap,
+  [DenoOptions.tsconfig]: DenoOptions.config,
+};
+
 export function buildCommandString(command: Command): string {
   let cmd = command.cmd.concat(), match;
   if (match = matchCompactRun(cmd)) {
@@ -211,88 +252,73 @@ export function buildCommandString(command: Command): string {
     if (subCommand && subCommand in denoCmdOptions) {
       const insertAt = match[0].length;
       const options = denoCmdOptions[subCommand];
-      for (let optionName of options) {
+      for (const optionName of options) {
         const option = command[optionName as keyof ScriptOptions];
         if (option) {
-          switch (optionName) {
-            case DenoOptions.allow: {
-              const flags = generateFlagOptions(
-                option as FlagsObject,
-                denoOption[optionName],
-              );
-              if (flags && flags.length > 0) {
-                cmd = insertOptions(cmd, insertAt, ...flags);
-              }
-              break;
-            }
+          if (optionName in deprecatedOptionNames) {
+            const newName =
+              deprecatedOptionNames[
+                optionName as keyof typeof deprecatedOptionNames
+              ];
+            log.warning(
+              `The \`${optionName}\` option is deprecated in favor of \`${newName}\`. Please use \`${newName}\` going forward as \`${optionName}\` will be removed with the release of 2.0.0.`,
+            );
+          }
 
-            case DenoOptions.v8Flags: {
-              const flags = generateFlagOptions(option as FlagsObject);
-              if (flags && flags.length > 0) {
-                cmd = insertOptions(
-                  cmd,
-                  insertAt,
-                  `--${denoOption[optionName]}=${flags.join(",")}`,
-                );
-              }
-              break;
+          if (optionTypes.multiArgObject.includes(optionName)) {
+            const flags = generateFlagOptions(
+              option as FlagsObject,
+              denoOption[optionName],
+            );
+            if (flags && flags.length > 0) {
+              cmd = insertOptions(cmd, insertAt, ...flags);
             }
+            continue;
+          }
 
-            case DenoOptions.cachedOnly:
-            case DenoOptions.noCheck:
-            case DenoOptions.noRemote:
-            case DenoOptions.quiet:
-            case DenoOptions.unstable:
-            case DenoOptions.watch: {
-              if (option === true) {
-                cmd = insertOptions(
-                  cmd,
-                  insertAt,
-                  `--${denoOption[optionName]}`,
-                );
-              }
-              break;
-            }
-
-            case DenoOptions.reload: {
-              if (option === true) {
-                cmd = insertOptions(
-                  cmd,
-                  insertAt,
-                  `--${denoOption[optionName]}`,
-                );
-              } else if (typeof option === "string") {
-                cmd = insertOptions(
-                  cmd,
-                  insertAt,
-                  `--${denoOption[optionName]}=${escapeCliOption(option)}`,
-                );
-              } else if (Array.isArray(option)) {
-                cmd = insertOptions(
-                  cmd,
-                  insertAt,
-                  `--${denoOption[optionName]}=${
-                    (<string[]> option).map(escapeCliOption).join(",")
-                  }`,
-                );
-              }
-              break;
-            }
-
-            default: {
-              if (optionName === "imap") {
-                console.warn(
-                  "The `imap` option is deprecated in favor of `importMap`. Please use `importMap` going forward as `imap` will be removed with the release of 2.0.0.",
-                );
-              }
+          if (optionTypes.singleArgObject.includes(optionName)) {
+            const flags = generateFlagOptions(option as FlagsObject);
+            if (flags && flags.length > 0) {
               cmd = insertOptions(
                 cmd,
                 insertAt,
-                `--${denoOption[optionName]}=${
-                  escapeCliOption(option as string)
-                }`,
+                `--${denoOption[optionName]}=${flags.join(",")}`,
               );
             }
+            continue;
+          }
+
+          if (optionTypes.boolean.includes(optionName) && option === true) {
+            cmd = insertOptions(
+              cmd,
+              insertAt,
+              `--${denoOption[optionName]}`,
+            );
+            continue;
+          }
+
+          if (
+            optionTypes.string.includes(optionName) &&
+            typeof option === "string"
+          ) {
+            cmd = insertOptions(
+              cmd,
+              insertAt,
+              `--${denoOption[optionName]}=${escapeCliOption(option)}`,
+            );
+            continue;
+          }
+
+          if (
+            optionTypes.strings.includes(optionName) && Array.isArray(option)
+          ) {
+            cmd = insertOptions(
+              cmd,
+              insertAt,
+              `--${denoOption[optionName]}=${
+                option.map(escapeCliOption).join(",")
+              }`,
+            );
           }
         }
       }
