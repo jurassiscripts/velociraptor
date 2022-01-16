@@ -87,6 +87,11 @@ Deno.test("tsconfig", async () => {
   assertStringIncludes(output, expectedOutput);
 });
 
+Deno.test("config", async () => {
+  const output = await runScript("config", yamlWd);
+  assertMatch(output, /^\s*$/);
+});
+
 Deno.test("import map", async () => {
   const output = await runScript("importMap");
   assertStringIncludes(output, expectedOutput);
@@ -95,11 +100,6 @@ Deno.test("import map", async () => {
 Deno.test("--help", async () => {
   const output = await runScript("--help");
   assertStringIncludes(output, "--version");
-});
-
-Deno.test("--config", async () => {
-  const output = await runScript("config", yamlWd);
-  assertMatch(output, /^\s*$/);
 });
 
 Deno.test("forward arguments", async () => {
