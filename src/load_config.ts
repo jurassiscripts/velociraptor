@@ -2,7 +2,9 @@ import { existsSync, parseYaml, path } from "../deps.ts";
 import { ScriptsConfiguration } from "./scripts_config.ts";
 
 const CONFIG_FILE_NAMES = ["scripts", "velociraptor"];
-const CONFIG_FILE_EXTENSIONS = ["yaml", "yml", "json", "ts"];
+const STATIC_CONFIG_FILE_EXTENSIONS = ["yaml", "yml", "json"];
+const DYNAMIC_CONFIG_FILE_EXTENSIONS = ["ts", "js", "mjs"];
+const CONFIG_FILE_EXTENSIONS = [...STATIC_CONFIG_FILE_EXTENSIONS, ...DYNAMIC_CONFIG_FILE_EXTENSIONS];
 
 export interface ConfigData {
   cwd: string;
@@ -18,7 +20,7 @@ export async function loadConfig(): Promise<ConfigData | null> {
         if (existsSync(p)) {
           return {
             cwd: dir,
-            config: await parseConfig(p, ext == "ts"),
+            config: await parseConfig(p, DYNAMIC_CONFIG_FILE_EXTENSIONS.includes(ext)),
           };
         }
       }
@@ -34,9 +36,9 @@ function parent(dir: string) {
 
 async function parseConfig(
   configPath: string,
-  isTypescript: boolean,
+  isDynamic: boolean,
 ): Promise<ScriptsConfiguration> {
-  if (isTypescript) {
+  if (isDynamic) {
     return (await import(`file://${configPath}`))
       .default as ScriptsConfiguration;
   }
