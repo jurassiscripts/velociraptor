@@ -122,12 +122,10 @@ export interface DenoCliOptions {
   config?: string;
 
   /**
-   * The path to an importmap json file,
-   * passed to deno cli's `--importmap` option.
-   *
-   * **Note** This currently requires the `--unstable` flag
+   * The path to an import map json file,
+   * passed to deno cli's `--import-map` option.
    */
-  imap?: string;
+  importMap?: string;
 
   /**
    * The hostname and port where to start the inspector,
@@ -173,12 +171,6 @@ export interface DenoCliOptions {
    * Reload source code cache (recompile TypeScript)
    */
   reload?: boolean | string | string[];
-
-  /**
-   * The path to a tsconfig json file,
-   * passed to deno cli's `--tsconfig` option.
-   */
-  tsconfig?: string;
 
   /**
    * Enable unstable APIs
