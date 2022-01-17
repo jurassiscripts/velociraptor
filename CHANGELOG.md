@@ -1,4 +1,24 @@
 
+## [1.4.0](https://github.com/jurassiscripts/velociraptor/compare/1.3.0...1.4.0) (2022-01-17)
+
+
+### Features
+
+* 🚚 rename `imap` option to `importmap` ([ac6a2a5](https://github.com/jurassiscripts/velociraptor/commit/ac6a2a59528a1f3b196a1658e7618200d1a60ed2))
+* add `.js` and `.mjs` support to loader ([cc03e3b](https://github.com/jurassiscripts/velociraptor/commit/cc03e3b0078f4b89667afa9b26b28f4178494731))
+* add watch option to bundle, fmt and lint commands ([4e76fc0](https://github.com/jurassiscripts/velociraptor/commit/4e76fc0b4da7f4caa9efc6aad88c47692c92fbd0))
+* support deno.json config file ([a4e1101](https://github.com/jurassiscripts/velociraptor/commit/a4e1101f51288c615eadb473f62ec5e0062bda6c))
+
+
+### Bug Fixes
+
+* 🏷️ add deprecated `imap` to options type ([6ad120e](https://github.com/jurassiscripts/velociraptor/commit/6ad120e2b3d7c69fa09a38ee989a6782d6fb7373))
+* 🗑️ add `imap` back with a deprecation notice ([8c3beb0](https://github.com/jurassiscripts/velociraptor/commit/8c3beb0d049f4570ee55f7fd7c473df735ff273b))
+* 🚚 rename imap.ts to importmap.ts ([f3f841a](https://github.com/jurassiscripts/velociraptor/commit/f3f841a1141070ad056e63ec0609c40436371769))
+* commit with correct format for commitlint ([d857c7c](https://github.com/jurassiscripts/velociraptor/commit/d857c7c34138ccadd283fd0cd93b22204308d76c))
+* commitlint script ([b198bb2](https://github.com/jurassiscripts/velociraptor/commit/b198bb2ce9497e0f87f72155b08064f895a1e49d))
+* rename wrong script name ([6edba1c](https://github.com/jurassiscripts/velociraptor/commit/6edba1c3cfec0116382e0a4ffdd486739216d852))
+
 ## [1.3.0](https://github.com/jurassiscripts/velociraptor/compare/1.2.0...1.3.0) (2021-11-02)
 
 
