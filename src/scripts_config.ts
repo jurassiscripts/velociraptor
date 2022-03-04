@@ -131,12 +131,12 @@ export interface DenoCliOptions {
    * The hostname and port where to start the inspector,
    * passed to deno cli's `--inspect` option.
    */
-  inspect?: string;
+  inspect?: string | true;
 
   /**
    * Same as `inspect`, but breaks at start of user script.
    */
-  inspectBrk?: string;
+  inspectBrk?: string | true;
 
   /**
    * The path to an _existing_ lockfile,
