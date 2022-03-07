@@ -1,4 +1,11 @@
 
+## [1.5.0](https://github.com/jurassiscripts/velociraptor/compare/1.4.0...1.5.0) (2022-03-07)
+
+
+### Bug Fixes
+
+* correct inspect types ([f9accd2](https://github.com/jurassiscripts/velociraptor/commit/f9accd2d964a9faced64dc56bdc02123a847af41))
+
 ## [1.4.0](https://github.com/jurassiscripts/velociraptor/compare/1.3.0...1.4.0) (2022-01-17)
 
 
