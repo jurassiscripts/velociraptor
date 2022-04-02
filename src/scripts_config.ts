@@ -116,12 +116,16 @@ export interface DenoCliOptions {
   cert?: string;
 
   /**
-   * The path to an importmap json file,
-   * passed to deno cli's `--importmap` option.
-   *
-   * **Note** This currently requires the `--unstable` flag
+   * The path to a deno/TypeScript configuration file,
+   * passed to deno cli's `--config` option.
    */
-  imap?: string;
+  config?: string;
+
+  /**
+   * The path to an import map json file,
+   * passed to deno cli's `--import-map` option.
+   */
+  importMap?: string;
 
   /**
    * The hostname and port where to start the inspector,
@@ -169,12 +173,6 @@ export interface DenoCliOptions {
   reload?: boolean | string | string[];
 
   /**
-   * The path to a tsconfig json file,
-   * passed to deno cli's `--tsconfig` option.
-   */
-  tsconfig?: string;
-
-  /**
    * Enable unstable APIs
    */
   unstable?: boolean;
@@ -195,9 +193,13 @@ export interface DenoCliOptions {
   v8Flags?: string[] | FlagsObject;
 
   /**
-   * Watch for file changes and restart process automatically
+   * Watch for file changes and restart process automatically.
+   * Local files from entry point module graph are watched by default.
+   * Additional paths might be watched by passing them as arguments to this option.
+   *
+   * 🧪 Unstable
    */
-  watch?: boolean;
+  watch?: boolean | string | string[];
 }
 
 export interface AllowFlags {

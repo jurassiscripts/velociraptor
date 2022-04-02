@@ -1,6 +1,7 @@
 import { assertEquals, assertMatch, assertStringIncludes } from "./dev_deps.ts";
 const yamlWd = "./test/yaml";
 const tsWd = "./test/ts";
+const jsonWd = "./test/json";
 const cliArgs = [
   "deno",
   "run",
@@ -46,6 +47,11 @@ Deno.test("ts config file", async () => {
   assertStringIncludes(output, expectedOutput);
 });
 
+Deno.test("deno.json(c) config file", async () => {
+  const output = await runScript("test", jsonWd);
+  assertStringIncludes(output, expectedOutput);
+});
+
 Deno.test("deno run", async () => {
   const output = await runScript("denorun");
   assertStringIncludes(output, expectedOutput);
@@ -81,8 +87,13 @@ Deno.test("tsconfig", async () => {
   assertStringIncludes(output, expectedOutput);
 });
 
-Deno.test("importmap", async () => {
-  const output = await runScript("importmap");
+Deno.test("config", async () => {
+  const output = await runScript("config", yamlWd);
+  assertMatch(output, /^\s*$/);
+});
+
+Deno.test("import map", async () => {
+  const output = await runScript("importMap");
   assertStringIncludes(output, expectedOutput);
 });
 

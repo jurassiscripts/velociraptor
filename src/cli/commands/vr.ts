@@ -35,7 +35,7 @@ export class VrCommand extends Command {
       .type("scriptid", new ScriptIdType(this.configData), { global: true })
       .arguments("[script:scriptid] [additionalArgs...]")
       .stopEarly()
-      .action((_options, script: string, additionalArgs: string[]) => {
+      .action((_, script: string, additionalArgs: string[]) => {
         return withUpdateChecks(async () => {
           validateConfigData(this.configData);
           await checkGitHooks(this.configData as ConfigData);
