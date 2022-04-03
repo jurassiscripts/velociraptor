@@ -5,7 +5,7 @@ on:
     workflows: 
       - test
     branches:
-      - feature/ci_auto
+      - 'feature/ci_auto'
     types:
       - completed
 
