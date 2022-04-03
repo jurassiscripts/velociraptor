@@ -10,5 +10,6 @@ export interface ParallelCommands {
 
 export type CompoundCommandItem = Command | ParallelCommands | null;
 
-export const isParallel = (command: Command|ParallelCommands): command is ParallelCommands =>
-  "pll" in command;
+export const isParallel = (
+  command: Command | ParallelCommands,
+): command is ParallelCommands => "pll" in command;
