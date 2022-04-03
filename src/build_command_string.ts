@@ -341,7 +341,7 @@ function generateFlagOptions(
   prefix = "",
 ): string[] {
   return Object.entries(flags).map(([k, v]) =>
-    `--${prefix}${k}${v !== true ? `="${escapeCliOption(v.toString())}"` : ""}`
+    `--${prefix}${k}${v !== true ? `="${escapeCliOption((<DenoOptions>v).toString())}"` : ""}`
   );
 }
 
