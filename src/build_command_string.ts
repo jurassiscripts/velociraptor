@@ -247,7 +247,7 @@ export function buildCommandString(command: Command): string {
   if (matchCompactRun(cmd)) {
     cmd = "deno run " + cmd;
   }
-  const match = matchDenoCommand(cmd)
+  const match = matchDenoCommand(cmd);
   if (match && match.length > 1) {
     const subCommand = match[1];
     if (subCommand && subCommand in denoCmdOptions) {
@@ -257,10 +257,9 @@ export function buildCommandString(command: Command): string {
         const option = command[optionName as keyof ScriptOptions];
         if (option) {
           if (optionName in deprecatedOptionNames) {
-            const newName =
-              deprecatedOptionNames[
-                optionName as keyof typeof deprecatedOptionNames
-              ];
+            const newName = deprecatedOptionNames[
+              optionName as keyof typeof deprecatedOptionNames
+            ];
             log.warning(
               `The \`${optionName}\` option is deprecated in favor of \`${newName}\`. Please use \`${newName}\` going forward as \`${optionName}\` will be removed with the release of 2.0.0.`,
             );

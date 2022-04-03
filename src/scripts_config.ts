@@ -213,7 +213,7 @@ export interface AllowFlags {
   write?: string | boolean;
 }
 
-export type FlagsObject = Record<string, any>;
+export type FlagsObject = Record<string, unknown>;
 
 export type EnvironmentVariables = Record<string, string>;
 

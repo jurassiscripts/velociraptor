@@ -64,7 +64,8 @@ export async function checkGitHooks(configData: ConfigData) {
       Object.values(configData.config.scripts)
         .filter(isScriptObject)
         .some((s) => {
-          return "gitHook" in s && s.gitHook !== undefined && hooks.includes(s.gitHook);
+          return "gitHook" in s && s.gitHook !== undefined &&
+            hooks.includes(s.gitHook);
         })
     ) {
       installGitHooks(absGitDir);

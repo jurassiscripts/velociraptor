@@ -5,7 +5,10 @@ const CONFIG_FILE_NAMES = ["scripts", "velociraptor"];
 const STATIC_CONFIG_FILE_EXTENSIONS = ["yaml", "yml", "json"];
 const DYNAMIC_CONFIG_FILE_EXTENSIONS = ["ts", "js", "mjs"];
 const CONFIG_DENO_FILE_NAMES = ["deno.json", "deno.jsonc"];
-const CONFIG_FILE_EXTENSIONS = [...STATIC_CONFIG_FILE_EXTENSIONS, ...DYNAMIC_CONFIG_FILE_EXTENSIONS];
+const CONFIG_FILE_EXTENSIONS = [
+  ...STATIC_CONFIG_FILE_EXTENSIONS,
+  ...DYNAMIC_CONFIG_FILE_EXTENSIONS,
+];
 
 export interface ConfigData {
   cwd: string;
@@ -21,7 +24,10 @@ export async function loadConfig(): Promise<ConfigData | null> {
         if (existsSync(p)) {
           return {
             cwd: dir,
-            config: await parseConfig(p, DYNAMIC_CONFIG_FILE_EXTENSIONS.includes(ext)),
+            config: await parseConfig(
+              p,
+              DYNAMIC_CONFIG_FILE_EXTENSIONS.includes(ext),
+            ),
           };
         }
       }
@@ -60,7 +66,7 @@ async function parseConfig(
 async function parseDenoConfig(
   configPath: string,
 ): Promise<ScriptsConfiguration> {
-  let content = Deno.readTextFileSync(configPath);
+  let content = await Deno.readTextFile(configPath);
   // Strips comments for .jsonc (credits to @tarkh)
   if (/\.jsonc$/.test(configPath)) {
     content = content.replace(
