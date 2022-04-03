@@ -5,7 +5,7 @@ on:
     workflows: 
       - test
     branches:
-      - main
+      - feature/ci_auto
     types:
       - completed
 
@@ -21,8 +21,8 @@ jobs:
         with:
           dry_run: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Sync release version
-        uses: tj-actions/sync-release-version@v9
+      - name: Sync release version in version.ts
+        uses: tj-actions/sync-release-version@v11
         id: sync-release-version
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -31,6 +31,26 @@ jobs:
           pattern: 'version = "'
           paths: |
             src/version.ts
+      - name: Sync release version in README
+        uses: tj-actions/sync-release-version@v11
+        id: sync-release-version
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          current_version: ${{ steps.tag_version_dry.outputs.previous_tag }}
+          new_version: ${{ steps.tag_version_dry.outputs.new_tag }}
+          pattern: 'deno.land/x/velociraptor@'
+          paths: |
+            README.md
+      - name: Sync release version in egg.yml
+        uses: tj-actions/sync-release-version@v11
+        id: sync-release-version
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          current_version: ${{ steps.tag_version_dry.outputs.previous_tag }}
+          new_version: ${{ steps.tag_version_dry.outputs.new_tag }}
+          pattern: 'version: '
+          paths: |
+            egg.yml
       - uses: EndBug/add-and-commit@v7.1.0
         with:
           author_name: github-actions
