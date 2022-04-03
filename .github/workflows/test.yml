@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - develop
+      - feature/ci_auto
   pull_request:
     branches:
       - main
