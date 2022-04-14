@@ -5,7 +5,7 @@ on:
     workflows: 
       - test
     branches:
-      - 'feature**'
+      - main
     types:
       - completed
 
