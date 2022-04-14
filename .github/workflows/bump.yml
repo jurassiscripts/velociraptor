@@ -3,7 +3,7 @@ name: Update version
 on:
   workflow_run:
     workflows: 
-      - test
+      - "Deno CI"
     branches:
       - main
     types:
@@ -21,41 +21,55 @@ jobs:
         with:
           dry_run: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: replace v on tag for actual version
+        uses: mad9000/actions-find-and-replace-string@2
+        id: actual_version
+        with:
+          source: ${{ steps.tag_version_dry.outputs.previous_tag }}
+          find: 'v'
+          replace: ''
+      - name: replace v on tag for new version
+        uses: mad9000/actions-find-and-replace-string@2
+        id: new_version
+        with:
+          source: ${{ steps.tag_version_dry.outputs.new_tag }}
+          find: 'v'
+          replace: ''
       - name: Sync release version in version.ts
         uses: tj-actions/sync-release-version@v11
         id: sync-release-version
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          current_version: ${{ steps.tag_version_dry.outputs.previous_tag }}
-          new_version: ${{ steps.tag_version_dry.outputs.new_tag }}
+          current_version: ${{ steps.actual_version.outputs.value }}
+          new_version: ${{ steps.new_version.outputs.value }}
           pattern: 'version = "'
           paths: |
             src/version.ts
       - name: Sync release version in README
         uses: tj-actions/sync-release-version@v11
-        id: sync-release-version
+        id: sync-release-readme
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          current_version: ${{ steps.tag_version_dry.outputs.previous_tag }}
-          new_version: ${{ steps.tag_version_dry.outputs.new_tag }}
+          current_version: ${{ steps.actual_version.outputs.value }}
+          new_version: ${{ steps.new_version.outputs.value }}
           pattern: 'deno.land/x/velociraptor@'
           paths: |
             README.md
       - name: Sync release version in egg.yml
         uses: tj-actions/sync-release-version@v11
-        id: sync-release-version
+        id: sync-release-egg
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          current_version: ${{ steps.tag_version_dry.outputs.previous_tag }}
-          new_version: ${{ steps.tag_version_dry.outputs.new_tag }}
+          current_version: ${{ steps.actual_version.outputs.value }}
+          new_version: ${{ steps.new_version.outputs.value }}
           pattern: 'version: '
           paths: |
             egg.yml
-      - uses: EndBug/add-and-commit@v7.1.0
+      - uses: EndBug/add-and-commit@v9
         with:
           author_name: github-actions
           author_email: 41898282+github-actions[bot]@users.noreply.github.com
-          add: src/version.ts 
+          add: '["src/version.ts", "README.md", "egg.yml"]'
           message: >
             Upgraded from ${{ steps.sync-release-version.outputs.old_version }} 
             -> ${{ steps.sync-release-version.outputs.new_version }}
