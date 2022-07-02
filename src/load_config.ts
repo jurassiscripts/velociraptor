@@ -68,6 +68,6 @@ async function parseDenoConfig(
       (m, g) => g ? "" : m,
     );
   }
-  const { velociraptor: config = {} } = JSON.parse(content);
-  return config as ScriptsConfiguration;
+  const { velociraptor, tasks } = JSON.parse(content);
+  return (velociraptor || (tasks ? { scripts: tasks } : {})) as ScriptsConfiguration;
 }
