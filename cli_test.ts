@@ -2,6 +2,7 @@ import { assertEquals, assertMatch, assertStringIncludes } from "./dev_deps.ts";
 const yamlWd = "./test/yaml";
 const tsWd = "./test/ts";
 const jsonWd = "./test/json";
+const taskWd = "./test/task";
 const cliArgs = [
   "deno",
   "run",
@@ -47,8 +48,13 @@ Deno.test("ts config file", async () => {
   assertStringIncludes(output, expectedOutput);
 });
 
-Deno.test("deno.json(c) config file", async () => {
+Deno.test("deno.json(c) config file with `velociraptor` field", async () => {
   const output = await runScript("test", jsonWd);
+  assertStringIncludes(output, expectedOutput);
+});
+
+Deno.test("deno.json(c) config file with `task` field", async () => {
+  const output = await runScript("test", taskWd);
   assertStringIncludes(output, expectedOutput);
 });
 

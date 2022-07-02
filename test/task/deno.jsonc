@@ -1,0 +1,14 @@
+{
+    // Used to test that --config option is working properly
+    "lint": {
+        "rules": {
+          "exclude": ["no-explicit-any"]
+        }
+    },
+    /*
+     * Section below contains Velociraptor configuration
+     */
+    "tasks": {
+        "test": "echo '/* Works! */'"
+    }
+}
