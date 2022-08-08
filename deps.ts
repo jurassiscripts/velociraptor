@@ -29,3 +29,4 @@ export {
   UpdateNotifier,
 } from "https://x.nest.land/hatcher@0.10.2/mod.ts";
 export * as semver from "https://deno.land/x/semver@v1.4.0/mod.ts";
+export { parse as parseJson } from "https://deno.land/std@0.151.0/encoding/jsonc.ts";
