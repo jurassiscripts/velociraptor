@@ -1,4 +1,4 @@
-import { existsSync, parseYaml, path, stripJsonComments } from "../deps.ts";
+import { existsSync, parseYaml, path, parseJson } from "../deps.ts";
 import { ScriptsConfiguration } from "./scripts_config.ts";
 
 const CONFIG_FILE_NAMES = ["scripts", "velociraptor"];
@@ -60,10 +60,7 @@ async function parseConfig(
 async function parseDenoConfig(
   configPath: string,
 ): Promise<ScriptsConfiguration> {
-  let content = Deno.readTextFileSync(configPath);
-  if (configPath.endsWith('.jsonc')) {
-    content = stripJsonComments(content);
-  }
-  const { velociraptor: config = {} } = JSON.parse(content);
+  const content = Deno.readTextFileSync(configPath);
+  const { velociraptor: config = {} } = parseJson(content);
   return config as ScriptsConfiguration;
 }

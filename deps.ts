@@ -29,4 +29,4 @@ export {
   UpdateNotifier,
 } from "https://x.nest.land/hatcher@0.10.2/mod.ts";
 export * as semver from "https://deno.land/x/semver@v1.4.0/mod.ts";
-export { default as stripJsonComments } from "https://esm.sh/strip-json-comments@4.0.0";
+export { parse as parseJson } from "https://deno.land/std@0.151.0/encoding/jsonc.ts";
